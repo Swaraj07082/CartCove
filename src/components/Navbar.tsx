@@ -1,8 +1,9 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import searchicon from "../../public/search-2-line.svg";
+import searchicon from "../../public/search-line.svg";
 import Image from "next/image";
+
 import usericon from "../../public/user-line.svg";
 import shoppingcarticon from "../../public/shopping-cart-line.svg";
 import logo from "../../public/Rimberio.png";
@@ -12,7 +13,7 @@ import menuicon from "../../public/menu-2-fill.svg";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import crossicon from "../../public/close-large-fill.svg";
-import loginicon from "../../public/account-circle-fill.svg"
+import loginicon from "../../public/account-circle-fill.svg";
 
 export default function Navbar() {
   const { theme } = useTheme();
@@ -127,7 +128,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="flex shadow-2xl  justify-between fixed left-0 right-0  items-center px-10 max-md:px-3 pt-2 pb-2 ">
+      <div className="flex  justify-between bg-black  text-white items-center px-10 max-md:px-3 pt-10 pb-2 ">
         {/* if we need to use fixed with justify we need to specify left and right */}
         <ul className=" flex gap-x-12 p-5  max-md:gap-x-6 max-[375px]:gap-x-3 ">
           <Image
@@ -143,19 +144,13 @@ export default function Navbar() {
           <li className="nav-1 text-3xl max-sm:text-2xl ">CartCove</li>
 
           <li className="nav-1 max-md:15px pt-2 hover:underline cursor-pointer  max-lg:hidden hover:scale-110">
-            New
+            MAN
           </li>
           <li className="nav-1 max-md:15px hover:scale-110 pt-2 hover:underline cursor-pointer max-lg:hidden">
-            Rain
+            WOMAN
           </li>
           <li className="nav-1 pt-2  max-md:15px hover:underline hover:scale-110 cursor-pointer max-lg:hidden">
-            Snow
-          </li>
-          <li className="nav-1 pt-2 hover:underline max-md:15px cursor-pointer hover:scale-110 max-lg:hidden">
-            All Weather
-          </li>
-          <li className="nav-1 hover:scale-110 pt-2 hover:underline max-md:15px cursor-pointer max-lg:hidden">
-            Shop All
+            KIDS
           </li>
         </ul>
 
@@ -181,9 +176,9 @@ export default function Navbar() {
             width={20}
             alt=""
           />
-          <li className="nav-1">
+          {/* <li className="nav-1">
             <ModeToggle />
-          </li>
+          </li> */}
         </ul>
       </div>
 
@@ -209,7 +204,13 @@ export default function Navbar() {
           <li className="togglemenu">All Weather</li>
           <li className="togglemenu">Shop All</li>
           <li className=" flex justify-center items-center gap-x-4 sm:hidden">
-            <Image src={loginicon} width={50} height={50} alt="" className="loginicon" />
+            <Image
+              src={loginicon}
+              width={50}
+              height={50}
+              alt=""
+              className="loginicon"
+            />
             <p className="text-3xl togglemenu ">Log in</p>
           </li>
         </ul>

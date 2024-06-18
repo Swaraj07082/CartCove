@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "brand": "Nike",
+    "name": "Dunk Low Men's Shoes",
+    "price": "Rs.9700"
+  },
+  {
+    "id": 2,
+    "brand": "Nike",
+    "name": "AL8 Women's Shoes",
+    "price": "Rs.8500"
+  },
+  {
+    "id": 3,
+    "brand": "Nike",
+    "name": "Jumpman MVP Men's Shoes",
+    "price": "Rs.9700"
+  }
+]
