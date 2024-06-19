@@ -128,7 +128,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="flex  justify-between bg-black  text-white items-center px-10 max-md:px-3 pt-10 pb-2 ">
+      <div className="flex  justify-between bg-white text-black items-center px-10 max-md:px-3 pt-10 pb-2 ">
         {/* if we need to use fixed with justify we need to specify left and right */}
         <ul className=" flex gap-x-12 p-5  max-md:gap-x-6 max-[375px]:gap-x-3 ">
           <Image

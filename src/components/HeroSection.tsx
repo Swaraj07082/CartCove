@@ -27,9 +27,9 @@ export default function HeroSection() {
   });
 
   return (
-    <div className="bg-black pb-12">
+    <div className="bg-white pb-12">
       {/* <Image src={nikeshoe} alt=" " height={80} width={580} className=" mr-14 mt-20  "  /> */}
-      <div className=" leading-[250px] text-white ml-10 font-semibold  ">
+      <div className=" leading-[250px] text-black ml-10 font-semibold  ">
         <div className="staystylish text-[200px]  ">Stay Stylish</div>
 
         <div className=" withsneakers text-[200px]">With Sneakers.</div>

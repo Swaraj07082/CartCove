@@ -60,12 +60,12 @@ export default function SVGAnimation() {
       </svg>
     </div> */}
 
-      <div ref={containerRef} id="string" className="bg-black h-[100px] w-full">
-        <svg width="190" height="100" className=" w-full bg-black">
+      <div ref={containerRef} id="string" className="bg-white h-[100px] w-full">
+        <svg width="190" height="100" className=" w-full bg-white">
           <path
             ref={pathRef}
             d="M 10 50 Q 95 50 1500 50"
-            stroke="white"
+            stroke="black"
             fill="transparent"
           />
         </svg>

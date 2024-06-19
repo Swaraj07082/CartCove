@@ -22,7 +22,7 @@ export default function SlideTextAnimation() {
     // })
   });
   return (
-    <div className="marque whitespace-nowrap bg-[#d9ff06]  w-full h-20 font-bold text-3xl flex items-center gap-x-20 ">
+    <div className="marque whitespace-nowrap bg-white  w-full h-20 font-bold text-3xl flex items-center gap-x-20 ">
       <p className="movingtext ">FIND VARIETY OF SHOES WITH THE LATEST TREND</p>
       <p className="movingtext ">FIND VARIETY OF SHOES WITH THE LATEST TREND</p>
       <p className="movingtext ">FIND VARIETY OF SHOES WITH THE LATEST TREND</p>
