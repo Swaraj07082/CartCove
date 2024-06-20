@@ -1,9 +1,9 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import searchicon from "../../public/search-line.svg";
+import searchicon from "../../public/search-2-line.svg";
 import Image from "next/image";
-
+import homeicon from "../../public/home-2-line.svg";
 import usericon from "../../public/user-line.svg";
 import shoppingcarticon from "../../public/shopping-cart-line.svg";
 import logo from "../../public/Rimberio.png";
@@ -128,7 +128,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="flex  justify-between bg-white text-black items-center px-10 max-md:px-3 pt-10 pb-2 ">
+      <div className="flex   justify-between bg-white text-black items-center px-10 max-md:px-3 py-3  ">
         {/* if we need to use fixed with justify we need to specify left and right */}
         <ul className=" flex gap-x-12 p-5  max-md:gap-x-6 max-[375px]:gap-x-3 ">
           <Image
@@ -143,6 +143,10 @@ export default function Navbar() {
           />
           <li className="nav-1 text-3xl max-sm:text-2xl ">CartCove</li>
 
+          <li className="nav-1">
+            <ModeToggle />
+          </li>
+          {/* 
           <li className="nav-1 max-md:15px pt-2 hover:underline cursor-pointer  max-lg:hidden hover:scale-110">
             MAN
           </li>
@@ -151,20 +155,20 @@ export default function Navbar() {
           </li>
           <li className="nav-1 pt-2  max-md:15px hover:underline hover:scale-110 cursor-pointer max-lg:hidden">
             KIDS
-          </li>
+          </li> */}
         </ul>
 
         <ul className="flex gap-x-9 p-5 max-md:gap-x-5  max-[375px]:gap-x-3  ">
           <Image
             className="nav-1 pt-2 hover:scale-125"
-            src={searchicon}
+            src={homeicon}
             height={20}
             width={20}
             alt=""
           />
           <Image
-            className="nav-1 pt-2 max-sm:hidden hover:scale-125"
-            src={usericon}
+            className="nav-1 pt-2 hover:scale-125"
+            src={searchicon}
             height={20}
             width={20}
             alt=""
@@ -176,13 +180,15 @@ export default function Navbar() {
             width={20}
             alt=""
           />
-          {/* <li className="nav-1">
-            <ModeToggle />
-          </li> */}
+          <Image
+            className="nav-1 pt-2 hover:scale-125"
+            src={usericon}
+            height={20}
+            width={20}
+            alt=""
+          />
         </ul>
       </div>
-
-      {/* <MenuToggle/> */}
 
       <div className="main bg-[#69696947] h-full w-[40%] absolute left-[-40%] ">
         <div className=" float-end p-5 pt-8">
@@ -214,95 +220,7 @@ export default function Navbar() {
             <p className="text-3xl togglemenu ">Log in</p>
           </li>
         </ul>
-
-        {/* <ResponsiveAccount /> */}
       </div>
     </>
   );
 }
-
-// "use client";
-// import React, { useRef, useEffect } from "react";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import searchicon from "../../public/search-2-line.svg";
-// import Image from "next/image";
-// import usericon from "../../public/user-line.svg";
-// import shoppingcarticon from "../../public/shopping-cart-line.svg";
-// import logo from "../../public/Rimberio.png";
-// import { ModeToggle } from "./ModeToggle";
-// import { useTheme } from "next-themes";
-// import menuicon from "../../public/menu-2-fill.svg";
-// import { useGSAP } from "@gsap/react";
-// import gsap from "gsap";
-// import { MenuToggle } from "./MenuToggle";
-// import crossicon from "../../public/close-large-fill.svg";
-
-// export default function Navbar() {
-//   const { theme } = useTheme();
-//   const tl = useRef(gsap.timeline({ paused: true }));
-
-//   useGSAP(() => {
-//     gsap.from(".nav-1", {
-//       opacity: 0,
-//       y: 50,
-//       delay: 0.2,
-//       stagger: 0.15,
-//       ease: "bounce.out",
-//     });
-
-//     tl.current.to(".main", {
-//       left: 0,
-//       delay: 0.5,
-//       duration: 1.6,
-//     });
-
-//     tl.current.from(".togglemenu", {
-//       x: -100,
-//       opacity: 0,
-//       duration: 0.5,
-//       stagger: 0.3,
-//       ease: "back.out",
-//     });
-//   }, [tl]);
-
-//   return (
-//     <>
-//       <div className="flex shadow-2xl justify-between fixed left-0 right-0 max-sm:px-1 items-center px-10 max-md:px-3 pt-2 pb-2">
-//         {/* if we need to use fixed with justify we need to specify left and right */}
-//         <ul className="flex gap-x-12 p-5 max-sm:pl-1 max-md:gap-x-6 max-sm:gap-x-3">
-//           <Image src={menuicon} className="lg:hidden" height={20} width={20} alt="" />
-//           <li className="nav-1 text-3xl max-sm:text-2xl">CartCove</li>
-
-//           <li className="nav-1 max-md:15px pt-2 hover:underline cursor-pointer max-lg:hidden hover:scale-110">New</li>
-//           <li className="nav-1 max-md:15px hover:scale-110 pt-2 hover:underline cursor-pointer max-lg:hidden">Rain</li>
-//           <li className="nav-1 pt-2 max-md:15px hover:underline hover:scale-110 cursor-pointer max-lg:hidden">Snow</li>
-//           <li className="nav-1 pt-2 hover:underline max-md:15px cursor-pointer hover:scale-110 max-lg:hidden">All Weather</li>
-//           <li className="nav-1 hover:scale-110 pt-2 hover:underline max-md:15px cursor-pointer max-lg:hidden" onClick={() => tl.current.play()}>Shop All</li>
-//         </ul>
-
-//         <ul className="flex gap-x-9 p-5 max-md:gap-x-5 max-sm:gap-x-3">
-//           <Image className="nav-1 pt-2 hover:scale-125" src={searchicon} height={20} width={20} alt="" />
-//           <Image className="nav-1 pt-2 hover:scale-125" src={usericon} height={20} width={20} alt="" />
-//           <Image className="nav-1 pt-2 hover:scale-125" src={shoppingcarticon} height={20} width={20} alt="" />
-//           <li className="nav-1"><ModeToggle /></li>
-//         </ul>
-//       </div>
-
-//       <div className="main bg-[#69696947] h-full w-[40%] absolute left-[-40%]">
-//         <div className="float-end p-5 pt-8">
-//           <Image src={crossicon} height={30} width={30} alt="" onClick={()=>{
-//             tl.current.reverse()
-//           }} />
-//         </div>
-
-//         <ul className="text-3xl flex flex-col items-end justify-between gap-y-7 pt-32">
-//           <li className="togglemenu">New</li>
-//           <li className="togglemenu">Rain</li>
-//           <li className="togglemenu">Snow</li>
-//           <li className="togglemenu">All Weather</li>
-//           <li className="togglemenu">Shop All</li>
-//         </ul>
-//       </div>
-//     </>
-//   );
-// }

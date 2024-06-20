@@ -1,20 +1,37 @@
 [
   {
     "id": 1,
-    "brand": "Nike",
-    "name": "Dunk Low Men's Shoes",
-    "price": "Rs.9700"
+    "name": "The modern winter boot in beige",
+    "price": "Rs.18000",
+    "url": "https://thesusoutdoors.com/cdn/shop/files/WinterBeige.png?v=1699307925&width=720",
+    "sizes": [36, 37, 38, 39]
   },
   {
     "id": 2,
-    "brand": "Nike",
-    "name": "AL8 Women's Shoes",
-    "price": "Rs.8500"
+    "name": "The modern winter boot in black",
+    "price": "Rs.18000",
+    "url": "https://thesusoutdoors.com/cdn/shop/files/WinterBlack.png?v=1699307987&width=720",
+    "sizes": [36, 37, 38, 39]
   },
   {
     "id": 3,
-    "brand": "Nike",
-    "name": "Jumpman MVP Men's Shoes",
-    "price": "Rs.9700"
+    "name": "Anyday rain boot in sage",
+    "price": "Rs.16000",
+    "url": "https://thesusoutdoors.com/cdn/shop/files/green-rainboot.png?v=1699516046&width=720",
+    "sizes": [36, 37]
+  },
+  {
+    "id": 4,
+    "name": "Anyday rain boot in black",
+    "price": "Rs.16000",
+    "url": "https://thesusoutdoors.com/cdn/shop/files/sustainable-rainboot_2cbf1511-cf01-462d-bf56-6187d957cac8.png?v=1686555865&width=720",
+    "sizes": [36, 37, 38, 39]
+  },
+  {
+    "id": 4,
+    "name": "Anyday rain boot in black",
+    "price": "Rs.16000",
+    "url": "https://thesusoutdoors.com/cdn/shop/files/sustainable-rainboot_2cbf1511-cf01-462d-bf56-6187d957cac8.png?v=1686555865&width=720",
+    "sizes": [36, 37, 38, 39]
   }
 ]
