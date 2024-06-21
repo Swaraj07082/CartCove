@@ -3,13 +3,14 @@ import { Gothic_A1, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 // import CursorAnimation from "@/components/CursorAnimation";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const gothic_A1 = Gothic_A1({
-  weight:['300'],
-  subsets:['latin']
-})
+  weight: ["300"],
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,10 +28,12 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
-          enableSystem ={true}
+          enableSystem={true}
           disableTransitionOnChange
         >
+          <Navbar />
           {children}
+
           {/* <CursorAnimation/> */}
         </ThemeProvider>
       </body>

@@ -14,6 +14,8 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import crossicon from "../../public/close-large-fill.svg";
 import loginicon from "../../public/account-circle-fill.svg";
+import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export default function Navbar() {
   const { theme } = useTheme();
@@ -128,7 +130,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="flex   justify-between bg-white text-black items-center px-10 max-md:px-3 py-3  ">
+      <div className="flex   justify-between bg-white text-black items-center px-10 max-md:px-3 py-3 shadow-md ">
         {/* if we need to use fixed with justify we need to specify left and right */}
         <ul className=" flex gap-x-12 p-5  max-md:gap-x-6 max-[375px]:gap-x-3 ">
           <Image
@@ -173,13 +175,15 @@ export default function Navbar() {
             width={20}
             alt=""
           />
-          <Image
-            className="nav-1 pt-2 hover:scale-125"
-            src={shoppingcarticon}
-            height={20}
-            width={20}
-            alt=""
-          />
+          <Link href={"/cart"}>
+            <Image
+              className="nav-1 pt-2 hover:scale-125"
+              src={shoppingcarticon}
+              height={20}
+              width={20}
+              alt=""
+            />
+          </Link>
           <Image
             className="nav-1 pt-2 hover:scale-125"
             src={usericon}
