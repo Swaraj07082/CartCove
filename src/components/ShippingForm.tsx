@@ -195,7 +195,7 @@ export function ShippingForm() {
               )}
             />
 
-            <Button type="submit" className="w-full">Submit</Button>
+            <Button type="submit" className="w-full">PAY NOW</Button>
           </form>
         </Form>
       </div>
