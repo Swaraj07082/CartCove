@@ -18,7 +18,7 @@ export default function Cartitem() {
       <div className="flex justify-between px-10 pt-10 pb-6">
         <div className="flex">
           <div className=" border-red-50 border  w-32 h-32 relative overflow-hidden solid">
-            <Image src={photo} fill className=" object-cover" alt="" />
+            <Image src={photo} fill className=" object-cover" alt=""  />
           </div>
 
           <div className=" ml-10 flex flex-col justify-center gap-y-3 items-center ">

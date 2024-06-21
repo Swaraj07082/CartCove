@@ -2,6 +2,7 @@ import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Cartitem from "@/components/Cartitem";
+import Link from "next/link";
 
 var Subtotal = 4000;
 var ShippingCharges = 200;
@@ -28,7 +29,9 @@ export default function page() {
         <p>Total : Rs.{Total}</p>
 
         <Input type="text" placeholder="Coupon code..." className=" w-64" />
-        <Button className=" w-64">Click</Button>
+        <Link href={'/shipping'}>
+        <Button className=" w-64">Checkout</Button>
+        </Link>
       </div>
     </div>
   );
