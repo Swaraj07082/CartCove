@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,8 @@ import { Label } from "@/components/ui/label";
 import { z } from "zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useState } from "react";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -58,6 +60,8 @@ export default function Page() {
     // ✅ This will be type-safe and validated.
     console.log(values);
   }
+
+  const [eyeopen, seteyeopen] = useState<boolean>(false);
 
   return (
     <Form {...form}>
@@ -112,15 +116,32 @@ export default function Page() {
                   render={({ field }) => (
                     <FormItem>
                       {/* <FormLabel></FormLabel> */}
-                      <FormControl>
-                        {/* <Input placeholder="Address..." {...field} /> */}
-                        <Input
-                          id="password"
-                          type="password"
-                          placeholder="m@example.com"
-                          {...field}
-                        />
-                      </FormControl>
+                      <div className="flex items-center relative">
+                        {eyeopen ? (
+                          <FaEye
+                            className="absolute right-3"
+                            onClick={() => {
+                              seteyeopen(!eyeopen);
+                            }}
+                          />
+                        ) : (
+                          <FaEyeSlash
+                            className="absolute right-3"
+                            onClick={() => {
+                              seteyeopen(!eyeopen);
+                            }}
+                          />
+                        )}
+                        <FormControl>
+                          {/* <Input placeholder="Address..." {...field} /> */}
+                          <Input
+                            id="password"
+                            type={eyeopen ? "text" : "password"}
+                            placeholder="m@example.com"
+                            {...field}
+                          />
+                        </FormControl>
+                      </div>
                       {/* <FormDescription>
                 This is your public display name.
               </FormDescription> */}

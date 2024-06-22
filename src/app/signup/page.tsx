@@ -1,5 +1,7 @@
-'use client'
+"use client";
 import Link from "next/link";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -24,6 +26,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useState } from "react";
 
 const formSchema = z.object({
   username: z.string().min(3, {
@@ -49,6 +52,8 @@ const formSchema = z.object({
 });
 
 export default function LoginForm() {
+  const [eyeopen, seteyeopen] = useState<boolean>(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -130,24 +135,43 @@ export default function LoginForm() {
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="password">Password</Label>
+
                   <FormField
                     control={form.control}
                     name="password"
                     render={({ field }) => (
                       <FormItem>
                         {/* <FormLabel></FormLabel> */}
-                        <FormControl>
-                          {/* <Input placeholder="Address..." {...field} /> */}
-                          <Input
-                            id="password"
-                            type="password"
-                            placeholder="m@example.com"
-                            {...field}
-                          />
-                        </FormControl>
+                        <div className="flex items-center relative">
+                          {eyeopen ? (
+                            <FaEye
+                              className="absolute right-3"
+                              onClick={() => {
+                                seteyeopen(!eyeopen);
+                              }}
+                            />
+                          ) : (
+                            <FaEyeSlash
+                              className="absolute right-3"
+                              onClick={() => {
+                                seteyeopen(!eyeopen);
+                              }}
+                            />
+                          )}
+
+                          <FormControl>
+                            {/* <Input placeholder="Address..." {...field} /> */}
+                            <Input
+                              id="password"
+                              type={ eyeopen ? 'text' : 'password' }
+                              placeholder="m@example.com"
+                              {...field}
+                            />
+                          </FormControl>
+                        </div>
                         {/* <FormDescription>
                 This is your public display name.
-              </FormDescription> */}
+                </FormDescription> */}
                         <FormMessage />
                       </FormItem>
                     )}
