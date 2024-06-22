@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 
 interface GenericSelectProps {
-  sizes: Array<number>;
+  sizes: Array<number> | Array<string>;
 }
 
 export function GenericSelect({ sizes }: GenericSelectProps) {
