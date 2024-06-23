@@ -1,21 +1,18 @@
 "use client";
-import React, { useRef, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import searchicon from "../../public/search-2-line.svg";
-import Image from "next/image";
-import homeicon from "../../public/home-2-line.svg";
-import usericon from "../../public/user-line.svg";
-import shoppingcarticon from "../../public/shopping-cart-line.svg";
-import logo from "../../public/Rimberio.png";
-import { ModeToggle } from "./ModeToggle";
-import { useTheme } from "next-themes";
-import menuicon from "../../public/menu-2-fill.svg";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import crossicon from "../../public/close-large-fill.svg";
-import loginicon from "../../public/account-circle-fill.svg";
-import { redirect } from "next/navigation";
+import { useTheme } from "next-themes";
+import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
+import loginicon from "../../public/account-circle-fill.svg";
+import crossicon from "../../public/close-large-fill.svg";
+import homeicon from "../../public/home-2-line.svg";
+import menuicon from "../../public/menu-2-fill.svg";
+import searchicon from "../../public/search-2-line.svg";
+import shoppingcarticon from "../../public/shopping-cart-line.svg";
+import usericon from "../../public/user-line.svg";
+import { ModeToggle } from "./ModeToggle";
 
 export default function Navbar() {
   const { theme } = useTheme();
