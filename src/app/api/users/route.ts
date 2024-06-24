@@ -2,6 +2,7 @@ import db from "@/lib/db";
 import { NextApiRequest } from "next";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import {hash} from "bcrypt"
 
 
 
@@ -70,16 +71,17 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
+    const hashedpassword = await hash(password, 10);
+
     const newUser = await db.user.create({
       data: {
         username: username,
         email: email,
-        password: password,
+        password: hashedpassword,
       },
     });
 
-    const { password: newUserpassword, ...rest } = newUser;
-
+    const { password: newUserpassowrd, ...rest } = newUser;
     return new NextResponse(
       JSON.stringify({ user: rest, message: "User created successfully" }),
       { status: 200 }
