@@ -27,6 +27,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   username: z.string().min(3, {
@@ -52,6 +53,7 @@ const formSchema = z.object({
 });
 
 export default function LoginForm() {
+  const router = useRouter()
   const [eyeopen, seteyeopen] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -63,10 +65,27 @@ export default function LoginForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+
+    const response = await fetch('/api/users',{
+      method : 'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({
+        username : values.username,
+        email : values.email,
+        password : values.password
+      })
+
+    })
+
+    if(response.ok){
+      router.push('/login')
+    }
   }
 
   return (
