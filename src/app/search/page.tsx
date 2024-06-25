@@ -42,9 +42,11 @@ interface ProductType {
 const filtereddata = (
   products: ProductType[],
   query: string,
-  value: number
+  value: number,
+  sort: string,
+  setsort: React.Dispatch<React.SetStateAction<string>>
 ) => {
-  return products.filter(
+  var newproducts = products.filter(
     (item) =>
       item.name
         .toLowerCase()
@@ -52,6 +54,22 @@ const filtereddata = (
         .join("")
         .includes(query.toLowerCase().split(" ").join("")) && item.price < value
   );
+
+  if (sort === "byprice-lowtohigh") {
+    newproducts.sort((a, b) => a.price - b.price);
+    return newproducts;
+  } else if (sort === "byprice-hightolow") {
+    newproducts.sort((a, b) => b.price - a.price);
+    return newproducts;
+  } else if (sort === "atoz") {
+    newproducts.sort((a, b) => a.name.localeCompare(b.name));
+    return newproducts;
+  } else if (sort === "ztoa") {
+    newproducts.sort((a, b) => b.name.localeCompare(a.name));
+    return newproducts;
+  } else {
+    return newproducts;
+  }
 };
 
 export default function Page() {
@@ -63,8 +81,11 @@ export default function Page() {
   console.log(query);
 
   const [sort, setsort] = useState<string>("");
-  console.log(sort.replace(/\s+/g, "").toLowerCase());
+  console.log(sort);
 
+
+
+  console.log(filtereddata(products, query, value, sort, setsort))
   return (
     <>
       {/* <div className="flex ">
@@ -111,24 +132,32 @@ export default function Page() {
           />
         </div>
         <div className="grid grid-cols-4 justify-center items-center">
-          {filtereddata(products, query, value).map((product) => (
-            <div
-              key={product.id}
-              className=" h-fit w-fit flex flex-col  items-center gap-y-1 mt-8  mb-10"
-            >
-              <div className="relative overflow-hidden h-60 w-60">
-                <Image
-                  src={product.url}
-                  alt=""
-                  fill
-                  className=" object-cover"
-                />
+          {filtereddata(products, query, value, sort, setsort)?.map(
+            (product) => (
+              <div
+                key={product.id}
+                className=" h-fit w-fit flex flex-col  items-center gap-y-1 mt-8  mb-10"
+              >
+                <div className="relative overflow-hidden h-60 w-60">
+                  <Image
+                    src={product.url}
+                    alt=""
+                    fill
+                    className=" object-cover"
+                  />
+                </div>
+                <div className=" text-xl font-semibold mt-1">
+                  {product.name}
+                </div>
+                <div className="text-xl  font-semibold">{product.price}</div>
+                <Button className=" w-full mt-1">Add to Cart</Button>
               </div>
-              <div className=" text-xl font-semibold mt-1">{product.name}</div>
-              <div className="text-xl  font-semibold">{product.price}</div>
-              <Button className=" w-full mt-1">Add to Cart</Button>
-            </div>
-          ))}
+            )
+          )}
+        {filtereddata(products, query, value, sort, setsort).at(0) == null ? <>
+        <h1 className=" text-2xl ">NO ITEMS AVAILABLE</h1>
+        </> : <>
+        </>}
         </div>
       </div>
     </>

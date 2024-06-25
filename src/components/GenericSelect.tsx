@@ -23,18 +23,18 @@ export function GenericSelect({ sort, setsort }: GenericSelectProps) {
     <Select
       value={sort}
       onValueChange={(value) => {
-        setsort(value);
+        setsort(value.replace(/\s+/g, "").toLowerCase());
       }}
     >
       <SelectTrigger className="w-full mb-3">
         <SelectValue
-          placeholder="Select a fruit"
-          className="placeholder:text-black"
+          placeholder="Sort"
+          // className="placeholder:text-black"
         />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel className="text-black">Sizes</SelectLabel>
+          <SelectLabel className="text-black">Sort by</SelectLabel>
           {Sort.map((list) => (
             <SelectItem key={list.sortid} value={list.text}>
               {list.text}

@@ -74,7 +74,7 @@ export function SheetDemo({ value, setvalue, sort, setsort }: SheetProps) {
 
             {/* <GenericSelect sortlist={category} /> */}
           </div>
-          <Button type="submit">Save changes</Button>
+          {/* <Button type="submit">Save changes</Button> */}
         </div>
         <SheetFooter>
           <SheetClose asChild></SheetClose>
