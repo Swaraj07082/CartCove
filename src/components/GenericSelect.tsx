@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import { Sort } from "@/app/search/page";
 import {
   Select,
   SelectContent,
@@ -9,14 +9,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { SortType } from "@/app/search/page";
 
 interface GenericSelectProps {
-  sizes: Array<number> | Array<string>;
+  sort: string;
+  setsort: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function GenericSelect({ sizes }: GenericSelectProps) {
+export function GenericSelect({ sort, setsort }: GenericSelectProps) {
+  // const [value, setvalue] = React.useState("");
+  console.log(sort);
   return (
-    <Select>
+    <Select
+      value={sort}
+      onValueChange={(value) => {
+        setsort(value);
+      }}
+    >
       <SelectTrigger className="w-full mb-3">
         <SelectValue
           placeholder="Select a fruit"
@@ -26,9 +35,9 @@ export function GenericSelect({ sizes }: GenericSelectProps) {
       <SelectContent>
         <SelectGroup>
           <SelectLabel className="text-black">Sizes</SelectLabel>
-          {sizes.map((size) => (
-            <SelectItem key={size} value={size.toString()}>
-              {size}
+          {Sort.map((list) => (
+            <SelectItem key={list.sortid} value={list.text}>
+              {list.text}
             </SelectItem>
           ))}
           {/* <SelectItem value="banana">Banana</SelectItem>

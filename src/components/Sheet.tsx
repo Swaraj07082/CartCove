@@ -13,16 +13,23 @@ import {
 } from "@/components/ui/sheet";
 import { GenericSelect } from "./GenericSelect";
 import { useState } from "react";
+import { SortType } from "@/app/search/page";
 
 const filters = [1, 2];
 
 const category = ["cat1", "cat2"];
 
-export function SheetDemo() {
-  const [value, setvalue] = useState("10000");
+interface SheetProps {
+  value: number;
+  setvalue: React.Dispatch<React.SetStateAction<number>>;
+  sort: string;
+  setsort: React.Dispatch<React.SetStateAction<string>>;
+}
+export function SheetDemo({ value, setvalue, sort, setsort }: SheetProps) {
+  // const [value, setvalue] = useState("10000");
 
   return (
-    <Sheet >
+    <Sheet>
       <SheetTrigger className=" " asChild>
         <Button variant="outline">Filters</Button>
       </SheetTrigger>
@@ -38,7 +45,7 @@ export function SheetDemo() {
             <Label htmlFor="name" className=" text-lg">
               Sort
             </Label>
-            <GenericSelect sizes={filters} />
+            <GenericSelect sort={sort} setsort={setsort} />
             {/* <Input id="name" value="Pedro Duarte" className="col-span-3" /> */}
           </div>
           <div className="flex flex-col justify-center gap-y-1  items-start">
@@ -52,12 +59,11 @@ export function SheetDemo() {
               max={200000}
               value={value}
               onChange={(e) => {
-                setvalue(e.target.value);
+                setvalue(parseInt(e.target.value));
               }}
               className="col-span-3"
             />
           </div>
-
           <div className="flex flex-col justify-center gap-y-2  items-start">
             <Label htmlFor="category" className="text-lg">
               Category
@@ -66,13 +72,12 @@ export function SheetDemo() {
                 setvalue(e.target.value)
             }} className="col-span-3" /> */}
 
-            <GenericSelect sizes={category} />
+            {/* <GenericSelect sortlist={category} /> */}
           </div>
-            <Button type="submit">Save changes</Button>
+          <Button type="submit">Save changes</Button>
         </div>
         <SheetFooter>
-          <SheetClose asChild>
-          </SheetClose>
+          <SheetClose asChild></SheetClose>
         </SheetFooter>
       </SheetContent>
     </Sheet>
