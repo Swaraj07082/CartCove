@@ -11,12 +11,12 @@ import {
 } from "@/components/ui/select";
 import { SortType } from "@/app/search/page";
 
-interface GenericSelectProps {
+interface SortSelectProps {
   sort: string;
   setsort: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function GenericSelect({ sort, setsort }: GenericSelectProps) {
+export function SortSelect({ sort, setsort }: SortSelectProps) {
   // const [value, setvalue] = React.useState("");
   console.log(sort);
   return (

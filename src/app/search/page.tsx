@@ -1,5 +1,5 @@
 "use client";
-import { GenericSelect } from "@/components/GenericSelect";
+
 import products from "../../../public/Dummyshoes.json";
 
 import { Input } from "@/components/ui/input";
@@ -83,9 +83,7 @@ export default function Page() {
   const [sort, setsort] = useState<string>("");
   console.log(sort);
 
-
-
-  console.log(filtereddata(products, query, value, sort, setsort))
+  console.log(filtereddata(products, query, value, sort, setsort));
   return (
     <>
       {/* <div className="flex ">
@@ -154,10 +152,13 @@ export default function Page() {
               </div>
             )
           )}
-        {filtereddata(products, query, value, sort, setsort).at(0) == null ? <>
-        <h1 className=" text-2xl ">NO ITEMS AVAILABLE</h1>
-        </> : <>
-        </>}
+          {filtereddata(products, query, value, sort, setsort).at(0) == null ? (
+            <>
+              <h1 className=" text-2xl ">NO ITEMS AVAILABLE</h1>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </>

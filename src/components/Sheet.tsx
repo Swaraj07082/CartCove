@@ -11,7 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { GenericSelect } from "./GenericSelect";
+import { SortSelect } from "./GenericSelect";
 import { useState } from "react";
 import { SortType } from "@/app/search/page";
 
@@ -45,7 +45,7 @@ export function SheetDemo({ value, setvalue, sort, setsort }: SheetProps) {
             <Label htmlFor="name" className=" text-lg">
               Sort
             </Label>
-            <GenericSelect sort={sort} setsort={setsort} />
+            <SortSelect sort={sort} setsort={setsort} />
             {/* <Input id="name" value="Pedro Duarte" className="col-span-3" /> */}
           </div>
           <div className="flex flex-col justify-center gap-y-1  items-start">
