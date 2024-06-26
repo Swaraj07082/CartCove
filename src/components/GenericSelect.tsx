@@ -26,6 +26,7 @@ export function SortSelect({ sort, setsort }: SortSelectProps) {
         setsort(value.replace(/\s+/g, "").toLowerCase());
       }}
     >
+      {/* onvaluechange gives value as a parameter , thats why did not use e.target.value */}
       <SelectTrigger className="w-full mb-3">
         <SelectValue
           placeholder="Sort"

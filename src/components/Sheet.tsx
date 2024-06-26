@@ -14,6 +14,7 @@ import {
 import { SortSelect } from "./GenericSelect";
 import { useState } from "react";
 import { SortType } from "@/app/search/page";
+import { CategorySelect } from "./CategorySelect";
 
 const filters = [1, 2];
 
@@ -24,8 +25,10 @@ interface SheetProps {
   setvalue: React.Dispatch<React.SetStateAction<number>>;
   sort: string;
   setsort: React.Dispatch<React.SetStateAction<string>>;
+  category: string;
+  setcategory: React.Dispatch<React.SetStateAction<string>>;
 }
-export function SheetDemo({ value, setvalue, sort, setsort }: SheetProps) {
+export function SheetDemo({ value, setvalue, sort, setsort , category , setcategory }: SheetProps) {
   // const [value, setvalue] = useState("10000");
 
   return (
@@ -72,7 +75,7 @@ export function SheetDemo({ value, setvalue, sort, setsort }: SheetProps) {
                 setvalue(e.target.value)
             }} className="col-span-3" /> */}
 
-            {/* <GenericSelect sortlist={category} /> */}
+            <CategorySelect  category={category} setcategory={setcategory}/>
           </div>
           {/* <Button type="submit">Save changes</Button> */}
         </div>

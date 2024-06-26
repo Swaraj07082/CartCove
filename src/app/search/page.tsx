@@ -37,6 +37,7 @@ interface ProductType {
   price: number;
   url: string;
   sizes: number[];
+  category: string;
 }
 
 const filtereddata = (
@@ -44,16 +45,32 @@ const filtereddata = (
   query: string,
   value: number,
   sort: string,
-  setsort: React.Dispatch<React.SetStateAction<string>>
+  setsort: React.Dispatch<React.SetStateAction<string>>,
+  category: string
 ) => {
-  var newproducts = products.filter(
-    (item) =>
-      item.name
-        .toLowerCase()
-        .split(" ")
-        .join("")
-        .includes(query.toLowerCase().split(" ").join("")) && item.price < value
-  );
+  var newproducts;
+  if (category == "") {
+    newproducts = products.filter(
+      (item) =>
+        item.name
+          .toLowerCase()
+          .split(" ")
+          .join("")
+          .includes(query.toLowerCase().split(" ").join("")) &&
+        item.price < value
+    );
+  } else {
+    newproducts = products.filter(
+      (item) =>
+        item.name
+          .toLowerCase()
+          .split(" ")
+          .join("")
+          .includes(query.toLowerCase().split(" ").join("")) &&
+        item.price < value &&
+        item.category == category
+    );
+  }
 
   if (sort === "byprice-lowtohigh") {
     newproducts.sort((a, b) => a.price - b.price);
@@ -83,7 +100,10 @@ export default function Page() {
   const [sort, setsort] = useState<string>("");
   console.log(sort);
 
-  console.log(filtereddata(products, query, value, sort, setsort));
+  const [category, setcategory] = useState("");
+  console.log(category);
+
+  // console.log(filtereddata(products, query, value, sort, setsort));
   return (
     <>
       {/* <div className="flex ">
@@ -117,6 +137,8 @@ export default function Page() {
               setvalue={setvalue}
               sort={sort}
               setsort={setsort}
+              category={category}
+              setcategory={setcategory}
             />
           </p>
           <Input
@@ -130,7 +152,7 @@ export default function Page() {
           />
         </div>
         <div className="grid grid-cols-4 justify-center items-center">
-          {filtereddata(products, query, value, sort, setsort)?.map(
+          {filtereddata(products, query, value, sort, setsort, category)?.map(
             (product) => (
               <div
                 key={product.id}
@@ -152,7 +174,9 @@ export default function Page() {
               </div>
             )
           )}
-          {filtereddata(products, query, value, sort, setsort).at(0) == null ? (
+          {filtereddata(products, query, value, sort, setsort, category).at(
+            0
+          ) == null ? (
             <>
               <h1 className=" text-2xl ">NO ITEMS AVAILABLE</h1>
             </>
