@@ -158,20 +158,24 @@ export default function Navbar() {
         </ul>
 
         <ul className="flex gap-x-9 p-5 max-md:gap-x-5  max-[375px]:gap-x-3  ">
-          <Image
-            className="nav-1 pt-2 hover:scale-125"
-            src={homeicon}
-            height={20}
-            width={20}
-            alt=""
-          />
-          <Image
-            className="nav-1 pt-2 hover:scale-125"
-            src={searchicon}
-            height={20}
-            width={20}
-            alt=""
-          />
+          <Link href={"/"}>
+            <Image
+              className="nav-1 pt-2 hover:scale-125"
+              src={homeicon}
+              height={20}
+              width={20}
+              alt=""
+            />
+          </Link>
+          <Link href={"/search"}>
+            <Image
+              className="nav-1 pt-2 hover:scale-125"
+              src={searchicon}
+              height={20}
+              width={20}
+              alt=""
+            />
+          </Link>
           <Link href={"/cart"}>
             <Image
               className="nav-1 pt-2 hover:scale-125"
@@ -181,13 +185,15 @@ export default function Navbar() {
               alt=""
             />
           </Link>
+          <Link href={'/dashboard'}>
           <Image
             className="nav-1 pt-2 hover:scale-125"
             src={usericon}
             height={20}
             width={20}
             alt=""
-          />
+            />
+            </Link>
         </ul>
       </div>
 
