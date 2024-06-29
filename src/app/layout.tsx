@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 // import CursorAnimation from "@/components/CursorAnimation";
 import Navbar from "@/components/Navbar";
+import Provider from "@/components/Provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,17 +26,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={gothic_A1.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem={true}
-          disableTransitionOnChange
-        >
-          <Navbar />
-          {children}
+        <Provider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem={true}
+            disableTransitionOnChange
+          >
+            <Navbar />
+            {children}
 
-          {/* <CursorAnimation/> */}
-        </ThemeProvider>
+            {/* <CursorAnimation/> */}
+          </ThemeProvider>
+        </Provider>
       </body>
     </html>
   );

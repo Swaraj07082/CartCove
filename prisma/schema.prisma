@@ -22,4 +22,11 @@ model User {
   dob DateTime?
   email String @unique
   password String
+  orders Orders[]
+}
+
+model Orders {
+ id String @id @default(auto()) @map("_id") @db.ObjectId
+ email String @unique
+ user User @relation(fields: [email] , references: [email])
 }
