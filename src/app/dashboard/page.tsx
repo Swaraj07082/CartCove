@@ -29,6 +29,7 @@ import {
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { Dashboard } from "@/components/DashboardCard";
 
 const formSchema = z.object({
   username: z.string().min(3, {
@@ -54,7 +55,7 @@ const formSchema = z.object({
 });
 
 export default function LoginForm() {
-  const router = useRouter()
+  const router = useRouter();
   const [eyeopen, seteyeopen] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -71,157 +72,172 @@ export default function LoginForm() {
     // ✅ This will be type-safe and validated.
     console.log(values);
 
-    const response = await fetch('/api/users',{
-      method : 'POST',
-      headers:{
-        'Content-Type':'application/json'
+    const response = await fetch("/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-      body:JSON.stringify({
-        username : values.username,
-        email : values.email,
-        password : values.password
-      })
+      body: JSON.stringify({
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      }),
+    });
 
-    })
-
-    if(response.ok){
-      router.push('/login')
+    if (response.ok) {
+      router.push("/login");
     }
   }
 
+  const session = useSession();
+  console.log(session);
+  const email = session.data?.user?.email;
+  console.log(session.data?.user?.email);
 
-  const session = useSession()
-  console.log(session)
-const email = session.data?.user?.email
-  console.log(session.data?.user?.email)
+  // GOT THE NO OF USERS FOR OUR DASHBOARD
+  //   const getusers = async () => {
+  //     const usercount = await fetch("/api/users");
+  //     const response = await usercount.json();
+  // const {count} = response
+  //     console.log(count);
+  //   };
+
+  //   getusers();
+
   return (
     <>
-    { email == email ? (<>ADMIN HERE</>):(
-      <>  <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <Card className="mx-auto max-w-sm mt-20">
-          <CardHeader>
-            <CardTitle className="text-xl">Sign Up</CardTitle>
-            <CardDescription>
-              Enter your information to create an account
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4">
-              <div className="grid grid-cols-1 gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="first-name">Username</Label>
-                  <FormField
-                    control={form.control}
-                    name="username"
-                    render={({ field }) => (
-                      <FormItem>
-                        {/* <FormLabel></FormLabel> */}
-                        <FormControl>
-                          {/* <Input placeholder="Address..." {...field} /> */}
-                          <Input
-                            id="username"
-                            type="username"
-                            placeholder="m@example.com"
-                            {...field}
-                          />
-                        </FormControl>
-                        {/* <FormDescription>
+      {email == email ? (
+        <>
+          <Dashboard />
+        </>
+      ) : (
+        <>
+          {" "}
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <Card className="mx-auto max-w-sm mt-20">
+                <CardHeader>
+                  <CardTitle className="text-xl">Sign Up</CardTitle>
+                  <CardDescription>
+                    Enter your information to create an account
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid gap-4">
+                    <div className="grid grid-cols-1 gap-4">
+                      <div className="grid gap-2">
+                        <Label htmlFor="first-name">Username</Label>
+                        <FormField
+                          control={form.control}
+                          name="username"
+                          render={({ field }) => (
+                            <FormItem>
+                              {/* <FormLabel></FormLabel> */}
+                              <FormControl>
+                                {/* <Input placeholder="Address..." {...field} /> */}
+                                <Input
+                                  id="username"
+                                  type="username"
+                                  placeholder="m@example.com"
+                                  {...field}
+                                />
+                              </FormControl>
+                              {/* <FormDescription>
               This is your public display name.
             </FormDescription> */}
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      {/* <FormLabel></FormLabel> */}
-                      <FormControl>
-                        {/* <Input placeholder="Address..." {...field} /> */}
-                        <Input
-                          id="email"
-                          placeholder="m@example.com"
-                          {...field}
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
-                      </FormControl>
-                      {/* <FormDescription>
+                      </div>
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="email">Email</Label>
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            {/* <FormLabel></FormLabel> */}
+                            <FormControl>
+                              {/* <Input placeholder="Address..." {...field} /> */}
+                              <Input
+                                id="email"
+                                placeholder="m@example.com"
+                                {...field}
+                              />
+                            </FormControl>
+                            {/* <FormDescription>
               This is your public display name.
             </FormDescription> */}
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
-
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      {/* <FormLabel></FormLabel> */}
-                      <div className="flex items-center relative">
-                        {eyeopen ? (
-                          <FaEye
-                            className="absolute right-3"
-                            onClick={() => {
-                              seteyeopen(!eyeopen);
-                            }}
-                          />
-                        ) : (
-                          <FaEyeSlash
-                            className="absolute right-3"
-                            onClick={() => {
-                              seteyeopen(!eyeopen);
-                            }}
-                          />
+                            <FormMessage />
+                          </FormItem>
                         )}
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="password">Password</Label>
 
-                        <FormControl>
-                          {/* <Input placeholder="Address..." {...field} /> */}
-                          <Input
-                            id="password"
-                            type={ eyeopen ? 'text' : 'password' }
-                            placeholder="m@example.com"
-                            {...field}
-                          />
-                        </FormControl>
-                      </div>
-                      {/* <FormDescription>
+                      <FormField
+                        control={form.control}
+                        name="password"
+                        render={({ field }) => (
+                          <FormItem>
+                            {/* <FormLabel></FormLabel> */}
+                            <div className="flex items-center relative">
+                              {eyeopen ? (
+                                <FaEye
+                                  className="absolute right-3"
+                                  onClick={() => {
+                                    seteyeopen(!eyeopen);
+                                  }}
+                                />
+                              ) : (
+                                <FaEyeSlash
+                                  className="absolute right-3"
+                                  onClick={() => {
+                                    seteyeopen(!eyeopen);
+                                  }}
+                                />
+                              )}
+
+                              <FormControl>
+                                {/* <Input placeholder="Address..." {...field} /> */}
+                                <Input
+                                  id="password"
+                                  type={eyeopen ? "text" : "password"}
+                                  placeholder="m@example.com"
+                                  {...field}
+                                />
+                              </FormControl>
+                            </div>
+                            {/* <FormDescription>
               This is your public display name.
               </FormDescription> */}
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <Button type="submit" className="w-full">
-                Create an account
-              </Button>
-              {/* <Button variant="outline" className="w-full">
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <Button type="submit" className="w-full">
+                      Create an account
+                    </Button>
+                    {/* <Button variant="outline" className="w-full">
                 Sign up with GitHub
               </Button> */}
-            </div>
-            <div className="mt-4 text-center text-sm">
-              Already have an account?{" "}
-              <Link href="#" className="underline">
-                Sign in
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
-      </form>
-    </Form></>
-    )}
-    
+                  </div>
+                  <div className="mt-4 text-center text-sm">
+                    Already have an account?{" "}
+                    <Link href="#" className="underline">
+                      Sign in
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+            </form>
+          </Form>
+        </>
+      )}
     </>
   );
 }
