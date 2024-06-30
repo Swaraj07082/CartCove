@@ -59,6 +59,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { DashboardSheet } from "@/components/DashboardSheet";
 
 export default function Products() {
   return (
@@ -86,7 +87,7 @@ export default function Products() {
             <Input
               type="search"
               placeholder="Search..."
-              className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[1100px]"
+              className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[1000px]"
             />
           </div>
         </header>

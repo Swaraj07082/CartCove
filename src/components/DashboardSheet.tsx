@@ -57,13 +57,7 @@ export function DashboardSheet() {
             <Home className="h-4 w-4" />
             Dashboard
           </Link>
-          <Link
-            href="#"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-          >
-            <ShoppingCart className="h-4 w-4" />
-            Orders
-          </Link>
+
           <Link
             href="dashboard/product"
             className="flex items-center gap-3 rounded-lg  px-3 py-2 text-muted-foreground transition-all hover:text-primary"
@@ -72,7 +66,7 @@ export function DashboardSheet() {
             Products{" "}
           </Link>
           <Link
-            href="#"
+            href="dashboard/customers"
             className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
           >
             <Users className="h-4 w-4" />
@@ -83,7 +77,7 @@ export function DashboardSheet() {
             className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
           >
             <LineChart className="h-4 w-4" />
-            Analytics
+            Transactions
           </Link>
         </nav>
       </SheetContent>
