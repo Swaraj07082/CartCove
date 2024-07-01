@@ -29,7 +29,7 @@ import {
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { Dashboard } from "@/components/DashboardCard";
+import { Dashboard } from "@/components/Dashboard";
 
 const formSchema = z.object({
   username: z.string().min(3, {
@@ -95,20 +95,26 @@ export default function LoginForm() {
   console.log(session.data?.user?.email);
 
   // GOT THE NO OF USERS FOR OUR DASHBOARD
-  //   const getusers = async () => {
-  //     const usercount = await fetch("/api/users");
-  //     const response = await usercount.json();
-  // const {count} = response
-  //     console.log(count);
-  //   };
 
-  //   getusers();
+  const [users, setusers] = useState<number>(0);
 
+  const getusers = async () => {
+    const usercount = await fetch("/api/users");
+    const response = await usercount.json();
+    const { count } = response;
+    console.log(count);
+    // NO_OF_USERS = count
+    setusers(count);
+  };
+
+  getusers();
+
+  console.log(users);
   return (
     <>
       {email == email ? (
         <>
-          <Dashboard />
+          <Dashboard users={users} />
         </>
       ) : (
         <>
