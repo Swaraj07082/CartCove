@@ -50,12 +50,12 @@ import { SheetDemo } from "./Sheet";
 import { DashboardSheet } from "./DashboardSheet";
 
 interface DashboardProps {
-  users:number
+  users: number;
+  orders: number;
 }
 
-export function Dashboard({users}:DashboardProps) {
-
-  console.log(users)
+export function Dashboard({ users, orders }: DashboardProps) {
+  console.log(users, orders);
   return (
     <div className="flex min-h-screen w-full flex-col">
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -104,11 +104,13 @@ export function Dashboard({users}:DashboardProps) {
           </Card>
           <Card x-chunk="dashboard-01-chunk-2">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Sales</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Transactions
+              </CardTitle>
               <CreditCard className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+12,234</div>
+              <div className="text-2xl font-bold">{orders}</div>
               <p className="text-xs text-muted-foreground">
                 +19% from last month
               </p>

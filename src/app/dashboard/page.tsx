@@ -95,9 +95,7 @@ export default function LoginForm() {
   console.log(session.data?.user?.email);
 
   // GOT THE NO OF USERS FOR OUR DASHBOARD
-
   const [users, setusers] = useState<number>(0);
-
   const getusers = async () => {
     const usercount = await fetch("/api/users");
     const response = await usercount.json();
@@ -106,15 +104,29 @@ export default function LoginForm() {
     // NO_OF_USERS = count
     setusers(count);
   };
-
   getusers();
-
   console.log(users);
+
+  // GOT THE NO OF ORDERS FOR OUR DASHBOARD
+  const [orders, setorders] = useState<number>(0);
+  const getorders = async () => {
+    const ORDER_COUNT = await fetch("/api/orders");
+    const response = await ORDER_COUNT.json();
+    const { ordercount } = response;
+    console.log(ordercount);
+
+    setorders(ordercount);
+  };
+
+  getorders();
+
+  console.log(orders);
+
   return (
     <>
       {email == email ? (
         <>
-          <Dashboard users={users} />
+          <Dashboard users={users} orders={orders} />
         </>
       ) : (
         <>
