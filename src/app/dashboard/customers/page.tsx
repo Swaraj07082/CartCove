@@ -1,5 +1,6 @@
+"use client";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -63,7 +64,40 @@ import {
 } from "@/components/ui/tooltip";
 import { DashboardSheet } from "@/components/DashboardSheet";
 
+interface OrderType {
+  id: string;
+  email: string;
+  user: UserType;
+}
+interface UserType {
+  id: string;
+  username: string;
+  image?: string;
+  gender?: string;
+  dob?: number;
+  email: string;
+  password: string;
+  orders: OrderType[];
+}
+
 export default function page() {
+  const [users, setusers] = useState<UserType[]>([]);
+
+  useEffect(() => {
+    const getusers = async () => {
+      const allusers = await fetch("http://localhost:3000/api/users");
+      // fething on server side use full url and not relative url
+      const response = await allusers.json();
+      const { users } = response;
+      console.log(users);
+      setusers(users);
+    };
+
+    getusers();
+  }, []);
+
+  console.log(users);
+
   return (
     <>
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -120,47 +154,50 @@ export default function page() {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        <TableRow>
-                          <TableCell className="hidden sm:table-cell">
-                            <Image
-                              alt="Product image"
-                              className="aspect-square rounded-md object-cover"
-                              height="64"
-                              src="/placeholder.svg"
-                              width="64"
-                            />
-                          </TableCell>
-                          <TableCell className="font-medium">
-                            Laser Lemonade Machine
-                          </TableCell>
+                        {users.map((user) => 
+                          <TableRow key={user.id}>
+                            <TableCell className="hidden sm:table-cell">
+                              <Image
+                                alt="Product image"
+                                className="aspect-square rounded-md object-cover"
+                                height="64"
+                                src="/placeholder.svg"
+                                width="64"
+                              />
+                            </TableCell>
+                            <TableCell className="font-medium">
+                              {/* Laser Lemonade Machine */}
+                              {user.username}
+                            </TableCell>
 
-                          <TableCell className="hidden md:table-cell">
-                            $499.99
-                          </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              {user.email}
+                            </TableCell>
 
-                          <TableCell>
-                            <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
-                                <Button
-                                  aria-haspopup="true"
-                                  size="icon"
-                                  variant="ghost"
-                                >
-                                  <MoreHorizontal className="h-4 w-4" />
-                                  <span className="sr-only">Toggle menu</span>
-                                </Button>
-                              </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                <DropdownMenuItem>Edit</DropdownMenuItem>
-                                <DropdownMenuItem>Delete</DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow>
+                            <TableCell>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button
+                                    aria-haspopup="true"
+                                    size="icon"
+                                    variant="ghost"
+                                  >
+                                    <MoreHorizontal className="h-4 w-4" />
+                                    <span className="sr-only">Toggle menu</span>
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                  <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                                  <DropdownMenuItem>Delete</DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </TableCell>
+                          </TableRow>
+                        )}
+                        {/* <TableRow>
                           <TableCell className="hidden sm:table-cell">
-                            <Image
+                          <Image
                               alt="Product image"
                               className="aspect-square rounded-md object-cover"
                               height="64"
@@ -195,8 +232,8 @@ export default function page() {
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </TableCell>
-                        </TableRow>
-                        <TableRow>
+                        </TableRow> */}
+                        {/* <TableRow>
                           <TableCell className="hidden sm:table-cell">
                             <Image
                               alt="Product image"
@@ -233,8 +270,8 @@ export default function page() {
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </TableCell>
-                        </TableRow>
-                        <TableRow>
+                        </TableRow> */}
+                        {/* <TableRow>
                           <TableCell className="hidden sm:table-cell">
                             <Image
                               alt="Product image"
@@ -272,8 +309,8 @@ export default function page() {
                             </DropdownMenu>
                           </TableCell>
                         </TableRow>
-                        <TableRow>
-                          <TableCell className="hidden sm:table-cell">
+                        <TableRow> */}
+                        {/* <TableCell className="hidden sm:table-cell">
                             <Image
                               alt="Product image"
                               className="aspect-square rounded-md object-cover"
@@ -309,8 +346,8 @@ export default function page() {
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </TableCell>
-                        </TableRow>
-                        <TableRow>
+                        </TableRow> */}
+                        {/* <TableRow>
                           <TableCell className="hidden sm:table-cell">
                             <Image
                               alt="Product image"
@@ -347,7 +384,7 @@ export default function page() {
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </TableCell>
-                        </TableRow>
+                        </TableRow> */}
                       </TableBody>
                     </Table>
                   </CardContent>
