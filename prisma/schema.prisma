@@ -31,3 +31,11 @@ model Orders {
  user User @relation(fields: [email] , references: [email])
 }
 
+model Products {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String 
+  price Int
+  url String
+  stock Int
+  category String
+}
