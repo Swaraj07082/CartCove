@@ -82,6 +82,8 @@ export default function Products() {
       const data = await response.json();
 
       const { products } = data;
+      const {stocks} = data;
+      console.log(stocks)
       console.log(products);
 
       setproducts(products);

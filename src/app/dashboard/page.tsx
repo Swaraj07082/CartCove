@@ -29,7 +29,7 @@ import {
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { Dashboard } from "@/components/Dashboard";
+import { Dashboard, StockType } from "@/components/Dashboard";
 import { ProductType } from "./product/page";
 
 const formSchema = z.object({
@@ -99,6 +99,7 @@ export default function LoginForm() {
   const [users, setusers] = useState<number>(0);
   const [orders, setorders] = useState<number>(0);
   const [products, setproducts] = useState<number>(0);
+  const [stocks, setstocks] = useState<StockType[]>([]);
 
   useEffect(() => {
     const getusers = async () => {
@@ -133,6 +134,11 @@ export default function LoginForm() {
       const { productcount } = data;
       console.log(productcount);
 
+      const { stocks } = data;
+      console.log(stocks);
+
+      setstocks(stocks);
+
       setproducts(productcount);
     };
 
@@ -143,7 +149,12 @@ export default function LoginForm() {
     <>
       {email == email ? (
         <>
-          <Dashboard users={users} orders={orders} products={products} />
+          <Dashboard
+            users={users}
+            orders={orders}
+            products={products}
+            stocks={stocks}
+          />
         </>
       ) : (
         <>

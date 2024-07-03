@@ -50,14 +50,28 @@ import { SheetDemo } from "./Sheet";
 import { DashboardSheet } from "./DashboardSheet";
 import { ProductType } from "@/app/dashboard/product/page";
 
+export interface StockType {
+  _sum: {
+    stock: number;
+  };
+  category: string;
+}
+
 interface DashboardProps {
   users: number;
   orders: number;
   products: number;
+  stocks: StockType;
 }
 
-export function Dashboard({ users, orders, products }: DashboardProps) {
-  console.log(users, orders, products);
+export function Dashboard({ users, orders, products, stocks }: DashboardProps) {
+  console.log(
+    users,
+    orders,
+    products,
+    stocks[0]?.category,
+    stocks[0]?._sum.stock
+  );
   return (
     <div className="flex min-h-screen w-full flex-col">
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -139,20 +153,48 @@ export function Dashboard({ users, orders, products }: DashboardProps) {
             </CardHeader>
             <CardContent className="flex flex-col gap-y-5">
               <div>
-                <Label>Camera</Label>
-                <Input type="range" min={0} max={100} />
+                <Label>
+                  {stocks[0]?.category.toUpperCase()} : {stocks[0]?._sum.stock}
+                </Label>
+                <Input
+                  type="range"
+                  min={0}
+                  max={2000}
+                  value={stocks[0]?._sum.stock}
+                />
               </div>
               <div>
-                <Label>Camera</Label>
-                <Input type="range" min={0} max={100} />
+                <Label>
+                  {stocks[1]?.category.toUpperCase()} : {stocks[1]?._sum.stock}
+                </Label>
+                <Input
+                  type="range"
+                  min={0}
+                  max={2000}
+                  value={stocks[1]?._sum.stock}
+                />
               </div>{" "}
               <div>
-                <Label>Camera</Label>
-                <Input type="range" min={0} max={100} />
+                <Label>
+                  {stocks[2]?.category.toUpperCase()} : {stocks[2]?._sum.stock}
+                </Label>
+                <Input
+                  type="range"
+                  min={0}
+                  max={2000}
+                  value={stocks[2]?._sum.stock}
+                />
               </div>{" "}
               <div>
-                <Label>Camera</Label>
-                <Input type="range" min={0} max={100} />
+                <Label>
+                  {stocks[3]?.category.toUpperCase()} : {stocks[3]?._sum.stock}
+                </Label>
+                <Input
+                  type="range"
+                  min={0}
+                  max={2000}
+                  value={stocks[3]?._sum.stock}
+                />
               </div>
             </CardContent>
           </Card>

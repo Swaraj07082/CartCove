@@ -101,6 +101,7 @@ export default function Page() {
       const { products } = data;
       console.log(products);
 
+
       setProduct(products);
     };
 
