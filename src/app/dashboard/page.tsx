@@ -26,10 +26,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Dashboard } from "@/components/Dashboard";
+import { ProductType } from "./product/page";
 
 const formSchema = z.object({
   username: z.string().min(3, {
@@ -96,37 +97,53 @@ export default function LoginForm() {
 
   // GOT THE NO OF USERS FOR OUR DASHBOARD
   const [users, setusers] = useState<number>(0);
-  const getusers = async () => {
-    const usercount = await fetch("/api/users");
-    const response = await usercount.json();
-    const { count } = response;
-    console.log(count);
-    // NO_OF_USERS = count
-    setusers(count);
-  };
-  getusers();
-  console.log(users);
-
-  // GOT THE NO OF ORDERS FOR OUR DASHBOARD
   const [orders, setorders] = useState<number>(0);
-  const getorders = async () => {
-    const ORDER_COUNT = await fetch("/api/orders");
-    const response = await ORDER_COUNT.json();
-    const { ordercount } = response;
-    console.log(ordercount);
+  const [products, setproducts] = useState<number>(0);
 
-    setorders(ordercount);
-  };
+  useEffect(() => {
+    const getusers = async () => {
+      const usercount = await fetch("/api/users");
+      const response = await usercount.json();
+      const { count } = response;
+      console.log(count);
+      // NO_OF_USERS = count
+      setusers(count);
+    };
+    getusers();
+    console.log(users);
 
-  getorders();
+    // GOT THE NO OF ORDERS FOR OUR DASHBOARD
+    const getorders = async () => {
+      const ORDER_COUNT = await fetch("/api/orders");
+      const response = await ORDER_COUNT.json();
+      const { ordercount } = response;
+      console.log(ordercount);
 
-  console.log(orders);
+      setorders(ordercount);
+    };
+
+    getorders();
+
+    console.log(orders);
+
+    const getproducts = async () => {
+      const response = await fetch("/api/products");
+      const data = await response.json();
+
+      const { productcount } = data;
+      console.log(productcount);
+
+      setproducts(productcount);
+    };
+
+    getproducts();
+  }, []);
 
   return (
     <>
       {email == email ? (
         <>
-          <Dashboard users={users} orders={orders} />
+          <Dashboard users={users} orders={orders} products={products} />
         </>
       ) : (
         <>

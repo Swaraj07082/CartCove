@@ -29,6 +29,7 @@ model Orders {
  id String @id @default(auto()) @map("_id") @db.ObjectId
  email String @unique
  user User @relation(fields: [email] , references: [email])
+//  products Products[]
 }
 
 model Products {

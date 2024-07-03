@@ -48,14 +48,16 @@ import BarChart from "./BarChart";
 import { Label } from "./ui/label";
 import { SheetDemo } from "./Sheet";
 import { DashboardSheet } from "./DashboardSheet";
+import { ProductType } from "@/app/dashboard/product/page";
 
 interface DashboardProps {
   users: number;
   orders: number;
+  products: number;
 }
 
-export function Dashboard({ users, orders }: DashboardProps) {
-  console.log(users, orders);
+export function Dashboard({ users, orders, products }: DashboardProps) {
+  console.log(users, orders, products);
   return (
     <div className="flex min-h-screen w-full flex-col">
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -118,14 +120,12 @@ export function Dashboard({ users, orders }: DashboardProps) {
           </Card>
           <Card x-chunk="dashboard-01-chunk-3">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Now</CardTitle>
+              <CardTitle className="text-sm font-medium">Products</CardTitle>
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+573</div>
-              <p className="text-xs text-muted-foreground">
-                +201 since last hour
-              </p>
+              <div className="text-2xl font-bold">{products}</div>
+              <p className="text-xs text-muted-foreground"></p>
             </CardContent>
           </Card>
         </div>

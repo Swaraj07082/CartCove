@@ -63,7 +63,7 @@ import {
 import { DashboardSheet } from "@/components/DashboardSheet";
 import { useEffect, useState } from "react";
 
-interface ProductType {
+export interface ProductType {
   id: string;
   name: string;
   price: number;

@@ -4,9 +4,10 @@ import products from "../../../public/Dummyshoes.json";
 
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SheetDemo } from "@/components/Sheet";
+import { ProductType } from "../dashboard/product/page";
 
 export const Sort = [
   {
@@ -31,14 +32,14 @@ export interface SortType {
 
 const category = ["cat1", "cat2"];
 
-interface ProductType {
-  id: number;
-  name: string;
-  price: number;
-  url: string;
-  sizes: number[];
-  category: string;
-}
+// interface ProductType {
+//   id: number;
+//   name: string;
+//   price: number;
+//   url: string;
+//   sizes: number[];
+//   category: string;
+// }
 
 const filtereddata = (
   products: ProductType[],
@@ -90,7 +91,21 @@ const filtereddata = (
 };
 
 export default function Page() {
-  const [product, setProduct] = useState<ProductType[]>(products);
+  const [product, setProduct] = useState<ProductType[]>([]);
+
+  useEffect(() => {
+    const getproducts = async () => {
+      const response = await fetch("/api/products");
+      const data = await response.json();
+
+      const { products } = data;
+      console.log(products);
+
+      setProduct(products);
+    };
+
+    getproducts();
+  }, []);
 
   const [value, setvalue] = useState<number>(200000);
   console.log(value);
@@ -152,7 +167,7 @@ export default function Page() {
           />
         </div>
         <div className="grid grid-cols-4 justify-center items-center">
-          {filtereddata(products, query, value, sort, setsort, category)?.map(
+          {filtereddata(product, query, value, sort, setsort, category)?.map(
             (product) => (
               <div
                 key={product.id}
@@ -174,7 +189,7 @@ export default function Page() {
               </div>
             )
           )}
-          {filtereddata(products, query, value, sort, setsort, category).at(
+          {filtereddata(product, query, value, sort, setsort, category).at(
             0
           ) == null ? (
             <>
