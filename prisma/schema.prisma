@@ -38,4 +38,5 @@ model Products {
   url String
   stock Int
   category String
+  sales Int
 }
