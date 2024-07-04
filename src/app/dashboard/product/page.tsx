@@ -94,12 +94,16 @@ export default function Products() {
     getproducts();
   }, []);
 
+  // [products] in dependency cause
+
   async function Delete(id: string) {
     const deleteproduct = await fetch(`/api/products?id=${id}`, {
       method: "DELETE",
     });
+
+    setproducts(products.filter((product) => product.id !== id));
   }
-  
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
@@ -157,9 +161,7 @@ export default function Products() {
                         <TableHead className="hidden md:table-cell">
                           Total Sales
                         </TableHead>
-                        <TableHead className="hidden md:table-cell">
-                          Created at
-                        </TableHead>
+
                         <TableHead>
                           <span className="sr-only">Actions</span>
                         </TableHead>
@@ -167,7 +169,7 @@ export default function Products() {
                     </TableHeader>
                     <TableBody>
                       {products.map((product) => (
-                        <TableRow>
+                        <TableRow key={product.id}>
                           <TableCell className="hidden sm:table-cell">
                             <Image
                               alt="Product image"
@@ -187,9 +189,7 @@ export default function Products() {
                           <TableCell className="hidden md:table-cell">
                             {product.sales}
                           </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            2023-07-12 10:42 AM
-                          </TableCell>
+
                           <TableCell>
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
