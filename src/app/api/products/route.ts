@@ -38,3 +38,22 @@ export const POST = async (req: NextRequest) => {
     JSON.stringify({ newproduct, message: "New product created successfully" })
   );
 };
+
+export const DELETE = async (req: NextRequest | Request) => {
+  const url = new URL(req.url).searchParams;
+  // const id = Number(url.get("id")) || 0;
+
+  console.log(url);
+  // console.log(id)
+
+  const id = req.url.slice(38).toString();
+  console.log(id);
+
+  const deleteproduct = await db.products.delete({
+    where: {
+      id: id,
+    },
+  });
+
+  return NextResponse.json({});
+};

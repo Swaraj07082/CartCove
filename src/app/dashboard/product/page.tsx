@@ -63,6 +63,7 @@ import {
 import { DashboardSheet } from "@/components/DashboardSheet";
 import { useEffect, useState } from "react";
 import DialogDemo from "@/components/AddProductDialog";
+import { parseSetCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 export interface ProductType {
   id: string;
@@ -93,6 +94,12 @@ export default function Products() {
     getproducts();
   }, []);
 
+  async function Delete(id: string) {
+    const deleteproduct = await fetch(`/api/products?id=${id}`, {
+      method: "DELETE",
+    });
+  }
+  
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
@@ -198,7 +205,13 @@ export default function Products() {
                               <DropdownMenuContent align="end">
                                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                 <DropdownMenuItem>Edit</DropdownMenuItem>
-                                <DropdownMenuItem>Delete</DropdownMenuItem>
+                                <DropdownMenuItem
+                                  onClick={() => {
+                                    Delete(product.id);
+                                  }}
+                                >
+                                  Delete
+                                </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </TableCell>

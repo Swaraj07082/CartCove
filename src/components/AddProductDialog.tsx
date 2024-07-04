@@ -47,6 +47,7 @@ const formSchema = z.object({
 });
 
 export default function DialogDemo() {
+  const { reset } = useForm();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -76,6 +77,8 @@ export default function DialogDemo() {
         category: values.category,
       }),
     });
+
+    // reset();
   }
 
   return (
