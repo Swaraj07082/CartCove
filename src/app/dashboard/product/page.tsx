@@ -62,7 +62,7 @@ import {
 } from "@/components/ui/tooltip";
 import { DashboardSheet } from "@/components/DashboardSheet";
 import { useEffect, useState } from "react";
-import { DialogDemo } from "@/components/AddProductDialog";
+import DialogDemo from "@/components/AddProductDialog";
 
 export interface ProductType {
   id: string;
@@ -83,8 +83,8 @@ export default function Products() {
       const data = await response.json();
 
       const { products } = data;
-      const {stocks} = data;
-      console.log(stocks)
+      const { stocks } = data;
+      console.log(stocks);
       console.log(products);
 
       setproducts(products);
@@ -113,7 +113,9 @@ export default function Products() {
               Add Product
             </span>
           </Button> */}
-          <DialogDemo/>
+
+          <DialogDemo />
+
           <div className="relative ml-auto flex-1 md:grow-0">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input

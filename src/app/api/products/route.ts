@@ -1,6 +1,6 @@
 import db from "@/lib/db";
 import { Whisper } from "next/font/google";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async () => {
   const products = await db.products.findMany();
@@ -17,4 +17,17 @@ export const GET = async () => {
   });
 
   return new NextResponse(JSON.stringify({ products, productcount, stocks }));
+};
+
+export const POST = async (req: NextRequest) => {
+  const body = await req.json();
+
+  console.log(body.ProductName);
+
+  const newproduct = await db.products.create({
+    data: {
+      ProductName: body.ProductName,
+      price: body.price,
+    },
+  });
 };
