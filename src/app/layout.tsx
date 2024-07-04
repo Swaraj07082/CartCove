@@ -4,6 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 // import CursorAnimation from "@/components/CursorAnimation";
 import Navbar from "@/components/Navbar";
+import { Toaster } from "@/components/ui/toaster";
+
 import Provider from "@/components/Provider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -35,6 +37,7 @@ export default function RootLayout({
           >
             <Navbar />
             {children}
+            <Toaster />
 
             {/* <CursorAnimation/> */}
           </ThemeProvider>

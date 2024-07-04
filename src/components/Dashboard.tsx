@@ -61,7 +61,7 @@ interface DashboardProps {
   users: number;
   orders: number;
   products: number;
-  stocks: StockType;
+  stocks: StockType[];
 }
 
 export function Dashboard({ users, orders, products, stocks }: DashboardProps) {

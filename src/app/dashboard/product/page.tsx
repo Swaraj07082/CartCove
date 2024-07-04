@@ -62,6 +62,7 @@ import {
 } from "@/components/ui/tooltip";
 import { DashboardSheet } from "@/components/DashboardSheet";
 import { useEffect, useState } from "react";
+import { DialogDemo } from "@/components/AddProductDialog";
 
 export interface ProductType {
   id: string;
@@ -106,12 +107,13 @@ export default function Products() {
             <SheetContent side="left" className="sm:max-w-xs"></SheetContent>
           </Sheet>
 
-          <Button size="sm" className="h-8 gap-1">
+          {/* <Button size="sm" className="h-8 gap-1">
             <PlusCircle className="h-3.5 w-3.5" />
             <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
               Add Product
             </span>
-          </Button>
+          </Button> */}
+          <DialogDemo/>
           <div className="relative ml-auto flex-1 md:grow-0">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
