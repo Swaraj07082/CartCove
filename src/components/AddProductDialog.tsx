@@ -35,9 +35,14 @@ import { PlusCircle } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  price: z.number().min(0, "Price must be a positive number"),
-  url: z.string().min(1, "URL is required"),
-  stock: z.number().min(0, "Stock must be a positive number"),
+  price: z.coerce.number().min(0, "Price must be a positive number"),
+  url: z
+    .string()
+    .url({ message: "Please enter a valid URL in https:// format " })
+    .refine((value) => value.startsWith("https://"), {
+      message: "URL must start with 'https://'.",
+    }),
+  stock: z.coerce.number().min(0, "Stock must be a positive number"),
   category: z.string().min(1, "Category is required"),
 });
 
@@ -53,25 +58,39 @@ export default function DialogDemo() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+
+    const response = await fetch("/api/products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: values.name,
+        price: values.price,
+        url: values.url,
+        stock: values.stock,
+        category: values.category,
+      }),
+    });
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Dialog defaultOpen>
-          <DialogTrigger asChild>
-            <Button size="sm" className="h-8 gap-1">
-              <PlusCircle className="h-3.5 w-3.5" />
-              <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                Add Product
-              </span>
-            </Button>
-          </DialogTrigger>
-          <DialogContent className=" sm:max-w-[425px]">
+      <Dialog defaultOpen>
+        <DialogTrigger asChild>
+          <Button size="sm" className="h-8 gap-1">
+            <PlusCircle className="h-3.5 w-3.5" />
+            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+              Add Product
+            </span>
+          </Button>
+        </DialogTrigger>
+        <DialogContent className=" sm:max-w-[425px]">
+          <form onSubmit={form.handleSubmit(onSubmit)}>
             <DialogHeader>
               <DialogTitle>Edit Product</DialogTitle>
               <DialogDescription>
@@ -102,7 +121,7 @@ export default function DialogDemo() {
                 <FormItem>
                   <FormLabel>Price</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...field} />
+                    <Input placeholder="shadcn" type="number" {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -132,7 +151,7 @@ export default function DialogDemo() {
                 <FormItem>
                   <FormLabel>Stock</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...field} />
+                    <Input placeholder="shadcn" type="number" {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -152,7 +171,7 @@ export default function DialogDemo() {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a verified email to display" />
+                        <SelectValue placeholder="Select a category" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -169,11 +188,11 @@ export default function DialogDemo() {
             />
 
             <DialogFooter>
-              <Button type="submit">Save changes</Button>
+              <Button type="submit">Submit</Button>
             </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </form>
+          </form>
+        </DialogContent>
+      </Dialog>
     </Form>
   );
 }
