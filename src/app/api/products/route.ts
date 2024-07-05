@@ -61,9 +61,20 @@ export const DELETE = async (req: NextRequest | Request) => {
 export const PUT = async (req: NextRequest) => {
   const body = await req.json();
 
-  const id = req.url;
-
-  console.log(id);
-
   console.log(body);
+
+  const editproduct = await db.products.update({
+    where: {
+      id: String(body.id),
+    },
+    data: {
+      name: body.name,
+      price: body.price,
+      url: body.url,
+      stock: body.stock,
+      category: body.category,
+    },
+  });
+
+  return NextResponse.json({ editproduct });
 };

@@ -199,7 +199,7 @@ export default function Products() {
                             </TableCell>
 
                             <TableCell>
-                              <DropdownMenu>
+                              <DropdownMenu modal={false}>
                                 <DropdownMenuTrigger asChild>
                                   <Button
                                     aria-haspopup="true"
@@ -215,8 +215,13 @@ export default function Products() {
 
                                   <DropdownMenuItem
                                     onSelect={(e) => e.preventDefault()}
+                                    onClick={() => {
+                                      setid(product.id);
+                                      // Delete(product.id);
+                                    }}
                                   >
-                                    <EditDialog />
+                                    <EditDialog id={id} />
+                                    {/* <DialogDemo/> */}
                                   </DropdownMenuItem>
 
                                   <DropdownMenuItem
@@ -227,7 +232,7 @@ export default function Products() {
                                     }}
                                   >
                                     <DeleteAlertDialog
-                                      id={product.id}
+                                      id={id}
                                       setproducts={setproducts}
                                       products={products}
                                     />
