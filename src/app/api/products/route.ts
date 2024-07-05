@@ -57,3 +57,13 @@ export const DELETE = async (req: NextRequest | Request) => {
 
   return NextResponse.json({});
 };
+
+export const PUT = async (req: NextRequest) => {
+  const body = await req.json();
+
+  const id = req.url;
+
+  console.log(id);
+
+  console.log(body);
+};

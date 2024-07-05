@@ -83,7 +83,7 @@ export default function DialogDemo() {
 
   return (
     <Form {...form}>
-      <Dialog defaultOpen>
+      <Dialog defaultOpen = {false}>
         <DialogTrigger asChild>
           <Button size="sm" className="h-8 gap-1">
             <PlusCircle className="h-3.5 w-3.5" />
