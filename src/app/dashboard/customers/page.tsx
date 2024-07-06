@@ -99,10 +99,19 @@ export default function page() {
 
   console.log(users);
 
-  const [id, setid] = useState("")
+  const [id, setid] = useState("");
 
+  const [query, setquery] = useState<string>("");
 
-  console.log(id)
+  const newusers = users.filter((user) =>
+    user.username
+      .toLowerCase()
+      .split(" ")
+      .join("")
+      .includes(query.toLowerCase().split(" ").join(""))
+  );
+
+  console.log(id);
   return (
     <>
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -130,6 +139,10 @@ export default function page() {
                 type="search"
                 placeholder="Search..."
                 className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[1250px]"
+                value={query}
+                onChange={(e) => {
+                  setquery(e.target.value);
+                }}
               />
             </div>
           </header>
@@ -159,7 +172,7 @@ export default function page() {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {users.map((user) => (
+                        {newusers.map((user) => (
                           <TableRow key={user.id}>
                             <TableCell className="hidden sm:table-cell">
                               <Image
@@ -193,11 +206,18 @@ export default function page() {
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
                                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                  <DropdownMenuItem>Edit</DropdownMenuItem>
-                                  <DropdownMenuItem  onSelect={(e) => e.preventDefault()} onClick={(e)=>{
-                                    setid(user.id)
-                                  }}>
-                                    <UserDeleteDialog id={id} users={users} setusers={setusers}/>
+                                  {/* <DropdownMenuItem>Edit</DropdownMenuItem> */}
+                                  <DropdownMenuItem
+                                    onSelect={(e) => e.preventDefault()}
+                                    onClick={(e) => {
+                                      setid(user.id);
+                                    }}
+                                  >
+                                    <UserDeleteDialog
+                                      id={id}
+                                      users={users}
+                                      setusers={setusers}
+                                    />
                                   </DropdownMenuItem>
                                 </DropdownMenuContent>
                               </DropdownMenu>
