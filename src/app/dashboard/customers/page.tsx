@@ -63,13 +63,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { DashboardSheet } from "@/components/DashboardSheet";
+import { UserDeleteDialog } from "@/components/UserDeleteDialog";
 
 interface OrderType {
   id: string;
   email: string;
   user: UserType;
 }
-interface UserType {
+export interface UserType {
   id: string;
   username: string;
   image?: string;
@@ -98,6 +99,10 @@ export default function page() {
 
   console.log(users);
 
+  const [id, setid] = useState("")
+
+
+  console.log(id)
   return (
     <>
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -154,7 +159,7 @@ export default function page() {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {users.map((user) => 
+                        {users.map((user) => (
                           <TableRow key={user.id}>
                             <TableCell className="hidden sm:table-cell">
                               <Image
@@ -175,7 +180,7 @@ export default function page() {
                             </TableCell>
 
                             <TableCell>
-                              <DropdownMenu>
+                              <DropdownMenu modal={false}>
                                 <DropdownMenuTrigger asChild>
                                   <Button
                                     aria-haspopup="true"
@@ -189,12 +194,16 @@ export default function page() {
                                 <DropdownMenuContent align="end">
                                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                   <DropdownMenuItem>Edit</DropdownMenuItem>
-                                  <DropdownMenuItem>Delete</DropdownMenuItem>
+                                  <DropdownMenuItem  onSelect={(e) => e.preventDefault()} onClick={(e)=>{
+                                    setid(user.id)
+                                  }}>
+                                    <UserDeleteDialog id={id} users={users} setusers={setusers}/>
+                                  </DropdownMenuItem>
                                 </DropdownMenuContent>
                               </DropdownMenu>
                             </TableCell>
                           </TableRow>
-                        )}
+                        ))}
                         {/* <TableRow>
                           <TableCell className="hidden sm:table-cell">
                           <Image

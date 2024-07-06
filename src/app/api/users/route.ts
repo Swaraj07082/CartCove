@@ -94,6 +94,19 @@ export const POST = async (req: NextRequest) => {
 
 export const GET = async () => {
   const users = await db.user.findMany();
-  const count  = await db.user.count()
-  return new NextResponse(JSON.stringify({ users , count }), { status: 200 });
+  const count = await db.user.count();
+  return new NextResponse(JSON.stringify({ users, count }), { status: 200 });
+};
+
+export const DELETE = async (req: NextRequest | Request) => {
+  const id = req.url.slice(35).toString();
+  console.log(id);
+
+  const deleteuser = await db.user.delete({
+    where: {
+      id: id,
+    },
+  });
+
+  return NextResponse.json({});
 };
