@@ -111,6 +111,15 @@ export default function Products() {
 
   const [id, setid] = useState("");
 
+  const [query, setquery] = useState<string>("");
+
+  const newproducts = products.filter((product)=>
+    product.name
+  .toLowerCase()
+  .split(" ")
+  .join("")
+  .includes(query.toLowerCase().split(" ").join(""))
+  )
 
   return (
     <>
@@ -142,6 +151,10 @@ export default function Products() {
                 type="search"
                 placeholder="Search..."
                 className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[1000px]"
+                value={query}
+                onChange={(e) => {
+                  setquery(e.target.value);
+                }}
               />
             </div>
           </header>
@@ -177,7 +190,7 @@ export default function Products() {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {products.map((product) => (
+                        {newproducts.map((product) => (
                           <TableRow key={product.id}>
                             <TableCell className="hidden sm:table-cell">
                               <Image
@@ -218,7 +231,6 @@ export default function Products() {
                                     onSelect={(e) => e.preventDefault()}
                                     onClick={() => {
                                       setid(product.id);
-                              
                                     }}
                                   >
                                     <EditDialog id={id} products={products} />
