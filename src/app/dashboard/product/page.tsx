@@ -111,6 +111,7 @@ export default function Products() {
 
   const [id, setid] = useState("");
 
+
   return (
     <>
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -217,10 +218,10 @@ export default function Products() {
                                     onSelect={(e) => e.preventDefault()}
                                     onClick={() => {
                                       setid(product.id);
-                                      // Delete(product.id);
+                              
                                     }}
                                   >
-                                    <EditDialog id={id} />
+                                    <EditDialog id={id} products={products} />
                                     {/* <DialogDemo/> */}
                                   </DropdownMenuItem>
 

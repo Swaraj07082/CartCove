@@ -37,6 +37,8 @@ import {
 } from "@/components/ui/form";
 import Link from "next/link";
 import { PlusCircle } from "lucide-react";
+import { ProductType } from "@/app/dashboard/product/page";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -53,20 +55,40 @@ const formSchema = z.object({
 
 interface props {
   id: string;
+  products: ProductType[];
 }
 
-export function EditDialog({ id }: props) {
+export function EditDialog({ id, products }: props) {
   const { reset } = useForm();
+
+  const productedtobeedited = products.find((product) => product.id == id);
+
+  console.log(productedtobeedited);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      price: 0,
-      url: "",
-      stock: 0,
-      category: "",
+      name: productedtobeedited?.name,
+      price: productedtobeedited?.price,
+      url: productedtobeedited?.url,
+      stock: productedtobeedited?.stock,
+      category: productedtobeedited?.category,
     },
   });
+
+  useEffect(() => {
+    if (productedtobeedited) {
+      form.reset({
+        name: productedtobeedited.name,
+        price: productedtobeedited.price,
+        url: productedtobeedited.url,
+        stock: productedtobeedited.stock,
+        category: productedtobeedited.category,
+      });
+    }
+  }, [productedtobeedited, form]);
+
+  // to immediately show the default values in the form and not cause a delay
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
