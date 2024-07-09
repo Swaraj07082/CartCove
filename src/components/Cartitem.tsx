@@ -9,7 +9,10 @@ import { Card } from "./ui/card";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/redux/store";
-import { updateCartItemQuantity } from "@/app/features/cart/cartSlice";
+import {
+  removeCartItem,
+  updateCartItemQuantity,
+} from "@/app/features/cart/cartSlice";
 
 interface ItemType {
   id: string;
@@ -102,7 +105,19 @@ CartitemProps) {
             </div> */}
           </div>
 
-          <Image src={deletephoto} alt="" height={20} width={20} />
+          <Image
+            src={deletephoto}
+            alt=""
+            height={20}
+            width={20}
+            onClick={() => {
+              Dispatch(
+                removeCartItem({
+                  id: id,
+                })
+              );
+            }}
+          />
         </div>
       </div>
     </>

@@ -45,7 +45,7 @@ export default function page() {
       <div className="flex-[2.5] h-full  solid">
         {items.map((cartitem) => (
           <Cartitem
-            id={cartitem.id} // Ensure unique key for each Cartitem
+            id={cartitem.id} 
             name={cartitem.name}
             price={cartitem.price}
             quantity={cartitem.quantity}

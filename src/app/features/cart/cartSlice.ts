@@ -1,14 +1,21 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
 const initialState = {
   cart: [
-    {
-      id: "",
-      name: "",
-      price: 0,
-      quantity: 0,
-    },
-  ],
+    // {
+    //   id: "",
+    //   name: "",
+    //   price: 0,
+    //   quantity: 0,
+    // },
+  ] as CartItem[],
 };
 
 export const cartSlice = createSlice({
@@ -28,7 +35,7 @@ export const cartSlice = createSlice({
 
     removeCartItem: (state, action) => {
       state.cart = state.cart.filter(
-        (Cartitem) => Cartitem.id !== action.payload
+        (Cartitem) => Cartitem.id !== action.payload.id
       );
     },
     updateCartItemQuantity: (state, action) => {
@@ -41,6 +48,7 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addCartItem, removeCartItem , updateCartItemQuantity } = cartSlice.actions;
+export const { addCartItem, removeCartItem, updateCartItemQuantity } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;
