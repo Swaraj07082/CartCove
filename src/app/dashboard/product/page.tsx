@@ -115,6 +115,7 @@ export default function Products() {
 
   const newproducts = products.filter((product)=>
     product.name
+    
   .toLowerCase()
   .split(" ")
   .join("")

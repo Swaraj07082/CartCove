@@ -1,22 +1,58 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Cartitem from "@/components/Cartitem";
 import Link from "next/link";
 import { ShippingForm } from "@/components/ShippingForm";
-
-var Subtotal = 4000;
-var ShippingCharges = 200;
-var Tax = Math.round(Subtotal * 0.18);
-var Discount = 400;
-var Total = Subtotal + ShippingCharges + Tax;
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { PrismaClient } from "@prisma/client";
+import { Item } from "@radix-ui/react-dropdown-menu";
 
 export default function page() {
+  const items = useSelector((state: RootState) => state.cart);
+
+  console.log(items);
+
+  var totalpricelist = items.map((product) => {
+    return product.price * product.quantity;
+  });
+
+  console.log(totalpricelist);
+
+  const Subtotal = totalpricelist.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue;
+  }, 0);
+
+  console.log(Subtotal);
+
+  // var Subtotal = 4000;
+  if (Subtotal == 0) {
+    var ShippingCharges = 0;
+  } else {
+    ShippingCharges = 200;
+  }
+  var Tax = Math.round(Subtotal * 0.18);
+  var Discount = 400;
+  var Total = Subtotal + ShippingCharges + Tax;
+
+  // const [quantity, setquantity] = useState<number>(1);
+  // console.log(count);
+
   return (
     <div className="flex h-screen  mx-24 mt-10">
       <div className="flex-[2.5] h-full  solid">
-        <Cartitem />
-        <Cartitem />
+        {items.map((cartitem) => (
+          <Cartitem
+            id={cartitem.id} // Ensure unique key for each Cartitem
+            name={cartitem.name}
+            price={cartitem.price}
+            quantity={cartitem.quantity}
+
+            // items={items}
+          />
+        ))}
       </div>
 
       <div className="flex-[1] gap-y-1 flex flex-col pl-16 items-start justify-center">

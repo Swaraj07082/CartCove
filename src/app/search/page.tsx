@@ -8,6 +8,13 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SheetDemo } from "@/components/Sheet";
 import { ProductType } from "../dashboard/product/page";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addCartItem,
+  updateCartItemQuantity,
+} from "../features/cart/cartSlice";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { RootState } from "../redux/store";
 
 export const Sort = [
   {
@@ -101,7 +108,6 @@ export default function Page() {
       const { products } = data;
       console.log(products);
 
-
       setProduct(products);
     };
 
@@ -116,10 +122,53 @@ export default function Page() {
   const [sort, setsort] = useState<string>("");
   console.log(sort);
 
-  const [category, setcategory] = useState("");
+  const [category, setcategory] = useState<string>("");
   console.log(category);
 
   // console.log(filtereddata(products, query, value, sort, setsort));
+  const [quantity, setquantity] = useState<number>(1);
+
+  const Dispatch = useDispatch();
+
+  console.log(quantity);
+
+  const cartItems = useSelector((state: RootState) => state.cart);
+
+  console.log(cartItems);
+
+  const handleQuantityChange = (id: string, quantity: number) => {
+    Dispatch(updateCartItemQuantity({ id, quantity }));
+  };
+
+  const addCartItemhandler = (
+    id: string,
+    name: string,
+    price: number,
+    quantity: number
+  ) => {
+    const existingCartItem = cartItems.find((item) => item.id === id);
+
+    if (existingCartItem) {
+      Dispatch(
+        updateCartItemQuantity({
+          id: id,
+          quantity: existingCartItem.quantity + quantity,
+        })
+      );
+    } else {
+      Dispatch(
+        addCartItem({
+          id: id,
+          name: name,
+          price: price,
+          quantity: quantity,
+        })
+      );
+    }
+  };
+
+  // useSelector(state:=>state.cart)
+
   return (
     <>
       {/* <div className="flex ">
@@ -186,13 +235,31 @@ export default function Page() {
                   {product.name}
                 </div>
                 <div className="text-xl  font-semibold">{product.price}</div>
-                <Button className=" w-full mt-1">Add to Cart</Button>
+                <Button
+                  className=" w-full mt-1"
+                  onClick={() => {
+                    // setquantity(quantity + 1);
+                    addCartItemhandler(
+                      product.id,
+                      product.name,
+                      product.price,
+                      quantity
+                    );
+                    // handleQuantityChange(product.id, quantity);
+                  }}
+                >
+                  Add to Cart
+                </Button>
+                {/* <Input
+                  type="number"
+                  defaultValue={1}
+                  onChange={(e) => setquantity(parseInt(e.target.value))}
+                /> */}
               </div>
             )
           )}
-          {filtereddata(product, query, value, sort, setsort, category).at(
-            0
-          ) == null ? (
+          {filtereddata(product, query, value, sort, setsort, category).at(0) ==
+          null ? (
             <>
               <h1 className=" text-2xl ">NO ITEMS AVAILABLE</h1>
             </>

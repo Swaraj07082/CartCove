@@ -6,7 +6,10 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 
-import Provider from "@/components/Provider";
+import Sessionprovider from "@/components/Provider";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import { Providers } from "./redux/providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,20 +31,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={gothic_A1.className}>
-        <Provider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem={true}
-            disableTransitionOnChange
-          >
-            <Navbar />
-            {children}
-            <Toaster />
+        <Providers>
+          <Sessionprovider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem={true}
+              disableTransitionOnChange
+            >
+              <Navbar />
+              {children}
+              <Toaster />
 
-            {/* <CursorAnimation/> */}
-          </ThemeProvider>
-        </Provider>
+              {/* <CursorAnimation/> */}
+            </ThemeProvider>
+          </Sessionprovider>
+        </Providers>
       </body>
     </html>
   );
