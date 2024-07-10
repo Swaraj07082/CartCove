@@ -7,15 +7,24 @@ interface CartItem {
   quantity: number;
 }
 
+const items: CartItem[] =
+  localStorage.getItem("cartItems") !== null
+    ? JSON.parse(localStorage.getItem("cartItems") as string)
+    : [];
+
+// const initialState = {
+//   cart: [
+//     // {
+//     //   id: "",
+//     //   name: "",
+//     //   price: 0,
+//     //   quantity: 0,
+//     // },
+//   ] as CartItem[],
+// };
+
 const initialState = {
-  cart: [
-    // {
-    //   id: "",
-    //   name: "",
-    //   price: 0,
-    //   quantity: 0,
-    // },
-  ] as CartItem[],
+  cart: items,
 };
 
 export const cartSlice = createSlice({
@@ -31,12 +40,15 @@ export const cartSlice = createSlice({
         // payload itself is an object
       };
       state.cart.push(CartItem);
+
+      localStorage.setItem("cartItems", JSON.stringify(state.cart));
     },
 
     removeCartItem: (state, action) => {
       state.cart = state.cart.filter(
         (Cartitem) => Cartitem.id !== action.payload.id
       );
+      localStorage.setItem("cartItems", JSON.stringify(state.cart));
     },
     updateCartItemQuantity: (state, action) => {
       const { id, quantity } = action.payload;
@@ -44,6 +56,7 @@ export const cartSlice = createSlice({
       if (existingItem) {
         existingItem.quantity = quantity;
       }
+      localStorage.setItem("cartItems", JSON.stringify(state.cart));
     },
   },
 });
