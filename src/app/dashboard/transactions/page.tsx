@@ -32,6 +32,7 @@ import {
 import { ProductType } from "../product/page";
 import { EditDialog } from "@/components/EditDialog";
 import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
+import Link from "next/link";
 
 export interface OrderType {
   id: string;
@@ -192,8 +193,13 @@ export default function Transactions() {
 
                                 <DropdownMenuItem
                                   onSelect={(e) => e.preventDefault()}
+                                  
                                 >
-                                  View Details...
+                            
+                                 <Link href={`transactions/${order.id}`}>
+                                    View Details...
+                                 </Link>
+                                
                                 </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
