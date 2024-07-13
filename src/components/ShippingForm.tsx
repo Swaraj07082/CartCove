@@ -84,13 +84,23 @@ export function ShippingForm() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: {
-        email: email,
+      body: JSON.stringify({
+        email: "swarajmali31@gmail.com",
         Address: values.address,
         City: values.city,
         State: values.state,
         Pincode: values.pincode,
-      },
+        OrderedProduct: [
+          {
+            productId: "605c72ef0e5d5b001f647e5a",
+            quantity: 2,
+          },
+          {
+            productId: "605c72ef0e5d5b001f647e5b",
+            quantity: 1,
+          },
+        ],
+      }),
     });
   }
 

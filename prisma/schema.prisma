@@ -52,4 +52,5 @@ model OrderedProduct {
   productId String   @db.ObjectId
   order     Orders   @relation(fields: [orderId], references: [id])
   product   Products @relation(fields: [productId], references: [id])
+  quantity  Int
 }
