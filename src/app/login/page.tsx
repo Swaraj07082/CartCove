@@ -26,6 +26,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -56,6 +57,7 @@ export default function Page() {
     },
   });
 
+  const router = useRouter();
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
@@ -67,7 +69,11 @@ export default function Page() {
       redirect: false,
     });
 
-    console.log(LoginData)
+    console.log(LoginData);
+
+    if (LoginData?.ok) {
+      router.push("/");
+    }
   }
 
   const [eyeopen, seteyeopen] = useState<boolean>(false);

@@ -76,7 +76,7 @@ export default function LoginForm() {
     const response = await fetch("/api/users", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json",  
       },
       body: JSON.stringify({
         username: values.username,
@@ -147,7 +147,7 @@ export default function LoginForm() {
 
   return (
     <>
-      {email == email ? (
+      {email == "swarajmali072004@gmail.com" ? (
         <>
           <Dashboard
             users={users}

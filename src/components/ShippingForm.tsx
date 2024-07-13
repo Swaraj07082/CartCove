@@ -39,6 +39,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { Card } from "./ui/card";
+import { useSession } from "next-auth/react";
 
 const formSchema = z.object({
   address: z.string().min(10, {
@@ -65,18 +66,38 @@ export function ShippingForm() {
       pincode: "",
     },
   });
+  const session = useSession();
+  console.log(session);
+
+  const email = session.data?.user?.email;
+
+  console.log(email);
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+
+    const response = await fetch("/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: {
+        email: email,
+        Address: values.address,
+        City: values.city,
+        State: values.state,
+        Pincode: values.pincode,
+      },
+    });
   }
 
   return (
     <div className=" gap-y-10 flex-col w-full h-full flex items-center justify-center mt-[3%] ">
-   <p className=" text-2xl">SHIPPING ADDRESS</p>
-<div className=" flex flex-col w-[20%]">
+      <p className=" text-2xl">SHIPPING ADDRESS</p>
+      <div className=" flex flex-col w-[20%]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -118,7 +139,7 @@ export function ShippingForm() {
               render={({ field }) => (
                 <FormItem className="flex flex-col ">
                   {/* <FormLabel>Language</FormLabel> */}
-                  <Popover >
+                  <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
@@ -195,7 +216,9 @@ export function ShippingForm() {
               )}
             />
 
-            <Button type="submit" className="w-full">PAY NOW</Button>
+            <Button type="submit" className="w-full">
+              PAY NOW
+            </Button>
           </form>
         </Form>
       </div>

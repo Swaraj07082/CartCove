@@ -28,6 +28,10 @@ model Orders {
   id             String           @id @default(auto()) @map("_id") @db.ObjectId
   email          String           @unique
   user           User             @relation(fields: [email], references: [email])
+  Address        String
+  City           String
+  State          String
+  Pincode        Int
   OrderedProduct OrderedProduct[]
 }
 
