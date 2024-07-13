@@ -40,6 +40,8 @@ import { cn } from "@/lib/utils";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { Card } from "./ui/card";
 import { useSession } from "next-auth/react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/redux/store";
 
 const formSchema = z.object({
   address: z.string().min(10, {
@@ -72,6 +74,8 @@ export function ShippingForm() {
   const email = session.data?.user?.email;
 
   console.log(email);
+  const items = useSelector((state: RootState) => state.cart);
+  console.log(items);
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -79,27 +83,34 @@ export function ShippingForm() {
     // ✅ This will be type-safe and validated.
     console.log(values);
 
+    // Map items to create OrderedProduct array
+    const orderedProducts = items.map((item) => ({
+      productId: item.id,
+      quantity: item.quantity,
+    }));
+
     const response = await fetch("/api/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: "swarajmali31@gmail.com",
+        email: "swarajmali100@gmail.com",
         Address: values.address,
         City: values.city,
         State: values.state,
         Pincode: values.pincode,
-        OrderedProduct: [
-          {
-            productId: "605c72ef0e5d5b001f647e5a",
-            quantity: 2,
-          },
-          {
-            productId: "605c72ef0e5d5b001f647e5b",
-            quantity: 1,
-          },
-        ],
+        // OrderedProduct: [
+        //   {
+        //     productId: "605c72ef0e5d5b001f647e5a",
+        //     quantity: 2,
+        //   },
+        //   {
+        //     productId: "605c72ef0e5d5b001f647e5b",
+        //     quantity: 1,
+        //   },
+        // ],
+        OrderedProduct: orderedProducts,
       }),
     });
   }

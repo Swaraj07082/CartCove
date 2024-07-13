@@ -32,16 +32,10 @@ export const POST = async (req: NextRequest) => {
     State: body.State,
     Pincode: Number(body.Pincode),
     OrderedProduct: {
-      create: [
-        {
-          productId: "668c14823be36f685d12465b",
-          quantity: 2, // Ensure quantity is part of your model
-        },
-        {
-          productId: "668c52aad5d5f3a8450de022",
-          quantity: 1,
-        },
-      ],
+      create: body.OrderedProduct.map((item: any) => ({
+        productId: item.productId,
+        quantity: item.quantity,
+      })),
     },
   };
 

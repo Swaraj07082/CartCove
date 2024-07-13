@@ -26,7 +26,8 @@ model User {
 
 model Orders {
   id             String           @id @default(auto()) @map("_id") @db.ObjectId
-  email          String           @unique
+  email          String
+  // email not unique cause , same user can make order again
   user           User             @relation(fields: [email], references: [email])
   Address        String
   City           String
