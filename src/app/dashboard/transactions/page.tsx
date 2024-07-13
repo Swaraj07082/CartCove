@@ -30,6 +30,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ProductType } from "../product/page";
+import { EditDialog } from "@/components/EditDialog";
+import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
 
 export interface OrderType {
   id: string;
@@ -74,6 +76,15 @@ export default function Transactions() {
   }, []);
 
   const [query, setQuery] = useState<string>("");
+  console.log(query);
+
+  const neworders = orders.filter((order) =>
+    order.email
+      .toLowerCase()
+      .split(" ")
+      .join("")
+      .includes(query.toLowerCase().split(" ").join(""))
+  );
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -99,8 +110,12 @@ export default function Transactions() {
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
-              placeholder="Search..."
+              placeholder="Search by email..."
               className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[1250px]"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+              }}
             />
           </div>
         </header>
@@ -132,7 +147,7 @@ export default function Transactions() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {orders.map((order) => (
+                      {neworders.map((order) => (
                         <TableRow key={order.id}>
                           <TableCell className="hidden sm:table-cell">
                             <Image
@@ -161,7 +176,7 @@ export default function Transactions() {
                             ))}
                           </TableCell>
                           <TableCell>
-                            <DropdownMenu>
+                            <DropdownMenu modal={false}>
                               <DropdownMenuTrigger asChild>
                                 <Button
                                   aria-haspopup="true"
@@ -174,8 +189,12 @@ export default function Transactions() {
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end">
                                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                <DropdownMenuItem>Edit</DropdownMenuItem>
-                                <DropdownMenuItem>Delete</DropdownMenuItem>
+
+                                <DropdownMenuItem
+                                  onSelect={(e) => e.preventDefault()}
+                                >
+                                  View Details...
+                                </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </TableCell>

@@ -113,14 +113,14 @@ export default function Products() {
 
   const [query, setquery] = useState<string>("");
 
-  const newproducts = products.filter((product)=>
+  const newproducts = products.filter((product) =>
     product.name
-    
-  .toLowerCase()
-  .split(" ")
-  .join("")
-  .includes(query.toLowerCase().split(" ").join(""))
-  )
+
+      .toLowerCase()
+      .split(" ")
+      .join("")
+      .includes(query.toLowerCase().split(" ").join(""))
+  );
 
   return (
     <>
