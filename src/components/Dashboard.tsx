@@ -152,18 +152,20 @@ export function Dashboard({ users, orders, products, stocks }: DashboardProps) {
               <CardTitle>INVENTORY</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-y-5">
+              {stocks.map((stock)=>
               <div>
                 <Label>
-                  {stocks[0]?.category.toUpperCase()} : {stocks[0]?._sum.stock}
+                  {stock.category.toUpperCase()} : {stock._sum.stock}
                 </Label>
                 <Input
                   type="range"
                   min={0}
                   max={2000}
-                  value={stocks[0]?._sum.stock}
-                />
+                  value={stock._sum.stock}
+                  />
               </div>
-              <div>
+              )}
+              {/* <div>
                 <Label>
                   {stocks[1]?.category.toUpperCase()} : {stocks[1]?._sum.stock}
                 </Label>
@@ -195,7 +197,7 @@ export function Dashboard({ users, orders, products, stocks }: DashboardProps) {
                   max={2000}
                   value={stocks[3]?._sum.stock}
                 />
-              </div>
+              </div> */}
             </CardContent>
           </Card>
         </div>
