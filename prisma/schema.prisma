@@ -33,6 +33,7 @@ model Orders {
   City           String
   State          String
   Pincode        Int
+  createdAt      DateTime         @default(now())
   OrderedProduct OrderedProduct[]
 }
 

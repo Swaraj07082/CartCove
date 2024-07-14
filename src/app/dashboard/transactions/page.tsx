@@ -52,7 +52,7 @@ export interface OrderedProductType {
   product: ProductType;
 }
 
-type OrderWithProducts = {
+export type OrderWithProducts = {
   id: string;
   email: string;
   Address: string;
@@ -65,6 +65,7 @@ type OrderWithProducts = {
 export default function Transactions() {
   const [orders, setOrders] = useState<OrderWithProducts[]>([]);
 
+  console.log(orders);
   useEffect(() => {
     const getOrders = async () => {
       const response = await fetch("/api/orders");
@@ -86,7 +87,11 @@ export default function Transactions() {
       .join("")
       .includes(query.toLowerCase().split(" ").join(""))
   );
-
+  const calculateSubtotal = (order: OrderWithProducts) => {
+    return order.OrderedProduct.reduce((acc, item) => {
+      return acc + item.product.price * item.quantity;
+    }, 0);
+  };
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
@@ -166,7 +171,7 @@ export default function Transactions() {
                             {order.email}
                           </TableCell>
                           <TableCell className="hidden md:table-cell">
-                            {order.OrderedProduct.map((orderedProduct) => (
+                            {/* {order.OrderedProduct.map((orderedProduct) => (
                               <div key={orderedProduct.id}>
                                 {orderedProduct.product.name}:{" "}
                                 {orderedProduct.quantity} x $
@@ -174,7 +179,8 @@ export default function Transactions() {
                                 {orderedProduct.quantity *
                                   orderedProduct.product.price}
                               </div>
-                            ))}
+                            ))} */}
+                            {calculateSubtotal(order).toFixed(2)}
                           </TableCell>
                           <TableCell>
                             <DropdownMenu modal={false}>
@@ -193,13 +199,10 @@ export default function Transactions() {
 
                                 <DropdownMenuItem
                                   onSelect={(e) => e.preventDefault()}
-                                  
                                 >
-                            
-                                 <Link href={`transactions/${order.id}`}>
+                                  <Link href={`transactions/${order.id}`}>
                                     View Details...
-                                 </Link>
-                                
+                                  </Link>
                                 </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
