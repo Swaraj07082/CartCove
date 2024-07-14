@@ -62,9 +62,16 @@ interface DashboardProps {
   orders: number;
   products: number;
   stocks: StockType[];
+  totalRevenue: number;
 }
 
-export function Dashboard({ users, orders, products, stocks }: DashboardProps) {
+export function Dashboard({
+  users,
+  orders,
+  products,
+  stocks,
+  totalRevenue,
+}: DashboardProps) {
   console.log(
     users,
     orders,
@@ -100,7 +107,7 @@ export function Dashboard({ users, orders, products, stocks }: DashboardProps) {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$45,231.89</div>
+              <div className="text-2xl font-bold">{totalRevenue}</div>
               <p className="text-xs text-muted-foreground">
                 +20.1% from last month
               </p>
@@ -152,19 +159,20 @@ export function Dashboard({ users, orders, products, stocks }: DashboardProps) {
               <CardTitle>INVENTORY</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-y-5">
-              {stocks.map((stock)=>
-              <div>
-                <Label>
-                  {stock.category.toUpperCase()} : {stock._sum.stock}
-                </Label>
-                <Input
-                  type="range"
-                  min={0}
-                  max={2000}
-                  value={stock._sum.stock}
+              {stocks.map((stock) => (
+                <div>
+                  <Label>
+                    {stock.category.toUpperCase()} :{" "}
+                    {stock._sum.stock + " " + "UNITS"}
+                  </Label>
+                  <Input
+                    type="range"
+                    min={0}
+                    max={2000}
+                    value={stock._sum.stock}
                   />
-              </div>
-              )}
+                </div>
+              ))}
               {/* <div>
                 <Label>
                   {stocks[1]?.category.toUpperCase()} : {stocks[1]?._sum.stock}

@@ -100,6 +100,7 @@ export default function LoginForm() {
   const [orders, setorders] = useState<number>(0);
   const [products, setproducts] = useState<number>(0);
   const [stocks, setstocks] = useState<StockType[]>([]);
+  const [totalRevenue, settotalRevenue] = useState<number>(0);
 
   useEffect(() => {
     const getusers = async () => {
@@ -118,9 +119,21 @@ export default function LoginForm() {
       const ORDER_COUNT = await fetch("/api/orders");
       const response = await ORDER_COUNT.json();
       const { ordercount } = response;
+      const { orders } = response;
       console.log(ordercount);
 
       setorders(ordercount);
+      console.log(response);
+
+      let totalRevenue = 0;
+      orders.forEach((order) => {
+        order.OrderedProduct.forEach((item) => {
+          totalRevenue += item.product.price * item.quantity;
+        });
+      });
+
+      console.log(totalRevenue);
+      settotalRevenue(totalRevenue);
     };
 
     getorders();
@@ -145,6 +158,8 @@ export default function LoginForm() {
     getproducts();
   }, []);
 
+  console.log(totalRevenue);
+
   return (
     <>
       {email == email ? (
@@ -154,6 +169,7 @@ export default function LoginForm() {
             orders={orders}
             products={products}
             stocks={stocks}
+            totalRevenue={totalRevenue}
           />
         </>
       ) : (
