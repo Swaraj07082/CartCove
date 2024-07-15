@@ -15,6 +15,7 @@ import {
 } from "../features/cart/cartSlice";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { RootState } from "../redux/store";
+import { toast } from "@/components/ui/use-toast";
 
 export const Sort = [
   {
@@ -169,6 +170,7 @@ export default function Page() {
 
   // useSelector(state:=>state.cart)
 
+  // const [disable, setdisable] = useState<boolean>(false);
   return (
     <>
       {/* <div className="flex ">
@@ -239,6 +241,7 @@ export default function Page() {
                   className=" w-full mt-1"
                   onClick={() => {
                     // setquantity(quantity + 1);
+
                     addCartItemhandler(
                       product.id,
                       product.name,
@@ -246,9 +249,13 @@ export default function Page() {
                       quantity
                     );
                     // handleQuantityChange(product.id, quantity);
+                    toast({
+                      title: "Item Added to Cart",
+                    });
                   }}
+                  disabled={product.stock === 0}
                 >
-                  Add to Cart
+                  {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
                 </Button>
                 {/* <Input
                   type="number"

@@ -10,6 +10,9 @@ import {
   addCartItem,
   updateCartItemQuantity,
 } from "@/app/features/cart/cartSlice";
+import Link from "next/link";
+import { toast } from "./use-toast";
+import { ToastAction } from "./toast";
 
 export default function Homepage() {
   const [quantity, setquantity] = useState<number>(1);
@@ -56,7 +59,9 @@ export default function Homepage() {
       <div>
         <div className=" flex  items-center justify-between">
           <p className=" text-3xl">LATEST PRODUCTS</p>
-          <p className=" text-sm font-semibold">MORE</p>
+          <Link href={"/search"}>
+            <p className=" text-sm font-semibold">MORE</p>
+          </Link>
         </div>
 
         <div className=" grid grid-cols-4 place-items-center ">
@@ -85,6 +90,9 @@ export default function Homepage() {
                     product.price,
                     quantity
                   );
+                  toast({
+                    title: "Item Added to Cart",
+                  });
                   // handleQuantityChange(product.id, quantity);
                 }}
               >

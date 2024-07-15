@@ -40,11 +40,49 @@ export const POST = async (req: NextRequest) => {
   };
 
   try {
-    // Save the orderData using Prisma
-    const newOrder: Orders = await db.orders.create({
-      data: {
-        ...orderData,
-      },
+    const newOrder = await db.$transaction(async (db) => {
+      // Check stock for each product
+      for (const item of body.OrderedProduct) {
+        const { productId, quantity } = item;
+
+        const product = await db.products.findUnique({
+          where: { id: productId },
+          select: { stock: true },
+        });
+
+        // select only returns specific columns mentioned
+        if (!product || product.stock < quantity) {
+          throw new Error(`Insufficient stock for product ${productId}`);
+        }
+      }
+
+      // Save the orderData using Prisma
+      const createdOrder: Orders = await db.orders.create({
+        data: {
+          ...orderData,
+        },
+      });
+
+      // Update stock and sales for each product
+      for (const item of body.OrderedProduct) {
+        const { productId, quantity } = item;
+
+        await db.products.update({
+          where: {
+            id: productId,
+          },
+          data: {
+            stock: {
+              decrement: quantity,
+            },
+            sales: {
+              increment: quantity,
+            },
+          },
+        });
+      }
+
+      return createdOrder;
     });
 
     return new NextResponse(

@@ -5,7 +5,7 @@
     "price": 18000,
     "url": "https://thesusoutdoors.com/cdn/shop/files/WinterBeige.png?v=1699307925&width=720",
     "sizes": [36, 37, 38, 39],
-    "category":"fashion"
+    "category": "fashion"
   },
   {
     "id": 2,
@@ -13,8 +13,7 @@
     "price": 18000,
     "url": "https://thesusoutdoors.com/cdn/shop/files/WinterBlack.png?v=1699307987&width=720",
     "sizes": [36, 37, 38, 39],
-    "category":"electronics"
-
+    "category": "electronics"
   },
   {
     "id": 3,
@@ -22,8 +21,7 @@
     "price": 16000,
     "url": "https://thesusoutdoors.com/cdn/shop/files/green-rainboot.png?v=1699516046&width=720",
     "sizes": [36, 37],
-    "category":"shoes"
-
+    "category": "shoes"
   },
   {
     "id": 4,
@@ -31,16 +29,6 @@
     "price": 16000,
     "url": "https://thesusoutdoors.com/cdn/shop/files/sustainable-rainboot_2cbf1511-cf01-462d-bf56-6187d957cac8.png?v=1686555865&width=720",
     "sizes": [36, 37, 38, 39],
-    "category":"furniture"
-
-  },
-  {
-    "id": 5,
-    "name": "Anyday rain boot in black",
-    "price": 16000,
-    "url": "https://thesusoutdoors.com/cdn/shop/files/sustainable-rainboot_2cbf1511-cf01-462d-bf56-6187d957cac8.png?v=1686555865&width=720",
-    "sizes": [36, 37, 38, 39],
-    "category":"health"
-
+    "category": "furniture"
   }
 ]
