@@ -45,6 +45,7 @@ export default function page() {
       <div className="flex-[2.5] h-full  solid">
         {items.map((cartitem) => (
           <Cartitem
+          key={cartitem.id}
             id={cartitem.id} 
             name={cartitem.name}
             price={cartitem.price}
@@ -64,7 +65,7 @@ export default function page() {
 
         <Input type="text" placeholder="Coupon code..." className=" w-64" />
         <Link href={"/shipping"}>
-          <Button className=" w-64">Checkout</Button>
+          <Button className=" w-64 button">Checkout</Button>
         </Link>
       </div>
     </div>

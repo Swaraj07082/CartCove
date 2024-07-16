@@ -58,9 +58,9 @@ export default function Homepage() {
 
       <div>
         <div className=" flex  items-center justify-between">
-          <p className=" text-3xl">LATEST PRODUCTS</p>
+          <p className=" text-3xl hover:underline hover:underline-offset-4">LATEST PRODUCTS</p>
           <Link href={"/search"}>
-            <p className=" text-sm font-semibold">MORE</p>
+            <p className=" text-sm font-semibold hover:scale-110">MORE</p>
           </Link>
         </div>
 
@@ -81,7 +81,7 @@ export default function Homepage() {
               <div className=" text-xl font-semibold mt-1">{product.name}</div>
               <div className="text-xl  font-semibold">{product.price}</div>
               <Button
-                className=" w-full mt-1"
+                className=" w-full mt-1 button"
                 onClick={() => {
                   // setquantity(quantity + 1);
                   addCartItemhandler(

@@ -238,7 +238,7 @@ export default function Page() {
                 </div>
                 <div className="text-xl  font-semibold">{product.price}</div>
                 <Button
-                  className=" w-full mt-1"
+                  className=" w-full mt-1 button"
                   onClick={() => {
                     // setquantity(quantity + 1);
 

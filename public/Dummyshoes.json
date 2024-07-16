@@ -30,5 +30,13 @@
     "url": "https://thesusoutdoors.com/cdn/shop/files/sustainable-rainboot_2cbf1511-cf01-462d-bf56-6187d957cac8.png?v=1686555865&width=720",
     "sizes": [36, 37, 38, 39],
     "category": "furniture"
+  },
+  {
+    "id": 5,
+    "name": "Anyday rain boot in black",
+    "price": 16000,
+    "url": "https://thesusoutdoors.com/cdn/shop/files/sustainable-rainboot_2cbf1511-cf01-462d-bf56-6187d957cac8.png?v=1686555865&width=720",
+    "sizes": [36, 37, 38, 39],
+    "category": "health"
   }
 ]

@@ -49,6 +49,7 @@ import { Label } from "./ui/label";
 import { SheetDemo } from "./Sheet";
 import { DashboardSheet } from "./DashboardSheet";
 import { ProductType } from "@/app/dashboard/product/page";
+import { nanoid } from "@reduxjs/toolkit";
 
 export interface StockType {
   _sum: {
@@ -160,7 +161,7 @@ export function Dashboard({
             </CardHeader>
             <CardContent className="flex flex-col gap-y-5">
               {stocks.map((stock) => (
-                <div>
+                <div key={nanoid()}>
                   <Label>
                     {stock.category.toUpperCase()} :{" "}
                     {stock._sum.stock + " " + "UNITS"}

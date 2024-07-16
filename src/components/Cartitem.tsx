@@ -72,6 +72,7 @@ CartitemProps) {
         <div className="  flex items-center justify-center gap-x-5">
           <div className=" flex gap-x-3 justify-center items-center">
             <Button
+              className="button"
               onClick={() => {
                 setquantitycounter(quantitycounter - 1);
                 Dispatch(
@@ -87,6 +88,7 @@ CartitemProps) {
             </Button>
             {quantity}
             <Button
+              className="button"
               onClick={() => {
                 setquantitycounter(quantitycounter + 1);
                 Dispatch(
@@ -106,6 +108,7 @@ CartitemProps) {
           </div>
 
           <Image
+          className="  hover:scale-125"
             src={deletephoto}
             alt=""
             height={20}
