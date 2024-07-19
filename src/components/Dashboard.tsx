@@ -50,6 +50,7 @@ import { SheetDemo } from "./Sheet";
 import { DashboardSheet } from "./DashboardSheet";
 import { ProductType } from "@/app/dashboard/product/page";
 import { nanoid } from "@reduxjs/toolkit";
+import DashboardChart from "./BarChart";
 
 export interface StockType {
   _sum: {
@@ -153,7 +154,7 @@ export function Dashboard({
         </div>
         <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
           <Card className="xl:col-span-2" x-chunk="dashboard-01-chunk-4">
-            <BarChart />
+            <DashboardChart />
           </Card>
           <Card x-chunk="dashboard-01-chunk-5">
             <CardHeader>

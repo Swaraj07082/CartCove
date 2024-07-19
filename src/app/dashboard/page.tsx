@@ -103,6 +103,17 @@ export default function LoginForm() {
   const [totalRevenue, settotalRevenue] = useState<number>(0);
 
   useEffect(() => {
+    const getTotalRevenue = async () => {
+      const response = await fetch("/api/revenueByCategory");
+      const data = await response.json();
+      console.log(data);
+      const { totalRevenue } = data;
+      settotalRevenue(totalRevenue);
+
+      console.log(totalRevenue)
+    };
+
+    getTotalRevenue();
     const getusers = async () => {
       const usercount = await fetch("/api/users");
       const response = await usercount.json();
@@ -125,15 +136,15 @@ export default function LoginForm() {
       setorders(ordercount);
       console.log(response);
 
-      let totalRevenue = 0;
-      orders.forEach((order) => {
-        order.OrderedProduct.forEach((item) => {
-          totalRevenue += item.product.price * item.quantity;
-        });
-      });
+      // let totalRevenue = 0;
+      // orders.forEach((order: any) => {
+      //   order.OrderedProduct.forEach((item: any) => {
+      //     totalRevenue += item.product.price * item.product.price;
+      //   });
+      // });
 
-      console.log(totalRevenue);
-      settotalRevenue(totalRevenue);
+      // console.log(totalRevenue);
+      // settotalRevenue(totalRevenue);
     };
 
     getorders();
