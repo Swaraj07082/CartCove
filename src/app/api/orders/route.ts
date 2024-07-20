@@ -2,7 +2,7 @@ import db from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { Orders } from "@prisma/client"; // Adjust this import based on your setup
 
-export const GET = async () => {
+export const GET = async (req: NextRequest | Request) => {
   const ordercount = await db.orders.count();
   const orders = await db.orders.findMany({
     include: {

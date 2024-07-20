@@ -20,7 +20,7 @@ import {
 import { useEffect, useState } from "react";
 
 const chartConfig = {
- Revenue: {
+  Revenue: {
     label: "Revenue",
     color: "hsl(var(--chart-1))",
   },
@@ -52,11 +52,11 @@ export default function DashboardChart() {
   }, []);
 
   const chartData = [
-    { month: "Fashion",Revenue: data?.fashionRevenue },
-    { month: "Electronics",Revenue: data?.electronicsRevenue },
-    { month: "Furniture",Revenue: data?.furnitureRevenue },
-    { month: "Health",Revenue: data?.healthRevenue },
-    { month: "Shoes",Revenue: data?.shoesRevenue },
+    { month: "Fashion", Revenue: data?.fashionRevenue },
+    { month: "Electronics", Revenue: data?.electronicsRevenue },
+    { month: "Furniture", Revenue: data?.furnitureRevenue },
+    { month: "Health", Revenue: data?.healthRevenue },
+    { month: "Shoes", Revenue: data?.shoesRevenue },
   ];
   return (
     <Card>

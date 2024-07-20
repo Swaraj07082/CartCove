@@ -8,6 +8,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -28,9 +29,39 @@ import {
 } from "@/components/ui/form";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { Dashboard, StockType } from "@/components/Dashboard";
 import { ProductType } from "./product/page";
+import Image from "next/image";
+import { Search, MoreHorizontal, PanelLeft } from "lucide-react";
+
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import { EditDialog } from "@/components/EditDialog";
+import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
+// import Link from "next/link";
+
+import React from "react";
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../components/ui/table";
+import { OrderWithProducts } from "./transactions/page";
+// import { Button } from "../../components/ui/button";
+// import { Card } from "@/components/ui/card";
 
 const formSchema = z.object({
   username: z.string().min(3, {
@@ -92,8 +123,9 @@ export default function LoginForm() {
 
   const session = useSession();
   console.log(session);
-  const email = session.data?.user?.email;
-  console.log(session.data?.user?.email);
+
+  const email = session?.data?.user?.email;
+  console.log(email);
 
   // GOT THE NO OF USERS FOR OUR DASHBOARD
   const [users, setusers] = useState<number>(0);
@@ -101,79 +133,71 @@ export default function LoginForm() {
   const [products, setproducts] = useState<number>(0);
   const [stocks, setstocks] = useState<StockType[]>([]);
   const [totalRevenue, settotalRevenue] = useState<number>(0);
+  const [userOrders, setuserOrders] = useState<OrderWithProducts[]>([]);
 
   useEffect(() => {
-    const getTotalRevenue = async () => {
-      const response = await fetch("/api/revenueByCategory");
-      const data = await response.json();
-      console.log(data);
-      const { totalRevenue } = data;
-      settotalRevenue(totalRevenue);
+    if (session.status === "authenticated" && email) {
+      const getTotalRevenue = async () => {
+        const response = await fetch("/api/revenueByCategory");
+        const data = await response.json();
+        const { totalRevenue } = data;
+        settotalRevenue(totalRevenue);
 
-      console.log(totalRevenue)
-    };
+        const getUserOrders = async () => {
+          const response = await fetch(`/api/userOrders?email=${email}`);
+          console.log(response);
+          const data = await response.json();
 
-    getTotalRevenue();
-    const getusers = async () => {
-      const usercount = await fetch("/api/users");
-      const response = await usercount.json();
-      const { count } = response;
-      console.log(count);
-      // NO_OF_USERS = count
-      setusers(count);
-    };
-    getusers();
-    console.log(users);
+          const { userOrders } = data;
+          console.log(userOrders);
+          setuserOrders(userOrders);
+        };
 
-    // GOT THE NO OF ORDERS FOR OUR DASHBOARD
-    const getorders = async () => {
-      const ORDER_COUNT = await fetch("/api/orders");
-      const response = await ORDER_COUNT.json();
-      const { ordercount } = response;
-      const { orders } = response;
-      console.log(ordercount);
+        getUserOrders();
+      };
 
-      setorders(ordercount);
-      console.log(response);
+      getTotalRevenue();
 
-      // let totalRevenue = 0;
-      // orders.forEach((order: any) => {
-      //   order.OrderedProduct.forEach((item: any) => {
-      //     totalRevenue += item.product.price * item.product.price;
-      //   });
-      // });
+      const getusers = async () => {
+        const usercount = await fetch("/api/users");
+        const response = await usercount.json();
+        const { count } = response;
+        setusers(count);
+      };
+      getusers();
 
-      // console.log(totalRevenue);
-      // settotalRevenue(totalRevenue);
-    };
+      const getorders = async () => {
+        const ORDER_COUNT = await fetch("/api/orders");
+        const response = await ORDER_COUNT.json();
+        const { ordercount } = response;
+        const { orders } = response;
+        setorders(ordercount);
+      };
+      getorders();
 
-    getorders();
-
-    console.log(orders);
-
-    const getproducts = async () => {
-      const response = await fetch("/api/products");
-      const data = await response.json();
-
-      const { productcount } = data;
-      console.log(productcount);
-
-      const { stocks } = data;
-      console.log(stocks);
-
-      setstocks(stocks);
-
-      setproducts(productcount);
-    };
-
-    getproducts();
-  }, []);
+      const getproducts = async () => {
+        const response = await fetch("/api/products");
+        const data = await response.json();
+        const { productcount } = data;
+        const { stocks } = data;
+        setstocks(stocks);
+        setproducts(productcount);
+      };
+      getproducts();
+    }
+  }, [session.status, email]);
 
   console.log(totalRevenue);
 
+  const calculateSubtotal = (order: OrderWithProducts) => {
+    return order.OrderedProduct.reduce((acc, item) => {
+      return acc + item.product.price * item.quantity;
+    }, 0);
+  };
+
   return (
     <>
-      {email == email ? (
+      {email == "swarajmali072004@gmail.com" ? (
         <>
           <Dashboard
             users={users}
@@ -185,130 +209,144 @@ export default function LoginForm() {
         </>
       ) : (
         <>
-          {" "}
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <Card className="mx-auto max-w-sm mt-20">
-                <CardHeader>
-                  <CardTitle className="text-xl">Sign Up</CardTitle>
-                  <CardDescription>
-                    Enter your information to create an account
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid gap-4">
-                    <div className="grid grid-cols-1 gap-4">
-                      <div className="grid gap-2">
-                        <Label htmlFor="first-name">Username</Label>
-                        <FormField
-                          control={form.control}
-                          name="username"
-                          render={({ field }) => (
-                            <FormItem>
-                              {/* <FormLabel></FormLabel> */}
-                              <FormControl>
-                                {/* <Input placeholder="Address..." {...field} /> */}
-                                <Input
-                                  id="username"
-                                  type="username"
-                                  placeholder="m@example.com"
-                                  {...field}
-                                />
-                              </FormControl>
-                              {/* <FormDescription>
-              This is your public display name.
-            </FormDescription> */}
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="email">Email</Label>
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            {/* <FormLabel></FormLabel> */}
-                            <FormControl>
-                              {/* <Input placeholder="Address..." {...field} /> */}
-                              <Input
-                                id="email"
-                                placeholder="m@example.com"
-                                {...field}
-                              />
-                            </FormControl>
-                            {/* <FormDescription>
-              This is your public display name.
-            </FormDescription> */}
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="password">Password</Label>
-
-                      <FormField
-                        control={form.control}
-                        name="password"
-                        render={({ field }) => (
-                          <FormItem>
-                            {/* <FormLabel></FormLabel> */}
-                            <div className="flex items-center relative">
-                              {eyeopen ? (
-                                <FaEye
-                                  className="absolute right-3"
-                                  onClick={() => {
-                                    seteyeopen(!eyeopen);
-                                  }}
-                                />
-                              ) : (
-                                <FaEyeSlash
-                                  className="absolute right-3"
-                                  onClick={() => {
-                                    seteyeopen(!eyeopen);
-                                  }}
-                                />
-                              )}
-
-                              <FormControl>
-                                {/* <Input placeholder="Address..." {...field} /> */}
-                                <Input
-                                  id="password"
-                                  type={eyeopen ? "text" : "password"}
-                                  placeholder="m@example.com"
-                                  {...field}
-                                />
-                              </FormControl>
-                            </div>
-                            {/* <FormDescription>
-              This is your public display name.
-              </FormDescription> */}
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                    <Button type="submit" className="w-full">
-                      Create an account
+          <div className="flex min-h-screen w-full flex-col bg-muted/40">
+            <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+              <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button size="icon" variant="outline" className="sm:hidden">
+                      <PanelLeft className="h-5 w-5" />
+                      <span className="sr-only">Toggle Menu</span>
                     </Button>
-                    {/* <Button variant="outline" className="w-full">
-                Sign up with GitHub
-              </Button> */}
-                  </div>
-                  <div className="mt-4 text-center text-sm">
-                    Already have an account?{" "}
-                    <Link href="#" className="underline">
-                      Sign in
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
-            </form>
-          </Form>
+                  </SheetTrigger>
+                  <SheetContent
+                    side="left"
+                    className="sm:max-w-xs"
+                  ></SheetContent>
+                </Sheet>
+                {/* 
+        <Button size="sm" className="h-8 gap-1">
+          <PlusCircle className="h-3.5 w-3.5" />
+          <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+            Add Product
+          </span>
+        </Button> */}
+                <div className="relative ml-auto flex-1 md:grow-0">
+                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    type="search"
+                    placeholder="Search by email..."
+                    className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[1250px]"
+                    // value={query}
+                    // onChange={(e) => {
+                    // setQuery(e.target.value);
+                    // }}
+                  />
+                </div>
+              </header>
+              <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+                <Tabs defaultValue="all">
+                  <TabsContent value="all">
+                    <Card x-chunk="dashboard-06-chunk-0">
+                      <CardHeader className=" text-center">
+                        <CardTitle>TRANSACTIONS</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <Table>
+                          <TableHeader>
+                            <TableRow>
+                              <TableHead className="hidden w-[100px] sm:table-cell">
+                                <span className="sr-only">Image</span>
+                              </TableHead>
+                              <TableHead>OrderId</TableHead>
+                              {/* <TableHead>Status</TableHead> */}
+                              <TableHead className="hidden md:table-cell">
+                                Email
+                              </TableHead>
+                              <TableHead className="hidden md:table-cell">
+                                Amount
+                              </TableHead>
+                              <TableHead>
+                                <span className="sr-only">Actions</span>
+                              </TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {userOrders.map((order) => (
+                              <TableRow key={order.id}>
+                                <TableCell className="hidden sm:table-cell">
+                                  <Image
+                                    alt="Product image"
+                                    className="aspect-square rounded-md object-cover"
+                                    height="64"
+                                    src="/placeholder.svg"
+                                    width="64"
+                                  />
+                                </TableCell>
+                                <TableCell className="font-medium">
+                                  {order.id}
+                                </TableCell>
+                                <TableCell className="hidden md:table-cell">
+                                  {order.email}
+                                </TableCell>
+                                <TableCell className="hidden md:table-cell">
+                                  {/* {order.OrderedProduct.map((orderedProduct) => (
+                              <div key={orderedProduct.id}>
+                                {orderedProduct.product.name}:{" "}
+                                {orderedProduct.quantity} x $
+                                {orderedProduct.product.price} = $
+                                {orderedProduct.quantity *
+                                  orderedProduct.product.price}
+                              </div>
+                            ))} */}
+                                  {calculateSubtotal(order).toFixed(2)}
+                                </TableCell>
+                                <TableCell>
+                                  <DropdownMenu modal={false}>
+                                    <DropdownMenuTrigger asChild>
+                                      <Button
+                                        aria-haspopup="true"
+                                        size="icon"
+                                        variant="ghost"
+                                      >
+                                        <MoreHorizontal className="h-4 w-4" />
+                                        <span className="sr-only">
+                                          Toggle menu
+                                        </span>
+                                      </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                      <DropdownMenuLabel>
+                                        Actions
+                                      </DropdownMenuLabel>
+
+                                      <DropdownMenuItem
+                                        onSelect={(e) => e.preventDefault()}
+                                      >
+                                        <Link href={`transactions/${order.id}`}>
+                                          View Details...
+                                        </Link>
+                                      </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                  </DropdownMenu>
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </CardContent>
+                      <CardFooter>
+                        <div className="text-xs text-muted-foreground">
+                          Showing <strong>1-10</strong> of <strong>32</strong>{" "}
+                          orders
+                        </div>
+                      </CardFooter>
+                    </Card>
+                  </TabsContent>
+                </Tabs>
+              </main>
+            </div>
+          </div>
         </>
       )}
     </>

@@ -13,6 +13,7 @@ import {
 import Link from "next/link";
 import { toast } from "./use-toast";
 import { ToastAction } from "./toast";
+import { useSession } from "next-auth/react";
 
 export default function Homepage() {
   const [quantity, setquantity] = useState<number>(1);
@@ -46,6 +47,9 @@ export default function Homepage() {
       );
     }
   };
+
+  const session = useSession();
+  console.log(session);
   return (
     <div className=" mx-24 flex flex-col gap-y-10 mt-10">
       <div className=" w-full h-64">
@@ -58,7 +62,9 @@ export default function Homepage() {
 
       <div>
         <div className=" flex  items-center justify-between">
-          <p className=" text-3xl hover:underline hover:underline-offset-4">LATEST PRODUCTS</p>
+          <p className=" text-3xl hover:underline hover:underline-offset-4">
+            LATEST PRODUCTS
+          </p>
           <Link href={"/search"}>
             <p className=" text-sm font-semibold hover:scale-110">MORE</p>
           </Link>
