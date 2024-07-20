@@ -323,7 +323,7 @@ export default function LoginForm() {
                                       <DropdownMenuItem
                                         onSelect={(e) => e.preventDefault()}
                                       >
-                                        <Link href={`transactions/${order.id}`}>
+                                        <Link href={`dashboard/transactions/${order.id}`}>
                                           View Details...
                                         </Link>
                                       </DropdownMenuItem>
