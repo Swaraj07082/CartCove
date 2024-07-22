@@ -51,7 +51,7 @@ export default function Homepage() {
   const session = useSession();
   console.log(session);
   return (
-    <div className=" mx-24 flex flex-col gap-y-10 mt-10">
+    <div className=" mx-24 flex flex-col gap-y-10 mt-10 max-md:mx-10">
       <div className=" w-full h-64">
         <Image
           src={cameraimage}
@@ -62,21 +62,23 @@ export default function Homepage() {
 
       <div>
         <div className=" flex  items-center justify-between">
-          <p className=" text-3xl hover:underline hover:underline-offset-4">
+          <p className=" text-3xl hover:underline hover:underline-offset-4 max-md:text-xl">
             LATEST PRODUCTS
           </p>
           <Link href={"/search"}>
-            <p className=" text-sm font-semibold hover:scale-110">MORE</p>
+            <p className=" text-sm font-semibold hover:scale-110 max-md:text-[12px]">
+              MORE
+            </p>
           </Link>
         </div>
 
-        <div className=" grid grid-cols-4 place-items-center ">
+        <div className=" grid grid-cols-4 place-items-center max-[1370px]:grid-cols-3 max-[1080px]:grid-cols-2 max-md:grid-cols-3 max-[731px]:grid-cols-2 max-[425px]:grid-cols-1 ">
           {dummyproducts.map((product) => (
             <div
               key={product.id}
               className=" h-fit w-fit flex flex-col  items-center gap-y-1 mt-8  mb-10"
             >
-              <div className=" relative overflow-hidden h-60 w-60">
+              <div className=" relative overflow-hidden h-60 w-60 max-md:h-40 max-md:w-40">
                 <Image
                   src={product.url}
                   alt=""
@@ -84,10 +86,14 @@ export default function Homepage() {
                   fill
                 />
               </div>
-              <div className=" text-xl font-semibold mt-1">{product.name}</div>
-              <div className="text-xl  font-semibold">{product.price}</div>
+              <div className=" text-xl font-semibold mt-1 max-md:text-[12px]">
+                {product.name}
+              </div>
+              <div className="text-xl  font-semibold max-md:text-[12px]">
+                {product.price}
+              </div>
               <Button
-                className=" w-full mt-1 button"
+                className=" w-full mt-1 button max-md:text-[12px] max-md:w-fit"
                 onClick={() => {
                   // setquantity(quantity + 1);
                   addCartItemhandler(
