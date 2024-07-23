@@ -211,21 +211,21 @@ export default function Page() {
           <Input
             type="text"
             placeholder="Search by name..."
-            className="w-[93%] my-5 "
+            className="w-full my-5 "
             value={query}
             onChange={(e) => {
               setquery(e.target.value);
             }}
           />
         </div>
-        <div className="grid grid-cols-4 justify-center items-center">
+        <div className="grid grid-cols-4 justify-center items-center  max-[1370px]:grid-cols-3 max-[1080px]:grid-cols-2 max-md:grid-cols-3 max-[731px]:grid-cols-2 max-[510px]:grid-cols-1">
           {filtereddata(product, query, value, sort, setsort, category)?.map(
             (product) => (
               <div
                 key={product.id}
                 className=" h-fit w-fit flex flex-col  items-center gap-y-1 mt-8  mb-10"
               >
-                <div className="relative overflow-hidden h-60 w-60">
+                <div className="relative overflow-hidden h-60 w-60  max-md:h-40 max-md:w-40">
                   <Image
                     src={product.url}
                     alt=""
@@ -233,10 +233,12 @@ export default function Page() {
                     className=" object-cover"
                   />
                 </div>
-                <div className=" text-xl font-semibold mt-1">
+                <div className=" text-xl font-semibold mt-1 max-md:text-[12px]">
                   {product.name}
                 </div>
-                <div className="text-xl  font-semibold">{product.price}</div>
+                <div className="text-xl  font-semibold max-md:text-[12px]">
+                  {product.price}
+                </div>
                 <Button
                   className=" w-full mt-1 button"
                   onClick={() => {
