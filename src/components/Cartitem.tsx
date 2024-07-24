@@ -57,9 +57,9 @@ CartitemProps) {
   const existingCartItem = cartItems.find((item) => item.id === id);
   return (
     <>
-      <div className="flex justify-between max-md:items-center max-lg:flex-col max-lg:gap-y-10 max-lg:items-start px-10 pt-10 max-[1100px]:gap-x-20 max-[1100px]:px-2  pb-6">
-        <div className="flex max-md:flex-col max-md:items-center ">
-          <div className=" border-red-50 border  w-32 h-32  relative overflow-hidden solid">
+      <div className="flex justify-between max-md:items-center max-lg:flex-col max-lg:gap-y-10 max-sm:gap-y-5 max-lg:items-start px-10 pt-10 max-[1100px]:gap-x-20 max-[1100px]:px-2  pb-6">
+        <div className="flex max-md:flex-col max-md:items-center  ">
+          <div className=" border-red-50 border max-sm:w-20 max-sm:h-20  w-32 h-32  relative overflow-hidden solid">
             <Image
               src={photo}
               fill
@@ -68,7 +68,7 @@ CartitemProps) {
             />
           </div>
 
-          <div className=" ml-10 flex flex-col justify-center max-md:pt-5  gap-y-3 items-center max-lg:text-center ">
+          <div className=" ml-10 flex flex-col justify-center max-md:pt-5  gap-y-3 items-center max-lg:text-center max-sm:text-[15px] ">
             <p>{name}</p>
             <p>{price}</p>
           </div>
@@ -77,7 +77,7 @@ CartitemProps) {
         <div className="  flex items-center   justify-center gap-x-5 max-md:ml-12">
           <div className=" flex gap-x-3  justify-center items-center">
             <Button
-              className="button "
+              className="button max-sm:w-7 max-sm:h-7 "
               onClick={() => {
                 setquantitycounter(quantitycounter - 1);
                 Dispatch(
@@ -91,9 +91,9 @@ CartitemProps) {
             >
               -
             </Button>
-            {quantity}
+            <p className=" max-sm:text-[15px]">{quantity}</p>
             <Button
-              className="button "
+              className="button max-sm:w-7 max-sm:h-7 "
               onClick={() => {
                 setquantitycounter(quantitycounter + 1);
                 Dispatch(

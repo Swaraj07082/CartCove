@@ -41,8 +41,9 @@ export default function Page() {
   // console.log(count);
 
   return (
-    <div className="flex h-screen  mx-6   mt-10">
-      <div className="flex-[2.5] h-full  solid">
+    <div className="flex  h-screen  mx-6   mt-10">
+      <div className="flex-[2.5] h-full  solid ">
+        {/* overflow-y-auto */}
         {items.map((cartitem) => (
           <Cartitem
             key={cartitem.id}
@@ -56,16 +57,21 @@ export default function Page() {
         ))}
       </div>
 
-      <div className="flex-[1] gap-y-1 flex flex-col pl-16  items-start justify-center">
+      <div className="flex-[1] max-sm:text-[15px] gap-y-1 flex flex-col pl-16  items-start justify-center">
         <p>Subtotal : Rs.{Subtotal}</p>
         <p>Shipping Charges : Rs.{ShippingCharges}</p>
         <p>Tax : Rs.{Tax}</p>
         <p>Discount : Rs.{Discount}</p>
         <p>Total : Rs.{Total}</p>
 
-        <Input type="text" placeholder="Coupon code..." className=" w-64" />
+        <Input
+          type="text"
+          placeholder="Coupon code..."
+          className=" w-64 max-sm:w-fit"
+        />
+
         <Link href={"/shipping"}>
-          <Button className=" w-64 button">Checkout</Button>
+          <Button className=" w-64 button max-sm:w-fit">Checkout</Button>
         </Link>
       </div>
     </div>
