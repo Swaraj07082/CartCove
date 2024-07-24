@@ -10,7 +10,7 @@ import { RootState } from "../redux/store";
 import { PrismaClient } from "@prisma/client";
 import { Item } from "@radix-ui/react-dropdown-menu";
 
-export default function page() {
+export default function Page() {
   const items = useSelector((state: RootState) => state.cart);
 
   console.log(items);
@@ -41,12 +41,12 @@ export default function page() {
   // console.log(count);
 
   return (
-    <div className="flex h-screen  mx-24 mt-10">
+    <div className="flex h-screen  mx-6   mt-10">
       <div className="flex-[2.5] h-full  solid">
         {items.map((cartitem) => (
           <Cartitem
-          key={cartitem.id}
-            id={cartitem.id} 
+            key={cartitem.id}
+            id={cartitem.id}
             name={cartitem.name}
             price={cartitem.price}
             quantity={cartitem.quantity}
@@ -56,7 +56,7 @@ export default function page() {
         ))}
       </div>
 
-      <div className="flex-[1] gap-y-1 flex flex-col pl-16 items-start justify-center">
+      <div className="flex-[1] gap-y-1 flex flex-col pl-16  items-start justify-center">
         <p>Subtotal : Rs.{Subtotal}</p>
         <p>Shipping Charges : Rs.{ShippingCharges}</p>
         <p>Tax : Rs.{Tax}</p>

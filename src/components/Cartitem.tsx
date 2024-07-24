@@ -57,28 +57,33 @@ CartitemProps) {
   const existingCartItem = cartItems.find((item) => item.id === id);
   return (
     <>
-      <div className="flex justify-between px-10 pt-10 pb-6">
-        <div className="flex">
-          <div className=" border-red-50 border  w-32 h-32 relative overflow-hidden solid">
-            <Image src={photo} fill className=" object-cover" alt="" />
+      <div className="flex justify-between max-md:items-center max-lg:flex-col max-lg:gap-y-10 max-lg:items-start px-10 pt-10 max-[1100px]:gap-x-20 max-[1100px]:px-2  pb-6">
+        <div className="flex max-md:flex-col max-md:items-center ">
+          <div className=" border-red-50 border  w-32 h-32  relative overflow-hidden solid">
+            <Image
+              src={photo}
+              fill
+              className=" object-cover absolute "
+              alt=""
+            />
           </div>
 
-          <div className=" ml-10 flex flex-col justify-center gap-y-3 items-center ">
+          <div className=" ml-10 flex flex-col justify-center max-md:pt-5  gap-y-3 items-center max-lg:text-center ">
             <p>{name}</p>
             <p>{price}</p>
           </div>
         </div>
 
-        <div className="  flex items-center justify-center gap-x-5">
-          <div className=" flex gap-x-3 justify-center items-center">
+        <div className="  flex items-center   justify-center gap-x-5 max-md:ml-12">
+          <div className=" flex gap-x-3  justify-center items-center">
             <Button
-              className="button"
+              className="button "
               onClick={() => {
                 setquantitycounter(quantitycounter - 1);
                 Dispatch(
                   updateCartItemQuantity({
                     id: id,
-                    quantity: existingCartItem.quantity - 1,
+                    quantity: existingCartItem?.quantity - 1,
                   })
                 );
               }}
@@ -88,7 +93,7 @@ CartitemProps) {
             </Button>
             {quantity}
             <Button
-              className="button"
+              className="button "
               onClick={() => {
                 setquantitycounter(quantitycounter + 1);
                 Dispatch(
@@ -108,7 +113,7 @@ CartitemProps) {
           </div>
 
           <Image
-          className="  hover:scale-125"
+            className="  hover:scale-125"
             src={deletephoto}
             alt=""
             height={20}
