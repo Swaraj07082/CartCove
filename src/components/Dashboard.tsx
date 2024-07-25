@@ -83,7 +83,7 @@ export function Dashboard({
   );
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+      <header className=" flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
         <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
           {/* <SheetDemo/> */}
           <DashboardSheet />
@@ -93,7 +93,7 @@ export function Dashboard({
               <Input
                 type="search"
                 placeholder="Search products..."
-                className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[1200px]"
+                className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[500px]"
               />
             </div>
           </form>

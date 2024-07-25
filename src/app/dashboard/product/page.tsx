@@ -127,7 +127,7 @@ export default function Products() {
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
           <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-            <Sheet>
+            {/* <Sheet>
               <SheetTrigger asChild>
                 <Button size="icon" variant="outline" className="sm:hidden">
                   <PanelLeft className="h-5 w-5" />
@@ -135,7 +135,9 @@ export default function Products() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="sm:max-w-xs"></SheetContent>
-            </Sheet>
+            </Sheet> */}
+
+<DashboardSheet />
 
             {/* <Button size="sm" className="h-8 gap-1">
             <PlusCircle className="h-3.5 w-3.5" />
@@ -151,7 +153,7 @@ export default function Products() {
               <Input
                 type="search"
                 placeholder="Search..."
-                className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[1000px]"
+                className="w-full rounded-lg bg-background pl-8  md:w-[200px] lg:w-[500px]"
                 value={query}
                 onChange={(e) => {
                   setquery(e.target.value);
@@ -178,10 +180,10 @@ export default function Products() {
                           </TableHead>
                           <TableHead>Name</TableHead>
                           {/* <TableHead>Status</TableHead> */}
-                          <TableHead className="hidden md:table-cell">
+                          <TableHead className="md:table-cell ">
                             Price
                           </TableHead>
-                          <TableHead className="hidden md:table-cell">
+                          <TableHead className=" md:table-cell">
                             Total Sales
                           </TableHead>
 
@@ -206,10 +208,10 @@ export default function Products() {
                               {product.name}
                             </TableCell>
 
-                            <TableCell className="hidden md:table-cell">
+                            <TableCell className=" md:table-cell">
                               {product.price}
                             </TableCell>
-                            <TableCell className="hidden md:table-cell">
+                            <TableCell className="md:table-cell">
                               {product.sales}
                             </TableCell>
 

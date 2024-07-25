@@ -33,6 +33,7 @@ import { ProductType } from "../product/page";
 import { EditDialog } from "@/components/EditDialog";
 import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
 import Link from "next/link";
+import { DashboardSheet } from "@/components/DashboardSheet";
 
 export interface OrderType {
   id: string;
@@ -96,7 +97,7 @@ export default function Transactions() {
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-          <Sheet>
+          {/* <Sheet>
             <SheetTrigger asChild>
               <Button size="icon" variant="outline" className="sm:hidden">
                 <PanelLeft className="h-5 w-5" />
@@ -104,7 +105,9 @@ export default function Transactions() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="sm:max-w-xs"></SheetContent>
-          </Sheet>
+          </Sheet> */}
+          <DashboardSheet />
+
           {/* 
         <Button size="sm" className="h-8 gap-1">
           <PlusCircle className="h-3.5 w-3.5" />
@@ -117,7 +120,7 @@ export default function Transactions() {
             <Input
               type="search"
               placeholder="Search by email..."
-              className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[1250px]"
+              className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[500px]"
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);

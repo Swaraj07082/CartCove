@@ -197,7 +197,7 @@ export default function LoginForm() {
 
   return (
     <>
-      {email == "swarajmali072004@gmail.com" ? (
+      {email == "shravanithokade@gmail.com" ? (
         <>
           <Dashboard
             users={users}
@@ -236,7 +236,7 @@ export default function LoginForm() {
                   <Input
                     type="search"
                     placeholder="Search by email..."
-                    className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[1250px]"
+                    className="w-full rounded-lg bg-background pl-8 sm:w-[300px] md:w-[200px] lg:w-[500px]"
                     // value={query}
                     // onChange={(e) => {
                     // setQuery(e.target.value);
@@ -323,7 +323,9 @@ export default function LoginForm() {
                                       <DropdownMenuItem
                                         onSelect={(e) => e.preventDefault()}
                                       >
-                                        <Link href={`dashboard/transactions/${order.id}`}>
+                                        <Link
+                                          href={`dashboard/transactions/${order.id}`}
+                                        >
                                           View Details...
                                         </Link>
                                       </DropdownMenuItem>
