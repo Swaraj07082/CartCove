@@ -41,9 +41,8 @@ export default function Page() {
   // console.log(count);
 
   return (
-    <div className="flex  h-screen  mx-6   mt-10">
-      <div className="flex-[2.5] h-full  solid ">
-        {/* overflow-y-auto */}
+    <div className="flex  h-screen  mx-6 max-md:items-center max-md:gap-y-20  max-md:flex-col  mt-10">
+      <div className="flex-[2.5] h-full  solid max-md:overflow-y-auto ">
         {items.map((cartitem) => (
           <Cartitem
             key={cartitem.id}
