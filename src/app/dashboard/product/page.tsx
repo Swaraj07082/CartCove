@@ -65,7 +65,7 @@ import { DashboardSheet } from "@/components/DashboardSheet";
 import { useEffect, useState } from "react";
 import DialogDemo from "@/components/AddProductDialog";
 import AddProductDialog from "@/components/AddProductDialog";
-import { EditDialog } from "@/components/EditDialog";
+import {  EditSheet } from "@/components/EditSheet";
 import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
 
 export interface ProductType {
@@ -137,7 +137,7 @@ export default function Products() {
               <SheetContent side="left" className="sm:max-w-xs"></SheetContent>
             </Sheet> */}
 
-<DashboardSheet />
+            <DashboardSheet />
 
             {/* <Button size="sm" className="h-8 gap-1">
             <PlusCircle className="h-3.5 w-3.5" />
@@ -236,7 +236,7 @@ export default function Products() {
                                       setid(product.id);
                                     }}
                                   >
-                                    <EditDialog id={id} products={products} />
+                                    <EditSheet id={id} products={products} />
                                     {/* <DialogDemo/> */}
                                   </DropdownMenuItem>
 

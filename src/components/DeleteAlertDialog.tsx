@@ -31,7 +31,7 @@ export function DeleteAlertDialog({ id, setproducts, products }: Props) {
       <AlertDialogTrigger asChild>
         <Button variant="outline">Show Dialog</Button>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className=" max-sm:w-48">
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>

@@ -21,7 +21,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { EditDialog } from "@/components/EditDialog";
+import { EditDialog } from "@/components/EditSheet";
 import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
 import Link from "next/link";
 

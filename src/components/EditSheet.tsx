@@ -39,6 +39,7 @@ import Link from "next/link";
 import { PlusCircle } from "lucide-react";
 import { ProductType } from "@/app/dashboard/product/page";
 import { useEffect } from "react";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -58,7 +59,7 @@ interface props {
   products: ProductType[];
 }
 
-export function EditDialog({ id, products }: props) {
+export function EditSheet({ id, products }: props) {
   const { reset } = useForm();
 
   const productedtobeedited = products.find((product) => product.id == id);
@@ -113,11 +114,11 @@ export function EditDialog({ id, products }: props) {
     // reset();
   }
   return (
-    <Popover modal={true}>
-      <PopoverTrigger asChild>
+    <Sheet modal={true}>
+      <SheetTrigger asChild>
         <Button variant="outline">Open popover</Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-80">
+      </SheetTrigger>
+      <SheetContent className="w-80">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
@@ -213,7 +214,7 @@ export function EditDialog({ id, products }: props) {
             <Button type="submit">Submit</Button>
           </form>
         </Form>
-      </PopoverContent>
-    </Popover>
+      </SheetContent>
+    </Sheet>
   );
 }

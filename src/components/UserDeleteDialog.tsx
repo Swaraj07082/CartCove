@@ -28,32 +28,34 @@ export function UserDeleteDialog({ id, users, setusers }: props) {
     setusers(users.filter((user) => user.id !== id));
   }
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="outline">Show Dialog</Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel onSelect={(e) => e.preventDefault()}>
-            Cancel
-          </AlertDialogCancel>
-          <AlertDialogAction
-            onSelect={(e) => e.preventDefault()}
-            onClick={() => {
-              Delete(id);
-            }}
-          >
-            Continue
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <>
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button variant="outline">Show Dialog</Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent className=" max-sm:w-48">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onSelect={(e) => e.preventDefault()}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onSelect={(e) => e.preventDefault()}
+              onClick={() => {
+                Delete(id);
+              }}
+            >
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }

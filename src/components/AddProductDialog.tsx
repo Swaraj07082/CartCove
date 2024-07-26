@@ -92,7 +92,7 @@ export default function DialogDemo() {
             </span>
           </Button>
         </DialogTrigger>
-        <DialogContent className=" sm:max-w-[425px]">
+        <DialogContent className=" sm:max-w-[425px] max-sm:w-[300px] ">
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <DialogHeader>
               <DialogTitle>Edit Product</DialogTitle>

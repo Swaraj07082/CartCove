@@ -45,7 +45,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { EditDialog } from "@/components/EditDialog";
+import { EditDialog } from "@/components/EditSheet";
 import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
 // import Link from "next/link";
 
