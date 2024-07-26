@@ -117,8 +117,10 @@ export function ShippingForm() {
 
   return (
     <div className=" gap-y-10 flex-col w-full h-full flex items-center justify-center mt-[3%] ">
-      <p className=" text-2xl">SHIPPING ADDRESS</p>
-      <div className=" flex flex-col w-[20%]">
+      <p className=" text-2xl max-lg:text-xl max-sm:text-[17px]">
+        SHIPPING ADDRESS
+      </p>
+      <div className=" flex flex-col w-[50%]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField

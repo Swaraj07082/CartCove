@@ -131,10 +131,7 @@ export default async function Page({ params }: ParamsType) {
               size="icon"
               variant="outline"
               className="h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
-            >
-              <Copy className="h-3 w-3" />
-              <span className="sr-only">Copy Order ID</span>
-            </Button>
+            ></Button>
           </CardTitle>
           {/* <CardDescription>Date: November 23, 2023</CardDescription> */}
           <CardDescription>
@@ -143,7 +140,7 @@ export default async function Page({ params }: ParamsType) {
           </CardDescription>
         </div>
         <div className="ml-auto flex items-center gap-1">
-          <Button size="sm" variant="outline" className="h-8 gap-1">
+          {/* <Button size="sm" variant="outline" className="h-8 gap-1">
             <FaFilePdf className="h-3.5 w-3.5" />
             <span
               className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap"
@@ -151,13 +148,13 @@ export default async function Page({ params }: ParamsType) {
             >
               Generate PDF
             </span>
-          </Button>
+          </Button> */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button size="icon" variant="outline" className="h-8 w-8">
+              {/* <Button size="icon" variant="outline" className="h-8 w-8">
                 <MoreVertical className="h-3.5 w-3.5" />
                 <span className="sr-only">More</span>
-              </Button>
+              </Button> */}
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem>Edit</DropdownMenuItem>
@@ -173,7 +170,7 @@ export default async function Page({ params }: ParamsType) {
           <div className="font-semibold">Order Details</div>
           <ul className="grid gap-3">
             {order?.OrderedProduct.map((item) => (
-              <li className="flex items-center justify-between">
+              <li key={item.id} className="flex items-center justify-between">
                 <span className="text-muted-foreground">
                   {item.product.name} x <span>{item.quantity}</span>
                 </span>
@@ -250,8 +247,8 @@ export default async function Page({ params }: ParamsType) {
             </div> */}
           </dl>
         </div>
-        <Separator className="my-4" />
-        <div className="grid gap-3">
+        {/* <Separator className="my-4" /> */}
+        {/* <div className="grid gap-3">
           <div className="font-semibold">Payment Information</div>
           <dl className="grid gap-3">
             <div className="flex items-center justify-between">
@@ -262,13 +259,13 @@ export default async function Page({ params }: ParamsType) {
               <dd>**** **** **** 4532</dd>
             </div>
           </dl>
-        </div>
+        </div> */}
       </CardContent>
       <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
         <div className="text-xs text-muted-foreground">
-          Updated <time dateTime="2023-11-23">November 23, 2023</time>
+          {/* Updated <time dateTime="2023-11-23">November 23, 2023</time> */}
         </div>
-        <Pagination className="ml-auto mr-0 w-auto">
+        {/* <Pagination className="ml-auto mr-0 w-auto">
           <PaginationContent>
             <PaginationItem>
               <Button size="icon" variant="outline" className="h-6 w-6">
@@ -283,7 +280,7 @@ export default async function Page({ params }: ParamsType) {
               </Button>
             </PaginationItem>
           </PaginationContent>
-        </Pagination>
+        </Pagination> */}
       </CardFooter>
     </Card>
   );

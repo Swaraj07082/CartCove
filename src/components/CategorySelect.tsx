@@ -25,11 +25,11 @@ export function CategorySelect({ category, setcategory }: CategorySelectProps) {
       }}
     >
       <SelectTrigger className="w-full mb-3">
-        <SelectValue placeholder="Select a fruit" />
+        <SelectValue placeholder="Select a category" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Fruits</SelectLabel>
+          <SelectLabel>Categories</SelectLabel>
           {products.map((product) => (
             <SelectItem key={product.id} value={product.category}>
               {product.category}

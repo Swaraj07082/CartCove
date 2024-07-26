@@ -28,7 +28,14 @@ interface SheetProps {
   category: string;
   setcategory: React.Dispatch<React.SetStateAction<string>>;
 }
-export function SheetDemo({ value, setvalue, sort, setsort , category , setcategory }: SheetProps) {
+export function SheetDemo({
+  value,
+  setvalue,
+  sort,
+  setsort,
+  category,
+  setcategory,
+}: SheetProps) {
   // const [value, setvalue] = useState("10000");
 
   return (
@@ -75,7 +82,7 @@ export function SheetDemo({ value, setvalue, sort, setsort , category , setcateg
                 setvalue(e.target.value)
             }} className="col-span-3" /> */}
 
-            <CategorySelect  category={category} setcategory={setcategory}/>
+            <CategorySelect category={category} setcategory={setcategory} />
           </div>
           {/* <Button type="submit">Save changes</Button> */}
         </div>

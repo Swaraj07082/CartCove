@@ -83,7 +83,7 @@ export function EditDialog({ id, products }: props) {
         price: productedtobeedited.price,
         url: productedtobeedited.url,
         stock: productedtobeedited.stock,
-        category: productedtobeedited.category,
+        // category: productedtobeedited.category,
       });
     }
   }, [productedtobeedited, form]);
@@ -192,7 +192,9 @@ export function EditDialog({ id, products }: props) {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a category" />
+                        <SelectValue
+                          placeholder={`${productedtobeedited?.category}`}
+                        />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>

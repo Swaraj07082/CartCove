@@ -62,12 +62,12 @@ export default function Page() {
         <p>Tax : Rs.{Tax}</p>
         <p>Discount : Rs.{Discount}</p>
         <p>Total : Rs.{Total}</p>
-
+        {/* 
         <Input
           type="text"
           placeholder="Coupon code..."
           className=" w-64 max-sm:w-fit"
-        />
+        /> */}
 
         <Link href={"/shipping"}>
           <Button className=" w-64 button max-sm:w-fit">Checkout</Button>
