@@ -116,7 +116,7 @@ export function EditSheet({ id, products }: props) {
   return (
     <Sheet modal={true}>
       <SheetTrigger asChild>
-        <Button variant="outline">Open popover</Button>
+        <Button variant="outline">Edit</Button>
       </SheetTrigger>
       <SheetContent className="w-80">
         <Form {...form}>

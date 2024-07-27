@@ -83,7 +83,7 @@ export default function DialogDemo() {
 
   return (
     <Form {...form}>
-      <Dialog defaultOpen = {false}>
+      <Dialog defaultOpen={false}>
         <DialogTrigger asChild>
           <Button size="sm" className="h-8 gap-1">
             <PlusCircle className="h-3.5 w-3.5" />
@@ -182,6 +182,7 @@ export default function DialogDemo() {
                       <SelectItem value="Fashion">Fashion</SelectItem>
                       <SelectItem value="Furniture">Furniture</SelectItem>
                       <SelectItem value="Shoes">Shoes</SelectItem>
+                      <SelectItem value="Health">Health</SelectItem>
                     </SelectContent>
                   </Select>
 

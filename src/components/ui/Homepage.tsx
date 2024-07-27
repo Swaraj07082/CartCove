@@ -52,11 +52,11 @@ export default function Homepage() {
   console.log(session);
   return (
     <div className=" mx-24 flex flex-col gap-y-10 mt-10 max-md:mx-10">
-      <div className=" w-full h-64">
+      <div className=" w-full h-64 ">
         <Image
           src={cameraimage}
           alt=""
-          className=" h-full w-full object-cover"
+          className=" h-full w-full object-cover rounded-lg shadow-lg"
         />
       </div>
 
@@ -78,7 +78,7 @@ export default function Homepage() {
               key={product.id}
               className=" h-fit w-fit flex flex-col  items-center gap-y-1 mt-8  mb-10"
             >
-              <div className=" relative overflow-hidden h-60 w-60 max-md:h-40 max-md:w-40">
+              <div className="  transition-transform duration-300 ease-in-out rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2  relative overflow-hidden h-60 w-60 max-md:h-40 max-md:w-40">
                 <Image
                   src={product.url}
                   alt=""
@@ -86,11 +86,11 @@ export default function Homepage() {
                   fill
                 />
               </div>
-              <div className=" text-xl font-semibold mt-1 max-md:text-[12px]">
+              <div className=" text-xl font-semibold mt-2 max-md:text-[12px]">
                 {product.name}
               </div>
               <div className="text-xl  font-semibold max-md:text-[12px]">
-                {product.price}
+                ${product.price}
               </div>
               <Button
                 className=" w-full mt-1 button max-md:text-[12px] max-md:w-fit"
@@ -111,6 +111,33 @@ export default function Homepage() {
                 Add to Cart
               </Button>
             </div>
+
+            // <div
+            //   key={product.id}
+            //   className="relative overflow-hidden transition-transform duration-300 ease-in-out rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2 max-w-sm "
+            // >
+            //   <Link href="#" className="absolute inset-0 z-10" prefetch={false}>
+            //     <span className="sr-only">View Product</span>
+            //   </Link>
+            //   <Image
+            //     src={product.url}
+            //     alt="Product Image"
+            //     // width={500}
+            //     // height={400}
+            //     fill
+            //     className="object-cover h-44 w-full "
+            //   />
+            //   <div className="p-4 bg-background">
+            //     <h3 className="text-xl font-bold">{product.name}</h3>
+            //     {/* <p className="text-sm text-muted-foreground mb-4">
+            //     A sleek and modern desk lamp to brighten up your workspace.
+            //   </p> */}
+            //     <div className="flex items-center justify-between">
+            //       <h4 className="text-lg font-semibold">${product.price}</h4>
+            //       <Button variant="outline">Add to Cart</Button>
+            //     </div>
+            //   </div>
+            // </div>
           ))}
         </div>
       </div>

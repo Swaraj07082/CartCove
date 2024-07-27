@@ -15,6 +15,7 @@ import { SortSelect } from "./GenericSelect";
 import { useState } from "react";
 import { SortType } from "@/app/search/page";
 import { CategorySelect } from "./CategorySelect";
+import { FilterIcon } from "lucide-react";
 
 const filters = [1, 2];
 
@@ -41,7 +42,10 @@ export function SheetDemo({
   return (
     <Sheet>
       <SheetTrigger className=" " asChild>
-        <Button variant="outline">Filters</Button>
+        <Button variant="outline">
+          <FilterIcon className="h-5 w-5 mr-2" />
+          Filters
+        </Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>

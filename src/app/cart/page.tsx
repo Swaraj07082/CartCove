@@ -34,14 +34,14 @@ export default function Page() {
     ShippingCharges = 200;
   }
   var Tax = Math.round(Subtotal * 0.18);
-  var Discount = 400;
-  var Total = Subtotal + ShippingCharges + Tax;
+  var Discount = Subtotal / 10;
+  var Total = Subtotal + ShippingCharges + Tax - Discount;
 
   // const [quantity, setquantity] = useState<number>(1);
   // console.log(count);
 
   return (
-    <div className="flex  h-screen  mx-6 max-md:items-center max-md:gap-y-20  max-md:flex-col  mt-10">
+    <div className="flex h-screen  mx-6 max-md:items-center max-md:gap-y-20  max-md:flex-col  mt-10">
       <div className="flex-[2.5] h-full  solid max-md:overflow-y-auto ">
         {items.map((cartitem) => (
           <Cartitem

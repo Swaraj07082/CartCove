@@ -14,10 +14,15 @@ import shoppingcarticon from "../../public/shopping-cart-line.svg";
 import usericon from "../../public/user-line.svg";
 import { ModeToggle } from "./ModeToggle";
 import NavbarSheet from "./NavbarSheet";
+import whitehomeicon from "../../public/white-home-2-line.svg";
+import whitesearchicon from "../../public/white-search-2-line.svg";
+import whitecarticon from "../../public/white-shopping-cart-line.svg";
+import whiteusericon from "../../public/white-user-line.svg";
 
 export default function Navbar() {
   const { theme } = useTheme();
-  // console.log(theme);
+
+  console.log(theme);
 
   //   The useState and useRef hooks in React serve different purposes and have distinct characteristics, making them suitable for different scenarios. Here’s a detailed comparison to illustrate why useState is used in certain cases and useRef in others:
 
@@ -128,7 +133,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="flex    justify-between bg-white text-black items-center px-10 max-md:px-3 py-3 shadow-md ">
+      <div className="flex    justify-between  items-center px-10 max-md:px-3 py-3 shadow-md ">
         {/* if we need to use fixed with justify we need to specify left and right */}
         <ul className=" flex gap-x-12 p-5  max-md:gap-x-6 max-[375px]:gap-x-3 ">
           {/* <Image
@@ -164,7 +169,7 @@ export default function Navbar() {
           <Link href={"/"}>
             <Image
               className="nav-1 pt-2 hover:scale-125  max-md:hidden"
-              src={homeicon}
+              src={theme == "light" ? homeicon : whitehomeicon}
               height={20}
               width={20}
               alt=""
@@ -173,7 +178,7 @@ export default function Navbar() {
           <Link href={"/search"}>
             <Image
               className="nav-1 pt-2 hover:scale-125  max-md:hidden"
-              src={searchicon}
+              src={theme == "light" ? searchicon : whitesearchicon}
               height={20}
               width={20}
               alt=""
@@ -182,7 +187,7 @@ export default function Navbar() {
           <Link href={"/cart"}>
             <Image
               className="nav-1 pt-2 hover:scale-125  max-md:hidden"
-              src={shoppingcarticon}
+              src={theme == "light" ? shoppingcarticon : whitecarticon}
               height={20}
               width={20}
               alt=""
@@ -191,7 +196,7 @@ export default function Navbar() {
           <Link href={"/dashboard"}>
             <Image
               className="nav-1 pt-2 hover:scale-125  max-md:hidden"
-              src={usericon}
+              src={theme == "light" ? usericon : whiteusericon}
               height={20}
               width={20}
               alt=""

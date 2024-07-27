@@ -13,6 +13,7 @@ import {
   removeCartItem,
   updateCartItemQuantity,
 } from "@/app/features/cart/cartSlice";
+import { toast } from "./ui/use-toast";
 
 interface ItemType {
   id: string;
@@ -57,13 +58,13 @@ CartitemProps) {
   const existingCartItem = cartItems.find((item) => item.id === id);
   return (
     <>
-      <div className="flex justify-between max-md:items-center max-lg:flex-col max-lg:gap-y-10 max-sm:gap-y-5 max-lg:items-start px-10 pt-10 max-[1100px]:gap-x-20 max-[1100px]:px-2  pb-6">
-        <div className="flex max-md:flex-col max-md:items-center  ">
-          <div className=" border-red-50 border max-sm:w-20 max-sm:h-20  w-32 h-32  relative overflow-hidden solid">
+      <div className="flex justify-between max-md:items-center max-lg:flex-col max-lg:gap-y-10 max-sm:gap-y-5 max-lg:items-start px-10 pt-10 max-[1100px]:gap-x-20 max-[1100px]:px-2  pb-6 rounded-lg shadow-md transition-transform duration-300 ease-in-out  group hover:shadow-xl hover:-translate-y-2 ">
+        <div className="flex max-md:flex-col max-md:items-center    ">
+          <div className=" border-red-50 border max-sm:w-20 max-sm:h-20  w-32 h-32  relative overflow-hidden solid ">
             <Image
               src={photo}
               fill
-              className=" object-cover absolute "
+              className=" object-cover absolute rounded-md "
               alt=""
             />
           </div>
@@ -124,6 +125,10 @@ CartitemProps) {
                   id: id,
                 })
               );
+
+              toast({
+                title: "Item removed from the cart",
+              });
             }}
           />
         </div>

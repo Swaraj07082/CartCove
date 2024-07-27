@@ -225,7 +225,7 @@ export default function Page() {
                 key={product.id}
                 className=" h-fit w-fit flex flex-col  items-center gap-y-1 mt-8  mb-10"
               >
-                <div className="relative overflow-hidden h-60 w-60  max-md:h-40 max-md:w-40">
+                <div className="  transition-transform duration-300 ease-in-out rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2  relative overflow-hidden h-60 w-60 max-md:h-40 max-md:w-40">
                   <Image
                     src={product.url}
                     alt=""
@@ -237,7 +237,7 @@ export default function Page() {
                   {product.name}
                 </div>
                 <div className="text-xl  font-semibold max-md:text-[12px]">
-                  {product.price}
+                  ${product.price}
                 </div>
                 <Button
                   className=" w-full mt-1 button"

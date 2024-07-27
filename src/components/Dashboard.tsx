@@ -109,10 +109,10 @@ export function Dashboard({
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{totalRevenue}</div>
-              <p className="text-xs text-muted-foreground">
+              <div className="text-2xl font-bold">${totalRevenue}</div>
+              {/* <p className="text-xs text-muted-foreground">
                 +20.1% from last month
-              </p>
+              </p> */}
             </CardContent>
           </Card>
           <Card x-chunk="dashboard-01-chunk-1">
@@ -122,9 +122,9 @@ export function Dashboard({
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{users}</div>
-              <p className="text-xs text-muted-foreground">
+              {/* <p className="text-xs text-muted-foreground">
                 +180.1% from last month
-              </p>
+              </p> */}
             </CardContent>
           </Card>
           <Card x-chunk="dashboard-01-chunk-2">
@@ -136,9 +136,9 @@ export function Dashboard({
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{orders}</div>
-              <p className="text-xs text-muted-foreground">
+              {/* <p className="text-xs text-muted-foreground">
                 +19% from last month
-              </p>
+              </p> */}
             </CardContent>
           </Card>
           <Card x-chunk="dashboard-01-chunk-3">

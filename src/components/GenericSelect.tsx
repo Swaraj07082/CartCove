@@ -21,9 +21,10 @@ export function SortSelect({ sort, setsort }: SortSelectProps) {
   console.log(sort);
   return (
     <Select
-      value={sort}
+      value={sort.toString()}
       onValueChange={(value) => {
-        setsort(value.replace(/\s+/g, "").toLowerCase());
+        const new_val = value.replace(/\s+/g, "").toLowerCase();
+        setsort(new_val);
       }}
     >
       {/* onvaluechange gives value as a parameter , thats why did not use e.target.value */}
@@ -35,7 +36,7 @@ export function SortSelect({ sort, setsort }: SortSelectProps) {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel className="text-black">Sort by</SelectLabel>
+          <SelectLabel>Sort by</SelectLabel>
           {Sort.map((list) => (
             <SelectItem key={list.sortid} value={list.text}>
               {list.text}

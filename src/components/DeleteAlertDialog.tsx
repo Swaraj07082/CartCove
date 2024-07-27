@@ -29,7 +29,7 @@ export function DeleteAlertDialog({ id, setproducts, products }: Props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Show Dialog</Button>
+        <Button variant="outline">Delete</Button>
       </AlertDialogTrigger>
       <AlertDialogContent className=" max-sm:w-48">
         <AlertDialogHeader>
@@ -49,7 +49,7 @@ export function DeleteAlertDialog({ id, setproducts, products }: Props) {
               Delete(id);
             }}
           >
-            Continue
+            Delete
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

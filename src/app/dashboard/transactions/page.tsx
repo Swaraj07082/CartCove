@@ -30,7 +30,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ProductType } from "../product/page";
-import { EditDialog } from "@/components/EditSheet";
+
 import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
 import Link from "next/link";
 import { DashboardSheet } from "@/components/DashboardSheet";
@@ -217,7 +217,7 @@ export default function Transactions() {
                 </CardContent>
                 <CardFooter>
                   <div className="text-xs text-muted-foreground">
-                    Showing <strong>1-10</strong> of <strong>32</strong> orders
+                    Showing all transactions
                   </div>
                 </CardFooter>
               </Card>

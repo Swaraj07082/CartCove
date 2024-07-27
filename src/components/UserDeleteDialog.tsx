@@ -31,7 +31,7 @@ export function UserDeleteDialog({ id, users, setusers }: props) {
     <>
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button variant="outline">Show Dialog</Button>
+          <Button variant="outline">Delete</Button>
         </AlertDialogTrigger>
         <AlertDialogContent className=" max-sm:w-48">
           <AlertDialogHeader>
@@ -51,7 +51,7 @@ export function UserDeleteDialog({ id, users, setusers }: props) {
                 Delete(id);
               }}
             >
-              Continue
+              Delete
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

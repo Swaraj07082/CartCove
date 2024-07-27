@@ -73,8 +73,8 @@ export default async function Page({ params }: ParamsType) {
     ShippingCharges = 200;
   }
   var Tax = Math.round(subtotal * 0.18);
-  var Discount = 400;
-  var Total = subtotal + ShippingCharges + Tax;
+  var Discount = subtotal / 10;
+  var Total = subtotal + ShippingCharges + Tax - Discount;
 
   const MonthNumber = order?.createdAt.getMonth();
   var Month;
