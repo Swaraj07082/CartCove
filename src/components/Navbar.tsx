@@ -97,39 +97,39 @@ export default function Navbar() {
   // Use useState when you need to manage state that affects the rendering of the component.
   // Use useRef for values that need to persist across renders but do not influence the UI or cause re-renders.
 
-  // const tl = useRef(gsap.timeline({ paused: true }));
+  const tl = useRef(gsap.timeline({ paused: true }));
 
-  // useGSAP(() => {
-  //   gsap.from(".nav-1", {
-  //     opacity: 0,
-  //     y: 50,
-  //     delay: 0.2,
-  //     stagger: 0.15,
-  //     ease: "bounce.out",
-  //   });
+  useGSAP(() => {
+    gsap.from(".nav-1", {
+      opacity: 0,
+      y: 50,
+      delay: 0.2,
+      stagger: 0.15,
+      ease: "bounce.out",
+    });
 
-  //   tl.current.to(".main", {
-  //     left: 0,
-  //     delay: 0.5,
-  //     duration: 0.4,
-  //   });
+    tl.current.to(".main", {
+      left: 0,
+      delay: 0.5,
+      duration: 0.4,
+    });
 
-  //   tl.current.from(".togglemenu", {
-  //     x: -100,
-  //     opacity: 0,
-  //     duration: 0.4,
-  //     stagger: 0.3,
-  //     ease: "back.out",
-  //   });
+    tl.current.from(".togglemenu", {
+      x: -100,
+      opacity: 0,
+      duration: 0.4,
+      stagger: 0.3,
+      ease: "back.out",
+    });
 
-  //   tl.current.from(".loginicon", {
-  //     x: -100,
-  //     opacity: 0,
-  //     duration: 0.4,
-  //     stagger: 0.3,
-  //     ease: "elastic.out",
-  //   });
-  // }, [tl]);
+    tl.current.from(".loginicon", {
+      x: -100,
+      opacity: 0,
+      duration: 0.4,
+      stagger: 0.3,
+      ease: "elastic.out",
+    });
+  }, [tl]);
 
   return (
     <>
