@@ -56,49 +56,49 @@ export default function Homepage() {
   const session = useSession();
   console.log(session);
 
-  useGSAP(() => {
-    gsap.from(".mainimage ", {
-      x: -600,
-      opacity: 0,
-      duration: 1.5,
-      delay: 1,
-      ease: "bounce.out",
-    });
+  // useGSAP(() => {
+  //   gsap.from(".mainimage ", {
+  //     x: -600,
+  //     opacity: 0,
+  //     duration: 1.5,
+  //     delay: 1,
+  //     ease: "bounce.out",
+  //   });
 
-    gsap.from(".latestproducts ", {
-      x: -600,
-      opacity: 0,
-      duration: 1.5,
-      delay: 1,
-      ease: "bounce.out",
-    });
-    gsap.from(".more", {
-      x: -600,
-      opacity: 0,
-      duration: 1.5,
-      delay: 1,
-      ease: "bounce.out",
-    });
+  //   gsap.from(".latestproducts ", {
+  //     x: -600,
+  //     opacity: 0,
+  //     duration: 1.5,
+  //     delay: 1,
+  //     ease: "bounce.out",
+  //   });
+  //   gsap.from(".more", {
+  //     x: -600,
+  //     opacity: 0,
+  //     duration: 1.5,
+  //     delay: 1,
+  //     ease: "bounce.out",
+  //   });
 
-    gsap.from(".productimage", {
-      // scale: 0,
-      // rotate: 90,
-      x: 1500,
-      delay: 1,
-      duration: 3.5,
-      stagger: 0.2,
-      ease: 'power2.out',
-      scrollTrigger: {
-          trigger: ".container",
-        scroller: "body",
-        markers: true,
-        start: "top 55%",
-        end: "top -55%",
-        scrub: 3,
-        // pin:true
-      },
-    });
-  });
+  //   gsap.from(".productimage", {
+  //     // scale: 0,
+  //     // rotate: 90,
+  //     x: 1500,
+  //     delay: 0.5,
+  //     duration: 2,
+  //     stagger: 0.2,
+  //     ease: "power2.out",
+  //     scrollTrigger: {
+  //       trigger: ".container",
+  //       scroller: "body",
+  //       markers: true,
+  //       start: "top 55%",
+  //       end: "top -1%",
+  //       scrub: 2,
+  //       // pin:true
+  //     },
+  //   });
+  // });
   return (
     <div className=" mx-24 flex flex-col gap-y-10 mt-10 max-md:mx-10">
       <div className=" w-full h-64 ">
@@ -121,73 +121,55 @@ export default function Homepage() {
           </Link>
         </div>
 
-        <div className="container grid grid-cols-4 place-items-center max-[1370px]:grid-cols-3 max-[1080px]:grid-cols-2 max-md:grid-cols-3 max-[731px]:grid-cols-2 max-[425px]:grid-cols-1 ">
+        <div className="mt-5 container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {dummyproducts.map((product) => (
             <div
               key={product.id}
-              className="productimage h-fit w-fit flex flex-col  items-center gap-y-1 mt-8  mb-10"
+              className="productimage bg-white rounded-lg shadow-md overflow-hidden"
             >
-              <div className="  transition-transform duration-300 ease-in-out rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2  relative overflow-hidden h-60 w-60 max-md:h-40 max-md:w-40">
-                <Image
-                  src={product.url}
-                  alt=""
-                  className=" h-full w-full object-cover "
-                  fill
-                />
-              </div>
-              <div className=" text-xl font-semibold mt-2 max-md:text-[12px]">
-                {product.name}
-              </div>
-              <div className="text-xl  font-semibold max-md:text-[12px]">
-                ${product.price}
-              </div>
-              <Button
-                className=" w-full mt-1 button max-md:text-[12px] max-md:w-fit"
-                onClick={() => {
-                  // setquantity(quantity + 1);
-                  addCartItemhandler(
-                    String(product.id),
-                    product.name,
-                    product.price,
-                    quantity
-                  );
-                  toast({
-                    title: "Item Added to Cart",
-                  });
-                  // handleQuantityChange(product.id, quantity);
-                }}
-              >
-                Add to Cart
-              </Button>
-            </div>
+              <Image
+                src={product.url}
+                alt={product.name}
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-bold mb-2">{product.name}</h3>
+                {/* <p className="text-gray-500 mb-4">{product.}</p> */}
+                <div className="flex justify-between items-center">
+                  <span className="text-primary font-bold">
+                    ${product.price}
+                  </span>
+                  <Button
+                    size="sm"
+                    onClick={() => {
+                      addCartItemhandler(
+                        String(product.id),
+                        product.name,
+                        product.price,
+                        quantity
+                      );
 
-            // <div
-            //   key={product.id}
-            //   className="relative overflow-hidden transition-transform duration-300 ease-in-out rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2 max-w-sm "
-            // >
-            //   <Link href="#" className="absolute inset-0 z-10" prefetch={false}>
-            //     <span className="sr-only">View Product</span>
-            //   </Link>
-            //   <Image
-            //     src={product.url}
-            //     alt="Product Image"
-            //     // width={500}
-            //     // height={400}
-            //     fill
-            //     className="object-cover h-44 w-full "
-            //   />
-            //   <div className="p-4 bg-background">
-            //     <h3 className="text-xl font-bold">{product.name}</h3>
-            //     {/* <p className="text-sm text-muted-foreground mb-4">
-            //     A sleek and modern desk lamp to brighten up your workspace.
-            //   </p> */}
-            //     <div className="flex items-center justify-between">
-            //       <h4 className="text-lg font-semibold">${product.price}</h4>
-            //       <Button variant="outline">Add to Cart</Button>
-            //     </div>
-            //   </div>
-            // </div>
+                      toast({
+                        title: "Item Added to Cart",
+                      });
+                    }}
+                  >
+                    Add to Cart
+                  </Button>
+                </div>
+              </div>
+            </div>
           ))}
+          {/* {filtereddata(product, query, value, sort, setsort, category).at(0) ==
+          null ? (
+            <>
+              <h1 className=" text-2xl ">NO ITEMS AVAILABLE</h1>
+            </>
+          ) : (
+            <></>
+          )} */}
         </div>
       </div>
     </div>

@@ -19,6 +19,15 @@ import { toast } from "@/components/ui/use-toast";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { FilterIcon } from "lucide-react";
+import { Label } from "@/components/ui/label";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -207,97 +216,67 @@ export default function Page() {
   // },[]);
   return (
     <>
-      {/* <div className="flex ">
-        <div className="flex items-center pt-20 flex-col gap-y-3 h-screen shadow-2xl flex-1">
-          <p>FILTERS</p>
-          <GenericSelect sizes={filters} />
-          <div>
-          Max Price : {value}
-          <Input
-            type="range"
-            min={1000}
-            max={500000}
+      <div className="container mx-auto py-8">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold">Products</h1>
+          <SheetDemo
             value={value}
-            onChange={(e) => {
-              setvalue(e.target.value);
-            }}
-            />
-            </div>
-          <GenericSelect sizes={category}/>
-        </div>
-
-        <div className=" h-screen flex-[5]"></div>
-      </div> */}
-
-      <div className=" flex flex-col p-20">
-        <div className="heading flex justify-start flex-col items-start gap-y-5  px-6">
-          <p className=" text-3xl">PRODUCTS</p>
-          <p className="text-3xl">
-            <SheetDemo
-              value={value}
-              setvalue={setvalue}
-              sort={sort}
-              setsort={setsort}
-              category={category}
-              setcategory={setcategory}
-            />
-          </p>
-          <Input
-            type="text"
-            placeholder="Search by name..."
-            className="w-full my-5 "
-            value={query}
-            onChange={(e) => {
-              setquery(e.target.value);
-            }}
+            setvalue={setvalue}
+            sort={sort}
+            setsort={setsort}
+            category={category}
+            setcategory={setcategory}
           />
         </div>
-        <div className="container2 grid grid-cols-4 justify-center items-center  max-[1370px]:grid-cols-3 max-[1080px]:grid-cols-2 max-md:grid-cols-3 max-[731px]:grid-cols-2 max-[510px]:grid-cols-1">
+        <div className="mb-6">
+          <Input
+            placeholder="Search products..."
+            value={query}
+            onChange={(e) => setquery(e.target.value)}
+            className="w-full"
+          />
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filtereddata(product, query, value, sort, setsort, category)?.map(
             (product) => (
               <div
                 key={product.id}
-                className="productimage2 h-fit w-fit flex flex-col  items-center gap-y-1 mt-8  mb-10"
+                className="bg-white rounded-lg shadow-md overflow-hidden"
               >
-                <div className="  transition-transform duration-300 ease-in-out rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2  relative overflow-hidden h-60 w-60 max-md:h-40 max-md:w-40">
-                  <Image
-                    src={product.url}
-                    alt=""
-                    fill
-                    className=" object-cover"
-                  />
-                </div>
-                <div className=" text-xl font-semibold mt-1 max-md:text-[12px]">
-                  {product.name}
-                </div>
-                <div className="text-xl  font-semibold max-md:text-[12px]">
-                  ${product.price}
-                </div>
-                <Button
-                  className=" w-full mt-1 button"
-                  onClick={() => {
-                    // setquantity(quantity + 1);
+                <Image
+                  src={product.url}
+                  alt={product.name}
+                  width={400}
+                  height={300}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-lg font-bold mb-2">{product.name}</h3>
+                  {/* <p className="text-gray-500 mb-4">{product.}</p> */}
+                  <div className="flex justify-between items-center">
+                    <span className="text-primary font-bold">
+                      ${product.price}
+                    </span>
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        addCartItemhandler(
+                          product.id,
+                          product.name,
+                          product.price,
+                          quantity
+                        );
 
-                    addCartItemhandler(
-                      product.id,
-                      product.name,
-                      product.price,
-                      quantity
-                    );
-                    // handleQuantityChange(product.id, quantity);
-                    toast({
-                      title: "Item Added to Cart",
-                    });
-                  }}
-                  disabled={product.stock === 0}
-                >
-                  {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
-                </Button>
-                {/* <Input
-                  type="number"
-                  defaultValue={1}
-                  onChange={(e) => setquantity(parseInt(e.target.value))}
-                /> */}
+                        toast({
+                          title: "Item Added to Cart",
+                        });
+                      }}
+                      disabled={product.stock === 0}
+                    >
+                      {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
+                    </Button>
+                  </div>
+                </div>
               </div>
             )
           )}
