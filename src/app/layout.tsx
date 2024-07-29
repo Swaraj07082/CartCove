@@ -10,12 +10,15 @@ import Sessionprovider from "@/components/Provider";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { Providers } from "./redux/providers";
+import { Poppins as FontSans } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const gothic_A1 = Gothic_A1({
-  weight: ["300"],
+
+const fontSans = FontSans({
   subsets: ["latin"],
+  variable: "--font-sans",
+  weight: ["500"],
 });
 
 export const metadata: Metadata = {
@@ -30,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={gothic_A1.className}>
+      <body className={fontSans.variable}>
         <Providers>
           <Sessionprovider>
             <ThemeProvider

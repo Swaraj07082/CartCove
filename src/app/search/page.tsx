@@ -16,6 +16,11 @@ import {
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { RootState } from "../redux/store";
 import { toast } from "@/components/ui/use-toast";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const Sort = [
   {
@@ -170,7 +175,36 @@ export default function Page() {
 
   // useSelector(state:=>state.cart)
 
-  // const [disable, setdisable] = useState<boolean>(false);
+  // const useState[disable, setdisable] = useState<boolean>(false);
+
+  // useGSAP(() => {
+  //   gsap.from(".heading", {
+  //     x: -600,
+  //     opacity: 0,
+  //     duration: 1.5,
+  //     delay: 1,
+  //     ease: "bounce.out",
+  //   });
+
+  //   gsap.from(".productimage2", {
+  //     // scale: 0,
+  //     // rotate: 90,
+  //     x: 1500,
+  //     delay: 1,
+  //     duration: 3.5,
+  //     stagger: 0.2,
+  //     ease: "power2.out",
+  //     scrollTrigger: {
+  //       trigger: ".container2",
+  //       scroller: "body",
+  //       markers: true,
+  //       start: "top 55%",
+  //       end: "top 15%",
+  //       scrub: 3,
+  //       // pin:true
+  //     },
+  //   });
+  // },[]);
   return (
     <>
       {/* <div className="flex ">
@@ -196,7 +230,7 @@ export default function Page() {
       </div> */}
 
       <div className=" flex flex-col p-20">
-        <div className="flex justify-start flex-col items-start gap-y-5  px-6">
+        <div className="heading flex justify-start flex-col items-start gap-y-5  px-6">
           <p className=" text-3xl">PRODUCTS</p>
           <p className="text-3xl">
             <SheetDemo
@@ -218,12 +252,12 @@ export default function Page() {
             }}
           />
         </div>
-        <div className="grid grid-cols-4 justify-center items-center  max-[1370px]:grid-cols-3 max-[1080px]:grid-cols-2 max-md:grid-cols-3 max-[731px]:grid-cols-2 max-[510px]:grid-cols-1">
+        <div className="container2 grid grid-cols-4 justify-center items-center  max-[1370px]:grid-cols-3 max-[1080px]:grid-cols-2 max-md:grid-cols-3 max-[731px]:grid-cols-2 max-[510px]:grid-cols-1">
           {filtereddata(product, query, value, sort, setsort, category)?.map(
             (product) => (
               <div
                 key={product.id}
-                className=" h-fit w-fit flex flex-col  items-center gap-y-1 mt-8  mb-10"
+                className="productimage2 h-fit w-fit flex flex-col  items-center gap-y-1 mt-8  mb-10"
               >
                 <div className="  transition-transform duration-300 ease-in-out rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2  relative overflow-hidden h-60 w-60 max-md:h-40 max-md:w-40">
                   <Image
