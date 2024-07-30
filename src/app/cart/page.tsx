@@ -41,8 +41,11 @@ export default function Page() {
   // console.log(count);
 
   return (
-    <div className="flex h-screen  mx-6 max-md:items-center max-md:gap-y-20  max-md:flex-col  mt-10">
-      <div className="flex-[2.5] h-full  solid max-md:overflow-y-auto ">
+    <div className="container mx-auto py-12">
+      <div className="flex items-center justify-center mb-4">
+        <h2 className="text-2xl font-bold">Cart</h2>
+      </div>
+      <div className="grid gap-6">
         {items.map((cartitem) => (
           <Cartitem
             key={cartitem.id}
@@ -50,27 +53,34 @@ export default function Page() {
             name={cartitem.name}
             price={cartitem.price}
             quantity={cartitem.quantity}
-
-            // items={items}
           />
         ))}
       </div>
-
-      <div className="flex-[1] max-sm:text-[15px] gap-y-1 flex flex-col pl-16  items-start justify-center">
-        <p>Subtotal : Rs.{Subtotal}</p>
-        <p>Shipping Charges : Rs.{ShippingCharges}</p>
-        <p>Tax : Rs.{Tax}</p>
-        <p>Discount : Rs.{Discount}</p>
-        <p>Total : Rs.{Total}</p>
-        {/* 
-        <Input
-          type="text"
-          placeholder="Coupon code..."
-          className=" w-64 max-sm:w-fit"
-        /> */}
-
+      <div className="mt-8 bg-background p-4 rounded-lg shadow-md">
+        <div className="grid gap-4">
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-bold">Subtotal</h3>
+            <span className="text-lg font-bold">Rs.{Subtotal}</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-bold">Shipping Charges</h3>
+            <span className="text-lg font-bold">Rs.{ShippingCharges}</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-bold">Tax</h3>
+            <span className="text-lg font-bold">Rs.{Tax}</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-bold">Discount</h3>
+            <span className="text-lg font-bold">-Rs.{Discount}</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-bold">Total</h3>
+            <span className="text-lg font-bold">Rs.{Total}</span>
+          </div>
+        </div>
         <Link href={"/shipping"}>
-          <Button className=" w-64 button max-sm:w-fit">Checkout</Button>
+          <Button className="w-full mt-4">Proceed to Checkout</Button>
         </Link>
       </div>
     </div>

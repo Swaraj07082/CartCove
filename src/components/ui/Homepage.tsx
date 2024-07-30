@@ -125,7 +125,7 @@ export default function Homepage() {
           {dummyproducts.map((product) => (
             <div
               key={product.id}
-              className="productimage bg-white rounded-lg shadow-md overflow-hidden"
+              className="productimage rounded-lg shadow-md overflow-hidden"
             >
               <Image
                 src={product.url}

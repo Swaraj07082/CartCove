@@ -241,7 +241,7 @@ export default function Page() {
             (product) => (
               <div
                 key={product.id}
-                className="bg-white rounded-lg shadow-md overflow-hidden"
+                className=" rounded-lg shadow-md overflow-hidden"
               >
                 <Image
                   src={product.url}

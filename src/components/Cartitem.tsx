@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import deletephoto from "../../public/delete-bin-7-fill.svg";
 import { number } from "zod";
 import { Card } from "./ui/card";
-import { Cross1Icon } from "@radix-ui/react-icons";
+import { Cross1Icon, MinusIcon, PlusIcon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/redux/store";
 import {
@@ -14,6 +14,7 @@ import {
   updateCartItemQuantity,
 } from "@/app/features/cart/cartSlice";
 import { toast } from "./ui/use-toast";
+import { Trash2Icon } from "lucide-react";
 
 interface ItemType {
   id: string;
@@ -58,67 +59,59 @@ CartitemProps) {
   const existingCartItem = cartItems.find((item) => item.id === id);
   return (
     <>
-      <div className="flex justify-between max-md:items-center max-lg:flex-col max-lg:gap-y-10 max-sm:gap-y-5 max-lg:items-start px-10 pt-10 max-[1100px]:gap-x-20 max-[1100px]:px-2  pb-6 rounded-lg shadow-md transition-transform duration-300 ease-in-out  group hover:shadow-xl hover:-translate-y-2 ">
-        <div className="flex max-md:flex-col max-md:items-center    ">
-          <div className=" border-red-50 border max-sm:w-20 max-sm:h-20  w-32 h-32  relative overflow-hidden solid ">
-            <Image
-              src={photo}
-              fill
-              className=" object-cover absolute rounded-md "
-              alt=""
-            />
-          </div>
-
-          <div className=" ml-10 flex flex-col justify-center max-md:pt-5  gap-y-3 items-center max-lg:text-center max-sm:text-[15px] ">
-            <p>{name}</p>
-            <p>{price}</p>
+      <div
+        // key={item.id}
+        className="flex items-center justify-between bg-background p-4 rounded-lg shadow-md"
+      >
+        <div className="flex items-center gap-4">
+          <Image
+            src={photo}
+            alt={name}
+            width={64}
+            height={64}
+            className="  rounded-md"
+          />
+          <div>
+            <h3 className="text-lg font-bold">{name}</h3>
+            <p className="text-muted-foreground">Rs.{price}</p>
           </div>
         </div>
-
-        <div className="  flex items-center   justify-center gap-x-5 max-md:ml-12">
-          <div className=" flex gap-x-3  justify-center items-center">
-            <Button
-              className="button max-sm:w-7 max-sm:h-7 "
-              onClick={() => {
-                setquantitycounter(quantitycounter - 1);
-                Dispatch(
-                  updateCartItemQuantity({
-                    id: id,
-                    quantity: existingCartItem?.quantity - 1,
-                  })
-                );
-              }}
-              disabled={disable}
-            >
-              -
-            </Button>
-            <p className=" max-sm:text-[15px]">{quantity}</p>
-            <Button
-              className="button max-sm:w-7 max-sm:h-7 "
-              onClick={() => {
-                setquantitycounter(quantitycounter + 1);
-                Dispatch(
-                  updateCartItemQuantity({
-                    id: id,
-                    quantity: existingCartItem.quantity + 1,
-                  })
-                );
-              }}
-            >
-              +
-            </Button>
-            {/* <div className="flex">
-              <Cross1Icon />
-              {quantity}{" "}
-            </div> */}
-          </div>
-
-          <Image
-            className="  hover:scale-125"
-            src={deletephoto}
-            alt=""
-            height={20}
-            width={20}
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => {
+              setquantitycounter(quantitycounter - 1);
+              Dispatch(
+                updateCartItemQuantity({
+                  id: id,
+                  quantity: existingCartItem?.quantity - 1,
+                })
+              );
+            }}
+            disabled={disable}
+          >
+            <MinusIcon className="h-4 w-4" />
+          </Button>
+          <span>{quantity}</span>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => {
+              setquantitycounter(quantitycounter + 1);
+              Dispatch(
+                updateCartItemQuantity({
+                  id: id,
+                  quantity: existingCartItem.quantity + 1,
+                })
+              );
+            }}
+          >
+            <PlusIcon className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
             onClick={() => {
               Dispatch(
                 removeCartItem({
@@ -130,7 +123,9 @@ CartitemProps) {
                 title: "Item removed from the cart",
               });
             }}
-          />
+          >
+            <Trash2Icon className="h-4 w-4" />
+          </Button>
         </div>
       </div>
     </>
