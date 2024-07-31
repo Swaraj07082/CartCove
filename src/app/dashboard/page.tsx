@@ -45,7 +45,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { EditDialog } from "@/components/EditSheet";
+// import { EditDialog } from "@/components/EditSheet";
 import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
 // import Link from "next/link";
 
@@ -197,7 +197,7 @@ export default function LoginForm() {
 
   return (
     <>
-      {email == "shravanithokade@gmail.com" ? (
+      {email == "shravanithokade@gmail.cm" ? (
         <>
           <Dashboard
             users={users}
@@ -337,12 +337,6 @@ export default function LoginForm() {
                           </TableBody>
                         </Table>
                       </CardContent>
-                      <CardFooter>
-                        <div className="text-xs text-muted-foreground">
-                          Showing <strong>1-10</strong> of <strong>32</strong>{" "}
-                          orders
-                        </div>
-                      </CardFooter>
                     </Card>
                   </TabsContent>
                 </Tabs>

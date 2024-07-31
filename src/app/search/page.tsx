@@ -241,7 +241,7 @@ export default function Page() {
             (product) => (
               <div
                 key={product.id}
-                className=" rounded-lg shadow-md overflow-hidden"
+                className=" transition-transform duration-300 ease-in-out rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2  overflow-hidden"
               >
                 <Image
                   src={product.url}

@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { PrismaClient } from "@prisma/client";
 import { Item } from "@radix-ui/react-dropdown-menu";
+import { toast } from "@/components/ui/use-toast";
 
 export default function Page() {
   const items = useSelector((state: RootState) => state.cart);
@@ -79,8 +80,10 @@ export default function Page() {
             <span className="text-lg font-bold">Rs.{Total}</span>
           </div>
         </div>
-        <Link href={"/shipping"}>
-          <Button className="w-full mt-4">Proceed to Checkout</Button>
+        <Link href={Total == 0 ? "/search" : "/shipping"}>
+          <Button className="w-full mt-4" disabled={Total == 0 ? true : false}>
+            {Total == 0 ? "Cart is Empty" : "Proceed to Checkout"}
+          </Button>
         </Link>
       </div>
     </div>

@@ -61,7 +61,7 @@ CartitemProps) {
     <>
       <div
         // key={item.id}
-        className="flex items-center justify-between bg-background p-4 rounded-lg shadow-md"
+        className=" flex items-center hover:-translate-y-2 transition-transform duration-300 ease-in-out justify-between rounded-lg shadow-lg bg-background p-4 "
       >
         <div className="flex items-center gap-4">
           <Image

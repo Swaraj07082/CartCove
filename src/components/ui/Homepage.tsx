@@ -121,11 +121,11 @@ export default function Homepage() {
           </Link>
         </div>
 
-        <div className="mt-5 container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="mt-5 container  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {dummyproducts.map((product) => (
             <div
               key={product.id}
-              className="productimage rounded-lg shadow-md overflow-hidden"
+              className="productimage transition-transform duration-300 ease-in-out rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2  hover:scale-105 overflow-hidden"
             >
               <Image
                 src={product.url}
