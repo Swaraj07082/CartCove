@@ -5,6 +5,7 @@ interface CartItem {
   name: string;
   price: number;
   quantity: number;
+  url : string
 }
 
 const items: CartItem[] =
@@ -37,6 +38,7 @@ export const cartSlice = createSlice({
         name: action.payload.name,
         price: action.payload.price,
         quantity: action.payload.quantity,
+        url : action.payload.url
         // payload itself is an object
       };
       state.cart.push(CartItem);

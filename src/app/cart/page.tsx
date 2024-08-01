@@ -54,6 +54,7 @@ export default function Page() {
             name={cartitem.name}
             price={cartitem.price}
             quantity={cartitem.quantity}
+            url = {cartitem.url}
           />
         ))}
       </div>

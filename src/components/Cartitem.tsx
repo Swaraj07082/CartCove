@@ -29,6 +29,7 @@ interface CartitemProps {
   price: number;
 
   quantity: number;
+  url: string;
 
   // items: ItemType[];
 }
@@ -37,6 +38,7 @@ export default function Cartitem({
   name,
   price,
   quantity,
+  url,
 }: // count,
 // setcount,
 // items,
@@ -65,7 +67,7 @@ CartitemProps) {
       >
         <div className="flex items-center gap-4">
           <Image
-            src={photo}
+            src={url}
             alt={name}
             width={64}
             height={64}
@@ -121,6 +123,7 @@ CartitemProps) {
 
               toast({
                 title: "Item removed from the cart",
+                duration: 1500,
               });
             }}
           >

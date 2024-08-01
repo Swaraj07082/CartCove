@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import cameraimage from "../../../public/camera.jpg";
 import { Button } from "./button";
 import dummyproducts from "../../../public/Dummyshoes.json";
@@ -17,6 +17,7 @@ import { ToastAction } from "./toast";
 import { useSession } from "next-auth/react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ProductType } from "@/app/dashboard/product/page";
 
 export default function Homepage() {
   gsap.registerPlugin(ScrollTrigger);
@@ -30,7 +31,8 @@ export default function Homepage() {
     id: string,
     name: string,
     price: number,
-    quantity: number
+    quantity: number,
+    url: string
   ) => {
     const existingCartItem = cartItems.find((item) => item.id === id);
 
@@ -48,6 +50,7 @@ export default function Homepage() {
           name: name,
           price: price,
           quantity: quantity,
+          url: url,
         })
       );
     }
@@ -99,6 +102,24 @@ export default function Homepage() {
   //     },
   //   });
   // });
+
+  const [product, setProduct] = useState<ProductType[]>([]);
+  const [loading, setloading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const getproducts = async () => {
+      const response = await fetch("/api/products");
+      const data = await response.json();
+
+      const { products } = data;
+      console.log(products);
+
+      setProduct(products);
+    };
+
+    getproducts();
+  }, []);
+
   return (
     <div className=" mx-24 flex flex-col gap-y-10 mt-10 max-md:mx-10">
       <div className=" w-full h-64 ">
@@ -122,7 +143,7 @@ export default function Homepage() {
         </div>
 
         <div className="mt-5 container  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {dummyproducts.map((product) => (
+          {product.map((product) => (
             <div
               key={product.id}
               className="productimage transition-transform duration-300 ease-in-out rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2  hover:scale-105 overflow-hidden"
@@ -148,15 +169,18 @@ export default function Homepage() {
                         String(product.id),
                         product.name,
                         product.price,
-                        quantity
+                        quantity,
+                        product.url
                       );
 
                       toast({
                         title: "Item Added to Cart",
+                        duration : 1500
                       });
                     }}
+                    disabled={product.stock === 0}
                   >
-                    Add to Cart
+                    {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
                   </Button>
                 </div>
               </div>

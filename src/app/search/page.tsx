@@ -159,7 +159,8 @@ export default function Page() {
     id: string,
     name: string,
     price: number,
-    quantity: number
+    quantity: number,
+    url: string
   ) => {
     const existingCartItem = cartItems.find((item) => item.id === id);
 
@@ -177,6 +178,7 @@ export default function Page() {
           name: name,
           price: price,
           quantity: quantity,
+          url: url,
         })
       );
     }
@@ -264,11 +266,13 @@ export default function Page() {
                           product.id,
                           product.name,
                           product.price,
-                          quantity
+                          quantity,
+                          product.url
                         );
 
                         toast({
                           title: "Item Added to Cart",
+                          duration : 1500
                         });
                       }}
                       disabled={product.stock === 0}
