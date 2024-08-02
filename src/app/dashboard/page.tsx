@@ -166,10 +166,7 @@ export default function DashboardPage() {
     }, 0);
   };
 
-  if (
-    email == "shravanithokade@gmail.com" &&
-    session.status == "authenticated"
-  ) {
+  if (email == process.env.ADMIN_URL && session.status == "authenticated") {
     return (
       <>
         <Dashboard
