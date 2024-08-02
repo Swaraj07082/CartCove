@@ -1,42 +1,20 @@
 "use client";
 import Link from "next/link";
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { getSession, useSession } from "next-auth/react";
 import { Dashboard, StockType } from "@/components/Dashboard";
-import { ProductType } from "./product/page";
+import { MoreHorizontal, PanelLeft, Search } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import { Search, MoreHorizontal, PanelLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Tabs, TabsContent } from "@/components/ui/tabs";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -44,12 +22,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-// import { EditDialog } from "@/components/EditSheet";
-import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
-// import Link from "next/link";
-
-import React from "react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 
 import {
   Table,
@@ -60,8 +34,8 @@ import {
   TableRow,
 } from "../../components/ui/table";
 import { OrderWithProducts } from "./transactions/page";
-// import { Button } from "../../components/ui/button";
-// import { Card } from "@/components/ui/card";
+import SignUpForm from "@/components/SignUpForm";
+import LoginForm from "@/components/LoginForm";
 
 const formSchema = z.object({
   username: z.string().min(3, {
@@ -86,7 +60,7 @@ const formSchema = z.object({
     }),
 });
 
-export default function LoginForm() {
+export default function DashboardPage() {
   const router = useRouter();
   const [eyeopen, seteyeopen] = useState<boolean>(false);
 
@@ -100,8 +74,6 @@ export default function LoginForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
 
     const response = await fetch("/api/users", {
@@ -127,7 +99,6 @@ export default function LoginForm() {
   const email = session?.data?.user?.email;
   console.log(email);
 
-  // GOT THE NO OF USERS FOR OUR DASHBOARD
   const [users, setusers] = useState<number>(0);
   const [orders, setorders] = useState<number>(0);
   const [products, setproducts] = useState<number>(0);
@@ -195,156 +166,146 @@ export default function LoginForm() {
     }, 0);
   };
 
-  return (
-    <>
-      {email == "shravanithokade@gmail.cm" ? (
-        <>
-          <Dashboard
-            users={users}
-            orders={orders}
-            products={products}
-            stocks={stocks}
-            totalRevenue={totalRevenue}
-          />
-        </>
-      ) : (
-        <>
-          <div className="flex min-h-screen w-full flex-col bg-muted/40">
-            <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
-              <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <Button size="icon" variant="outline" className="sm:hidden">
-                      <PanelLeft className="h-5 w-5" />
-                      <span className="sr-only">Toggle Menu</span>
-                    </Button>
-                  </SheetTrigger>
-                  <SheetContent
-                    side="left"
-                    className="sm:max-w-xs"
-                  ></SheetContent>
-                </Sheet>
-                {/* 
-        <Button size="sm" className="h-8 gap-1">
-          <PlusCircle className="h-3.5 w-3.5" />
-          <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            Add Product
-          </span>
-        </Button> */}
-                <div className="relative ml-auto flex-1 md:grow-0">
-                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="search"
-                    placeholder="Search by email..."
-                    className="w-full rounded-lg bg-background pl-8 sm:w-[300px] md:w-[200px] lg:w-[500px]"
-                    // value={query}
-                    // onChange={(e) => {
-                    // setQuery(e.target.value);
-                    // }}
-                  />
-                </div>
-              </header>
-              <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-                <Tabs defaultValue="all">
-                  <TabsContent value="all">
-                    <Card x-chunk="dashboard-06-chunk-0">
-                      <CardHeader className=" text-center">
-                        <CardTitle>TRANSACTIONS</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <Table>
-                          <TableHeader>
-                            <TableRow>
-                              <TableHead className="hidden w-[100px] sm:table-cell">
-                                <span className="sr-only">Image</span>
-                              </TableHead>
-                              <TableHead>OrderId</TableHead>
-                              {/* <TableHead>Status</TableHead> */}
-                              <TableHead className="hidden md:table-cell">
-                                Email
-                              </TableHead>
-                              <TableHead className="hidden md:table-cell">
-                                Amount
-                              </TableHead>
-                              <TableHead>
-                                <span className="sr-only">Actions</span>
-                              </TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {userOrders.map((order) => (
-                              <TableRow key={order.id}>
-                                <TableCell className="hidden sm:table-cell">
-                                  <Image
-                                    alt="Product image"
-                                    className="aspect-square rounded-md object-cover"
-                                    height="64"
-                                    src="/placeholder.svg"
-                                    width="64"
-                                  />
-                                </TableCell>
-                                <TableCell className="font-medium">
-                                  {order.id}
-                                </TableCell>
-                                <TableCell className="hidden md:table-cell">
-                                  {order.email}
-                                </TableCell>
-                                <TableCell className="hidden md:table-cell">
-                                  {/* {order.OrderedProduct.map((orderedProduct) => (
-                              <div key={orderedProduct.id}>
-                                {orderedProduct.product.name}:{" "}
-                                {orderedProduct.quantity} x $
-                                {orderedProduct.product.price} = $
-                                {orderedProduct.quantity *
-                                  orderedProduct.product.price}
-                              </div>
-                            ))} */}
-                                  {calculateSubtotal(order).toFixed(2)}
-                                </TableCell>
-                                <TableCell>
-                                  <DropdownMenu modal={false}>
-                                    <DropdownMenuTrigger asChild>
-                                      <Button
-                                        aria-haspopup="true"
-                                        size="icon"
-                                        variant="ghost"
-                                      >
-                                        <MoreHorizontal className="h-4 w-4" />
-                                        <span className="sr-only">
-                                          Toggle menu
-                                        </span>
-                                      </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent align="end">
-                                      <DropdownMenuLabel>
-                                        Actions
-                                      </DropdownMenuLabel>
+  if (
+    email == "shravanithokade@gmail.com" &&
+    session.status == "authenticated"
+  ) {
+    return (
+      <>
+        <Dashboard
+          users={users}
+          orders={orders}
+          products={products}
+          stocks={stocks}
+          totalRevenue={totalRevenue}
+        />
+      </>
+    );
+  } else if (session.status == "unauthenticated") {
+    return (
+      <>
+        <SignUpForm />
+      </>
+    );
+  } else
+    return (
+      <>
+        <div className="flex min-h-screen w-full flex-col bg-muted/40">
+          <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+            <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button size="icon" variant="outline" className="sm:hidden">
+                    <PanelLeft className="h-5 w-5" />
+                    <span className="sr-only">Toggle Menu</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent
+                  side="left"
+                  className="sm:max-w-xs"
+                ></SheetContent>
+              </Sheet>
 
-                                      <DropdownMenuItem
-                                        onSelect={(e) => e.preventDefault()}
+              <Button onClick={() => signOut()}>Logout</Button>
+              <div className="relative ml-auto flex-1 md:grow-0">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="Search by email..."
+                  className="w-full rounded-lg bg-background pl-8 sm:w-[300px] md:w-[200px] lg:w-[500px]"
+                />
+              </div>
+            </header>
+            <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+              <Tabs defaultValue="all">
+                <TabsContent value="all">
+                  <Card x-chunk="dashboard-06-chunk-0">
+                    <CardHeader className=" text-center">
+                      <CardTitle>TRANSACTIONS</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className="hidden w-[100px] sm:table-cell">
+                              <span className="sr-only">Image</span>
+                            </TableHead>
+                            <TableHead>OrderId</TableHead>
+                            {/* <TableHead>Status</TableHead> */}
+                            <TableHead className="hidden md:table-cell">
+                              Email
+                            </TableHead>
+                            <TableHead className="hidden md:table-cell">
+                              Amount
+                            </TableHead>
+                            <TableHead>
+                              <span className="sr-only">Actions</span>
+                            </TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {userOrders.map((order) => (
+                            <TableRow key={order.id}>
+                              <TableCell className="hidden sm:table-cell">
+                                <Image
+                                  alt="Product image"
+                                  className="aspect-square rounded-md object-cover"
+                                  height="64"
+                                  src="/placeholder.svg"
+                                  width="64"
+                                />
+                              </TableCell>
+                              <TableCell className="font-medium">
+                                {order.id}
+                              </TableCell>
+                              <TableCell className="hidden md:table-cell">
+                                {order.email}
+                              </TableCell>
+                              <TableCell className="hidden md:table-cell">
+                                {calculateSubtotal(order).toFixed(2)}
+                              </TableCell>
+                              <TableCell>
+                                <DropdownMenu modal={false}>
+                                  <DropdownMenuTrigger asChild>
+                                    <Button
+                                      aria-haspopup="true"
+                                      size="icon"
+                                      variant="ghost"
+                                    >
+                                      <MoreHorizontal className="h-4 w-4" />
+                                      <span className="sr-only">
+                                        Toggle menu
+                                      </span>
+                                    </Button>
+                                  </DropdownMenuTrigger>
+                                  <DropdownMenuContent align="end">
+                                    <DropdownMenuLabel>
+                                      Actions
+                                    </DropdownMenuLabel>
+
+                                    <DropdownMenuItem
+                                      onSelect={(e) => e.preventDefault()}
+                                    >
+                                      <Link
+                                        href={`dashboard/transactions/${order.id}`}
                                       >
-                                        <Link
-                                          href={`dashboard/transactions/${order.id}`}
-                                        >
-                                          View Details...
-                                        </Link>
-                                      </DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                  </DropdownMenu>
-                                </TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </CardContent>
-                    </Card>
-                  </TabsContent>
-                </Tabs>
-              </main>
-            </div>
+                                        View Details...
+                                      </Link>
+                                    </DropdownMenuItem>
+                                  </DropdownMenuContent>
+                                </DropdownMenu>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              </Tabs>
+            </main>
           </div>
-        </>
-      )}
-    </>
-  );
+        </div>
+      </>
+    );
 }

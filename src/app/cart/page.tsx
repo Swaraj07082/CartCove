@@ -1,34 +1,21 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import Cartitem from "@/components/Cartitem";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ShippingForm } from "@/components/ShippingForm";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { PrismaClient } from "@prisma/client";
-import { Item } from "@radix-ui/react-dropdown-menu";
-import { toast } from "@/components/ui/use-toast";
 
 export default function Page() {
   const items = useSelector((state: RootState) => state.cart);
-
-  console.log(items);
 
   var totalpricelist = items.map((product) => {
     return product.price * product.quantity;
   });
 
-  console.log(totalpricelist);
-
   const Subtotal = totalpricelist.reduce((accumulator, currentValue) => {
     return accumulator + currentValue;
   }, 0);
 
-  console.log(Subtotal);
-
-  // var Subtotal = 4000;
   if (Subtotal == 0) {
     var ShippingCharges = 0;
   } else {
@@ -37,9 +24,6 @@ export default function Page() {
   var Tax = Math.round(Subtotal * 0.18);
   var Discount = Subtotal / 10;
   var Total = Subtotal + ShippingCharges + Tax - Discount;
-
-  // const [quantity, setquantity] = useState<number>(1);
-  // console.log(count);
 
   return (
     <div className="container mx-auto py-12">
@@ -54,7 +38,7 @@ export default function Page() {
             name={cartitem.name}
             price={cartitem.price}
             quantity={cartitem.quantity}
-            url = {cartitem.url}
+            url={cartitem.url}
           />
         ))}
       </div>

@@ -17,7 +17,6 @@ interface SortSelectProps {
 }
 
 export function SortSelect({ sort, setsort }: SortSelectProps) {
-  // const [value, setvalue] = React.useState("");
   console.log(sort);
   return (
     <Select
@@ -27,12 +26,8 @@ export function SortSelect({ sort, setsort }: SortSelectProps) {
         setsort(new_val);
       }}
     >
-      {/* onvaluechange gives value as a parameter , thats why did not use e.target.value */}
       <SelectTrigger className="w-full mb-3">
-        <SelectValue
-          placeholder="Sort"
-          // className="placeholder:text-black"
-        />
+        <SelectValue placeholder="Sort" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
@@ -42,10 +37,6 @@ export function SortSelect({ sort, setsort }: SortSelectProps) {
               {list.text}
             </SelectItem>
           ))}
-          {/* <SelectItem value="banana">Banana</SelectItem>
-          <SelectItem value="blueberry">Blueberry</SelectItem>
-          <SelectItem value="grapes">Grapes</SelectItem>
-          <SelectItem value="pineapple">Pineapple</SelectItem> */}
         </SelectGroup>
       </SelectContent>
     </Select>

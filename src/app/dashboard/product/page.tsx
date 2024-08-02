@@ -1,32 +1,8 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
-import {
-  File,
-  Home,
-  LineChart,
-  ListFilter,
-  MoreHorizontal,
-  Package,
-  Package2,
-  PanelLeft,
-  PlusCircle,
-  Search,
-  Settings,
-  ShoppingCart,
-  Users2,
-} from "lucide-react";
-import { ToastAction } from "@/components/ui/toast";
-import { useToast } from "@/components/ui/use-toast";
-import { Badge } from "@/components/ui/badge";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import DialogDemo from "@/components/AddProductDialog";
+import { DashboardSheet } from "@/components/DashboardSheet";
+import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
+import { EditSheet } from "@/components/EditSheet";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -38,15 +14,12 @@ import {
 } from "@/components/ui/card";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   Table,
   TableBody,
@@ -55,18 +28,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { DashboardSheet } from "@/components/DashboardSheet";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { useToast } from "@/components/ui/use-toast";
+import { MoreHorizontal, Search } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
-import DialogDemo from "@/components/AddProductDialog";
-import AddProductDialog from "@/components/AddProductDialog";
-import {  EditSheet } from "@/components/EditSheet";
-import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
 
 export interface ProductType {
   id: string;
@@ -97,16 +63,6 @@ export default function Products() {
     getproducts();
   }, []);
 
-  // [products] in dependency cause
-
-  // async function Delete(id: string) {
-  //   const deleteproduct = await fetch(`/api/products?id=${id}`, {
-  //     method: "DELETE",
-  //   });
-
-  //   setproducts(products.filter((product) => product.id !== id));
-  // }
-
   const { toast } = useToast();
 
   const [id, setid] = useState("");
@@ -127,24 +83,7 @@ export default function Products() {
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
           <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-            {/* <Sheet>
-              <SheetTrigger asChild>
-                <Button size="icon" variant="outline" className="sm:hidden">
-                  <PanelLeft className="h-5 w-5" />
-                  <span className="sr-only">Toggle Menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="sm:max-w-xs"></SheetContent>
-            </Sheet> */}
-
             <DashboardSheet />
-
-            {/* <Button size="sm" className="h-8 gap-1">
-            <PlusCircle className="h-3.5 w-3.5" />
-            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-              Add Product
-            </span>
-          </Button> */}
 
             <DialogDemo />
 
@@ -179,7 +118,6 @@ export default function Products() {
                             <span className="sr-only">Image</span>
                           </TableHead>
                           <TableHead>Name</TableHead>
-                          {/* <TableHead>Status</TableHead> */}
                           <TableHead className="md:table-cell ">
                             Price
                           </TableHead>
@@ -237,14 +175,12 @@ export default function Products() {
                                     }}
                                   >
                                     <EditSheet id={id} products={products} />
-                                    {/* <DialogDemo/> */}
                                   </DropdownMenuItem>
 
                                   <DropdownMenuItem
                                     onSelect={(e) => e.preventDefault()}
                                     onClick={() => {
                                       setid(product.id);
-                                      // Delete(product.id);
                                     }}
                                   >
                                     <DeleteAlertDialog
@@ -263,8 +199,7 @@ export default function Products() {
                   </CardContent>
                   <CardFooter>
                     <div className="text-xs text-muted-foreground">
-                      Showing all{" "}
-                      products
+                      Showing all products
                     </div>
                   </CardFooter>
                 </Card>

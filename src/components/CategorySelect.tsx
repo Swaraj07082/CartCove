@@ -35,9 +35,6 @@ export function CategorySelect({ category, setcategory }: CategorySelectProps) {
               {product.category}
             </SelectItem>
           ))}
-          {/* <SelectItem key="3324fcd" value="All">
-            All
-          </SelectItem> */}
         </SelectGroup>
       </SelectContent>
     </Select>

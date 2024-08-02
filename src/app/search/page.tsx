@@ -1,33 +1,20 @@
 "use client";
 
-import products from "../../../public/Dummyshoes.json";
-
+import { SheetDemo } from "@/components/Sheet";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { toast } from "@/components/ui/use-toast";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { SheetDemo } from "@/components/Sheet";
-import { ProductType } from "../dashboard/product/page";
 import { useDispatch, useSelector } from "react-redux";
+import { ProductType } from "../dashboard/product/page";
 import {
   addCartItem,
   updateCartItemQuantity,
 } from "../features/cart/cartSlice";
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { RootState } from "../redux/store";
-import { toast } from "@/components/ui/use-toast";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { FilterIcon } from "lucide-react";
-import { Label } from "@/components/ui/label";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -51,17 +38,6 @@ export interface SortType {
   sortid: number;
   text: string;
 }
-
-const category = ["cat1", "cat2"];
-
-// interface ProductType {
-//   id: number;
-//   name: string;
-//   price: number;
-//   url: string;
-//   sizes: number[];
-//   category: string;
-// }
 
 const filtereddata = (
   products: ProductType[],
@@ -140,7 +116,6 @@ export default function Page() {
   const [category, setcategory] = useState<string>("");
   console.log(category);
 
-  // console.log(filtereddata(products, query, value, sort, setsort));
   const [quantity, setquantity] = useState<number>(1);
 
   const Dispatch = useDispatch();
@@ -184,38 +159,6 @@ export default function Page() {
     }
   };
 
-  // useSelector(state:=>state.cart)
-
-  // const useState[disable, setdisable] = useState<boolean>(false);
-
-  // useGSAP(() => {
-  //   gsap.from(".heading", {
-  //     x: -600,
-  //     opacity: 0,
-  //     duration: 1.5,
-  //     delay: 1,
-  //     ease: "bounce.out",
-  //   });
-
-  //   gsap.from(".productimage2", {
-  //     // scale: 0,
-  //     // rotate: 90,
-  //     x: 1500,
-  //     delay: 1,
-  //     duration: 3.5,
-  //     stagger: 0.2,
-  //     ease: "power2.out",
-  //     scrollTrigger: {
-  //       trigger: ".container2",
-  //       scroller: "body",
-  //       markers: true,
-  //       start: "top 55%",
-  //       end: "top 15%",
-  //       scrub: 3,
-  //       // pin:true
-  //     },
-  //   });
-  // },[]);
   return (
     <>
       <div className="container mx-auto py-8">
@@ -254,7 +197,6 @@ export default function Page() {
                 />
                 <div className="p-4">
                   <h3 className="text-lg font-bold mb-2">{product.name}</h3>
-                  {/* <p className="text-gray-500 mb-4">{product.}</p> */}
                   <div className="flex justify-between items-center">
                     <span className="text-primary font-bold">
                       ${product.price}
@@ -272,7 +214,7 @@ export default function Page() {
 
                         toast({
                           title: "Item Added to Cart",
-                          duration : 1500
+                          duration: 1500,
                         });
                       }}
                       disabled={product.stock === 0}

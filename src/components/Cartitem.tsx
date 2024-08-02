@@ -1,20 +1,16 @@
 "use client";
-import Image from "next/image";
-import photo from "../../public/camera.jpg";
-import { Button } from "./ui/button";
-import { useEffect, useState } from "react";
-import deletephoto from "../../public/delete-bin-7-fill.svg";
-import { number } from "zod";
-import { Card } from "./ui/card";
-import { Cross1Icon, MinusIcon, PlusIcon } from "@radix-ui/react-icons";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/app/redux/store";
 import {
   removeCartItem,
   updateCartItemQuantity,
 } from "@/app/features/cart/cartSlice";
-import { toast } from "./ui/use-toast";
+import { RootState } from "@/app/redux/store";
+import { MinusIcon, PlusIcon } from "@radix-ui/react-icons";
 import { Trash2Icon } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Button } from "./ui/button";
+import { toast } from "./ui/use-toast";
 
 interface ItemType {
   id: string;
@@ -30,8 +26,6 @@ interface CartitemProps {
 
   quantity: number;
   url: string;
-
-  // items: ItemType[];
 }
 export default function Cartitem({
   id,
@@ -39,18 +33,13 @@ export default function Cartitem({
   price,
   quantity,
   url,
-}: // count,
-// setcount,
-// items,
-CartitemProps) {
+}: CartitemProps) {
   const [disable, setdisabled] = useState<boolean>(false);
   const [quantitycounter, setquantitycounter] = useState<number>(quantity);
 
   useEffect(() => {
     quantitycounter === 1 ? setdisabled(true) : setdisabled(false);
   }, [quantitycounter]);
-
-  // console.log(items.quantity)
 
   const Dispatch = useDispatch();
 
@@ -61,10 +50,7 @@ CartitemProps) {
   const existingCartItem = cartItems.find((item) => item.id === id);
   return (
     <>
-      <div
-        // key={item.id}
-        className=" flex items-center hover:-translate-y-2 transition-transform duration-300 ease-in-out justify-between rounded-lg shadow-lg bg-background p-4 "
-      >
+      <div className=" flex items-center hover:-translate-y-2 transition-transform duration-300 ease-in-out justify-between rounded-lg shadow-lg bg-background p-4 ">
         <div className="flex items-center gap-4">
           <Image
             src={url}

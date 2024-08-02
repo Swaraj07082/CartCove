@@ -31,8 +31,6 @@ export const POST = async (req: NextRequest) => {
   try {
     const body = await req.json();
 
-    console.log(body);
-
     const { email, username, password } = formSchema.parse(body);
 
     const existingUserbyEmail = await db.user.findUnique({

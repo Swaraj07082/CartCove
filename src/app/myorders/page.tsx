@@ -1,12 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
-// import { Button } from "@/components/ui/button";
+import { MoreHorizontal, PanelLeft, Search } from "lucide-react";
 import Image from "next/image";
-import { Search, MoreHorizontal, PanelLeft } from "lucide-react";
 
-import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Tabs, TabsContent } from "@/components/ui/tabs";
+import {
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,19 +15,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 
-import { EditDialog } from "@/components/EditSheet";
-import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
-import Link from "next/link";
-
-import React from "react";
-
+import { Card } from "@/components/ui/card";
+import { Button } from "../../components/ui/button";
 import {
   Table,
   TableBody,
@@ -35,8 +29,6 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/table";
-import { Button } from "../../components/ui/button";
-import { Card } from "@/components/ui/card";
 
 export default function page() {
   return (
@@ -53,23 +45,13 @@ export default function page() {
               </SheetTrigger>
               <SheetContent side="left" className="sm:max-w-xs"></SheetContent>
             </Sheet>
-            {/* 
-        <Button size="sm" className="h-8 gap-1">
-          <PlusCircle className="h-3.5 w-3.5" />
-          <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            Add Product
-          </span>
-        </Button> */}
+
             <div className="relative ml-auto flex-1 md:grow-0">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 type="search"
                 placeholder="Search by email..."
                 className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[1250px]"
-                // value={query}
-                // onChange={(e) => {
-                // setQuery(e.target.value);
-                // }}
               />
             </div>
           </header>
@@ -88,7 +70,6 @@ export default function page() {
                             <span className="sr-only">Image</span>
                           </TableHead>
                           <TableHead>OrderId</TableHead>
-                          {/* <TableHead>Status</TableHead> */}
                           <TableHead className="hidden md:table-cell">
                             Email
                           </TableHead>
@@ -115,17 +96,7 @@ export default function page() {
                           <TableCell className="hidden md:table-cell">
                             email
                           </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            {/* {order.OrderedProduct.map((orderedProduct) => (
-                              <div key={orderedProduct.id}>
-                                {orderedProduct.product.name}:{" "}
-                                {orderedProduct.quantity} x $
-                                {orderedProduct.product.price} = $
-                                {orderedProduct.quantity *
-                                  orderedProduct.product.price}
-                              </div>
-                            ))} */}
-                          </TableCell>
+                          <TableCell className="hidden md:table-cell"></TableCell>
                           <TableCell>
                             <DropdownMenu modal={false}>
                               <DropdownMenuTrigger asChild>
@@ -144,9 +115,7 @@ export default function page() {
                                 <DropdownMenuItem
                                   onSelect={(e) => e.preventDefault()}
                                 >
-                                  {/* <Link href={`transactions/${order.id}`}> */}
                                   View Details...
-                                  {/* </Link> */}
                                 </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>

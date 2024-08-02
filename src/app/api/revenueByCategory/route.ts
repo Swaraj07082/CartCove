@@ -32,29 +32,24 @@ export const GET = async () => {
   console.log(fashion, electronics, furniture, shoes, health);
 
   const fashionRevenue = fashion.reduce((acc, product) => {
-    // Calculate revenue from sales for each product
     const productRevenue = product.price * product.sales;
     return acc + productRevenue;
   }, 0);
 
   const electronicsRevenue = electronics.reduce((acc, product) => {
-    // Calculate revenue from sales for each product
     const productRevenue = product.price * product.sales;
     return acc + productRevenue;
   }, 0);
 
   const furnitureRevenue = furniture.reduce((acc, product) => {
-    // Calculate revenue from sales for each product
     const productRevenue = product.price * product.sales;
     return acc + productRevenue;
   }, 0);
   const shoesRevenue = shoes.reduce((acc, product) => {
-    // Calculate revenue from sales for each product
     const productRevenue = product.price * product.sales;
     return acc + productRevenue;
   }, 0);
   const healthRevenue = health.reduce((acc, product) => {
-    // Calculate revenue from sales for each product
     const productRevenue = product.price * product.sales;
     return acc + productRevenue;
   }, 0);

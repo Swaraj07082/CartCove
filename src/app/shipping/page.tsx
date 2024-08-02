@@ -1,10 +1,10 @@
-import { ShippingForm } from '@/components/ShippingForm'
-import React from 'react'
+import { ShippingForm } from "@/components/ShippingForm";
+import React from "react";
 
 export default function page() {
   return (
     <>
-    <ShippingForm/>
+      <ShippingForm />
     </>
-  )
+  );
 }

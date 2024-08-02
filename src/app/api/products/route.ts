@@ -22,8 +22,6 @@ export const GET = async () => {
 export const POST = async (req: NextRequest) => {
   const body = await req.json();
 
-  console.log(body);
-
   const newproduct = await db.products.create({
     data: {
       name: body.name,
@@ -41,13 +39,8 @@ export const POST = async (req: NextRequest) => {
 
 export const DELETE = async (req: NextRequest | Request) => {
   const url = new URL(req.url).searchParams;
-  // const id = Number(url.get("id")) || 0;
-
-  console.log(url);
-  // console.log(id)
 
   const id = req.url.slice(38).toString();
-  console.log(id);
 
   const deleteproduct = await db.products.delete({
     where: {
@@ -60,8 +53,6 @@ export const DELETE = async (req: NextRequest | Request) => {
 
 export const PUT = async (req: NextRequest) => {
   const body = await req.json();
-
-  console.log(body);
 
   const editproduct = await db.products.update({
     where: {

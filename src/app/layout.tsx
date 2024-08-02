@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Gothic_A1, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-// import CursorAnimation from "@/components/CursorAnimation";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -13,7 +12,6 @@ import { Providers } from "./redux/providers";
 import { Poppins as FontSans } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
-
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -45,8 +43,6 @@ export default function RootLayout({
               <Navbar />
               {children}
               <Toaster />
-
-              {/* <CursorAnimation/> */}
             </ThemeProvider>
           </Sessionprovider>
         </Providers>

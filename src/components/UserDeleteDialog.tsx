@@ -1,5 +1,4 @@
 import { UserType } from "@/app/dashboard/customers/page";
-import { ProductType } from "@/app/dashboard/product/page";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,8 +11,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { User } from "lucide-react";
-import { Dispatch, SetStateAction } from "react";
 
 interface props {
   id: string;

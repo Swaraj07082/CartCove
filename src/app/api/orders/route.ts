@@ -13,7 +13,6 @@ export const GET = async (req: NextRequest | Request) => {
         },
       },
     },
-    // include for including lists that we have declared in schema  , by default they are not visible in the endpoint , to make them visible use include
   });
 
   return new NextResponse(JSON.stringify({ orders, ordercount }), {
@@ -41,7 +40,6 @@ export const POST = async (req: NextRequest) => {
 
   try {
     const newOrder = await db.$transaction(async (db) => {
-      // Check stock for each product
       for (const item of body.OrderedProduct) {
         const { productId, quantity } = item;
 
@@ -50,20 +48,17 @@ export const POST = async (req: NextRequest) => {
           select: { stock: true },
         });
 
-        // select only returns specific columns mentioned
         if (!product || product.stock < quantity) {
           throw new Error(`Insufficient stock for product ${productId}`);
         }
       }
 
-      // Save the orderData using Prisma
       const createdOrder: Orders = await db.orders.create({
         data: {
           ...orderData,
         },
       });
 
-      // Update stock and sales for each product
       for (const item of body.OrderedProduct) {
         const { productId, quantity } = item;
 

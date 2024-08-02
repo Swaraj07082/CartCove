@@ -1,56 +1,13 @@
-import Link from "next/link";
-import {
-  Activity,
-  ArrowUpRight,
-  CircleUser,
-  CreditCard,
-  DollarSign,
-  Menu,
-  Package2,
-  Search,
-  Users,
-} from "lucide-react";
+import { Activity, CreditCard, DollarSign, Search, Users } from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import BarChart from "./BarChart";
-import { Label } from "./ui/label";
-import { SheetDemo } from "./Sheet";
-import { DashboardSheet } from "./DashboardSheet";
-import { ProductType } from "@/app/dashboard/product/page";
 import { nanoid } from "@reduxjs/toolkit";
 import DashboardChart from "./BarChart";
+import { DashboardSheet } from "./DashboardSheet";
+import { Label } from "./ui/label";
+import { Button } from "./ui/button";
+import { signOut } from "next-auth/react";
 
 export interface StockType {
   _sum: {
@@ -85,8 +42,8 @@ export function Dashboard({
     <div className="flex min-h-screen w-full flex-col">
       <header className=" flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
         <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-          {/* <SheetDemo/> */}
           <DashboardSheet />
+          <Button onClick={() => signOut()}>Logout</Button>
           <form className="ml-auto flex-1 sm:flex-initial">
             <div className="relative">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -110,9 +67,6 @@ export function Dashboard({
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">${totalRevenue}</div>
-              {/* <p className="text-xs text-muted-foreground">
-                +20.1% from last month
-              </p> */}
             </CardContent>
           </Card>
           <Card x-chunk="dashboard-01-chunk-1">
@@ -122,9 +76,6 @@ export function Dashboard({
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{users}</div>
-              {/* <p className="text-xs text-muted-foreground">
-                +180.1% from last month
-              </p> */}
             </CardContent>
           </Card>
           <Card x-chunk="dashboard-01-chunk-2">
@@ -136,9 +87,6 @@ export function Dashboard({
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{orders}</div>
-              {/* <p className="text-xs text-muted-foreground">
-                +19% from last month
-              </p> */}
             </CardContent>
           </Card>
           <Card x-chunk="dashboard-01-chunk-3">
@@ -175,39 +123,6 @@ export function Dashboard({
                   />
                 </div>
               ))}
-              {/* <div>
-                <Label>
-                  {stocks[1]?.category.toUpperCase()} : {stocks[1]?._sum.stock}
-                </Label>
-                <Input
-                  type="range"
-                  min={0}
-                  max={2000}
-                  value={stocks[1]?._sum.stock}
-                />
-              </div>{" "}
-              <div>
-                <Label>
-                  {stocks[2]?.category.toUpperCase()} : {stocks[2]?._sum.stock}
-                </Label>
-                <Input
-                  type="range"
-                  min={0}
-                  max={2000}
-                  value={stocks[2]?._sum.stock}
-                />
-              </div>{" "}
-              <div>
-                <Label>
-                  {stocks[3]?.category.toUpperCase()} : {stocks[3]?._sum.stock}
-                </Label>
-                <Input
-                  type="range"
-                  min={0}
-                  max={2000}
-                  value={stocks[3]?._sum.stock}
-                />
-              </div> */}
             </CardContent>
           </Card>
         </div>

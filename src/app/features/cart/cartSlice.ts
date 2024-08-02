@@ -1,31 +1,29 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 interface CartItem {
   id: string;
   name: string;
   price: number;
   quantity: number;
-  url : string
+  url: string;
 }
 
-const items: CartItem[] =
-  localStorage.getItem("cartItems") !== null
-    ? JSON.parse(localStorage.getItem("cartItems") as string)
-    : [];
+// Initialize items to an empty array or load from localStorage if it exists
+const initialItems: CartItem[] = [];
 
-// const initialState = {
-//   cart: [
-//     // {
-//     //   id: "",
-//     //   name: "",
-//     //   price: 0,
-//     //   quantity: 0,
-//     // },
-//   ] as CartItem[],
-// };
+const loadInitialState = () => {
+  if (typeof window !== "undefined") {
+    // This check ensures the code only runs client-side
+    const storedItems = localStorage.getItem("cartItems");
+    if (storedItems) {
+      return JSON.parse(storedItems) as CartItem[];
+    }
+  }
+  return initialItems;
+};
 
 const initialState = {
-  cart: items,
+  cart: loadInitialState(),
 };
 
 export const cartSlice = createSlice({
@@ -33,32 +31,40 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addCartItem: (state, action) => {
-      const CartItem = {
+      const cartItem = {
         id: action.payload.id,
         name: action.payload.name,
         price: action.payload.price,
         quantity: action.payload.quantity,
-        url : action.payload.url
-        // payload itself is an object
+        url: action.payload.url,
       };
-      state.cart.push(CartItem);
+      state.cart.push(cartItem);
 
-      localStorage.setItem("cartItems", JSON.stringify(state.cart));
+      if (typeof window !== "undefined") {
+        localStorage.setItem("cartItems", JSON.stringify(state.cart));
+      }
     },
 
     removeCartItem: (state, action) => {
       state.cart = state.cart.filter(
-        (Cartitem) => Cartitem.id !== action.payload.id
+        (cartItem) => cartItem.id !== action.payload.id
       );
-      localStorage.setItem("cartItems", JSON.stringify(state.cart));
+
+      if (typeof window !== "undefined") {
+        localStorage.setItem("cartItems", JSON.stringify(state.cart));
+      }
     },
+
     updateCartItemQuantity: (state, action) => {
       const { id, quantity } = action.payload;
       const existingItem = state.cart.find((item) => item.id === id);
       if (existingItem) {
         existingItem.quantity = quantity;
       }
-      localStorage.setItem("cartItems", JSON.stringify(state.cart));
+
+      if (typeof window !== "undefined") {
+        localStorage.setItem("cartItems", JSON.stringify(state.cart));
+      }
     },
   },
 });

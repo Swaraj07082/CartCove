@@ -1,44 +1,25 @@
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { PopoverClose } from "@radix-ui/react-popover";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from "@/components/ui/dialog";
+import { ProductType } from "@/app/dashboard/product/page";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import Link from "next/link";
-import { PlusCircle } from "lucide-react";
-import { ProductType } from "@/app/dashboard/product/page";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
 const formSchema = z.object({
@@ -84,16 +65,11 @@ export function EditSheet({ id, products }: props) {
         price: productedtobeedited.price,
         url: productedtobeedited.url,
         stock: productedtobeedited.stock,
-        // category: productedtobeedited.category,
       });
     }
   }, [productedtobeedited, form]);
 
-  // to immediately show the default values in the form and not cause a delay
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
 
     const response = await fetch("/api/products", {
@@ -110,8 +86,6 @@ export function EditSheet({ id, products }: props) {
         category: values.category,
       }),
     });
-
-    // reset();
   }
   return (
     <Sheet modal={true}>

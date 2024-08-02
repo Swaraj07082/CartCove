@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (req: NextRequest | Request) => {
   const url = req.url;
-  console.log(url);
 
   const email = url.slice(43).toString();
 
@@ -18,12 +17,12 @@ export const GET = async (req: NextRequest | Request) => {
         },
       },
     },
-    where : {
-        email : 'swarajmali100@gmail.com'
-    }
+    where: {
+      email: "swarajmali100@gmail.com",
+    },
   });
 
   console.log(userOrders);
 
-  return new NextResponse(JSON.stringify({userOrders}))
+  return new NextResponse(JSON.stringify({ userOrders }));
 };
