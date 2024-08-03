@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "./ui/use-toast";
 
 const formSchema = z.object({
   username: z.string().min(3, {
@@ -77,6 +78,11 @@ export default function SignUpForm() {
 
     if (response.ok) {
       router.push("/login");
+    } else {
+      toast({
+        title: "Entered email or Username already exists!",
+        duration: 1500,
+      });
     }
   }
 
@@ -105,7 +111,7 @@ export default function SignUpForm() {
                             <Input
                               id="username"
                               type="username"
-                              placeholder="m@example.com"
+                              placeholder="Username..."
                               {...field}
                             />
                           </FormControl>
@@ -165,7 +171,7 @@ export default function SignUpForm() {
                             <Input
                               id="password"
                               type={eyeopen ? "text" : "password"}
-                              placeholder="m@example.com"
+                              placeholder="Password..."
                               {...field}
                             />
                           </FormControl>

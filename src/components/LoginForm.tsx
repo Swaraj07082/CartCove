@@ -24,6 +24,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { z } from "zod";
+import { title } from "process";
+import { toast } from "./ui/use-toast";
+import { Label } from "./ui/label";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -68,6 +71,11 @@ export default function LoginForm() {
 
     if (LoginData?.ok) {
       router.push("/");
+    } else {
+      toast({
+        title: "Entered email or password is wrong",
+        duration: 1500,
+      });
     }
   }
 
@@ -86,6 +94,7 @@ export default function LoginForm() {
           <CardContent>
             <div className="grid gap-4">
               <div className="grid gap-2">
+                <Label htmlFor="email">Email</Label>
                 <FormField
                   control={form.control}
                   name="email"
@@ -105,14 +114,8 @@ export default function LoginForm() {
                 />
               </div>
               <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Link
-                    href="#"
-                    className="ml-auto inline-block text-sm underline"
-                  >
-                    Forgot your password?
-                  </Link>
-                </div>
+                <Label htmlFor="password">Password</Label>
+
                 <FormField
                   control={form.control}
                   name="password"
@@ -138,7 +141,7 @@ export default function LoginForm() {
                           <Input
                             id="password"
                             type={eyeopen ? "text" : "password"}
-                            placeholder="m@example.com"
+                            placeholder="password..."
                             {...field}
                           />
                         </FormControl>
@@ -151,9 +154,6 @@ export default function LoginForm() {
               </div>
               <Button type="submit" className="w-full">
                 Login
-              </Button>
-              <Button variant="outline" className="w-full">
-                Login with Google
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">
