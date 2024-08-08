@@ -226,14 +226,6 @@ export default function Page() {
               </div>
             )
           )}
-          {filtereddata(product, query, value, sort, setsort, category).at(0) ==
-          null ? (
-            <>
-              <h1 className=" text-2xl ">NO ITEMS AVAILABLE</h1>
-            </>
-          ) : (
-            <></>
-          )}
         </div>
       </div>
     </>
