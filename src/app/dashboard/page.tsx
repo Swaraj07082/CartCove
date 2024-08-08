@@ -166,7 +166,10 @@ export default function DashboardPage() {
     }, 0);
   };
 
-  if (email == process.env.ADMIN_URL && session.status == "authenticated") {
+  if (
+    email == process.env.NEXT_PUBLIC_ADMIN_URL &&
+    session.status == "authenticated"
+  ) {
     return (
       <>
         <Dashboard
@@ -184,6 +187,8 @@ export default function DashboardPage() {
         <SignUpForm />
       </>
     );
+  } else if (session.status == "loading") {
+    <div>Loading...</div>;
   } else
     return (
       <>
@@ -214,92 +219,102 @@ export default function DashboardPage() {
               </div>
             </header>
             <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-              <Tabs defaultValue="all">
-                <TabsContent value="all">
-                  <Card x-chunk="dashboard-06-chunk-0">
-                    <CardHeader className=" text-center">
-                      <CardTitle>TRANSACTIONS</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead className="hidden w-[100px] sm:table-cell">
-                              <span className="sr-only">Image</span>
-                            </TableHead>
-                            <TableHead>OrderId</TableHead>
-                            {/* <TableHead>Status</TableHead> */}
-                            <TableHead className="hidden md:table-cell">
-                              Email
-                            </TableHead>
-                            <TableHead className="hidden md:table-cell">
-                              Amount
-                            </TableHead>
-                            <TableHead>
-                              <span className="sr-only">Actions</span>
-                            </TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {userOrders.map((order) => (
-                            <TableRow key={order.id}>
-                              <TableCell className="hidden sm:table-cell">
-                                <Image
-                                  alt="Product image"
-                                  className="aspect-square rounded-md object-cover"
-                                  height="64"
-                                  src="/placeholder.svg"
-                                  width="64"
-                                />
-                              </TableCell>
-                              <TableCell className="font-medium">
-                                {order.id}
-                              </TableCell>
-                              <TableCell className="hidden md:table-cell">
-                                {order.email}
-                              </TableCell>
-                              <TableCell className="hidden md:table-cell">
-                                {calculateSubtotal(order).toFixed(2)}
-                              </TableCell>
-                              <TableCell>
-                                <DropdownMenu modal={false}>
-                                  <DropdownMenuTrigger asChild>
-                                    <Button
-                                      aria-haspopup="true"
-                                      size="icon"
-                                      variant="ghost"
-                                    >
-                                      <MoreHorizontal className="h-4 w-4" />
-                                      <span className="sr-only">
-                                        Toggle menu
-                                      </span>
-                                    </Button>
-                                  </DropdownMenuTrigger>
-                                  <DropdownMenuContent align="end">
-                                    <DropdownMenuLabel>
-                                      Actions
-                                    </DropdownMenuLabel>
+              {userOrders.length == 0 ? (
+                <>
+                  <div className=" whitespace-nowrap flex items-center justify-center mt-40  ">
+                    <h2 className=" text-xl">You have no transactions! </h2>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Tabs defaultValue="all">
+                    <TabsContent value="all">
+                      <Card x-chunk="dashboard-06-chunk-0">
+                        <CardHeader className=" text-center">
+                          <CardTitle>TRANSACTIONS</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <Table>
+                            <TableHeader>
+                              <TableRow>
+                                <TableHead className="hidden w-[100px] sm:table-cell">
+                                  <span className="sr-only">Image</span>
+                                </TableHead>
+                                <TableHead>OrderId</TableHead>
+                                {/* <TableHead>Status</TableHead> */}
+                                <TableHead className="hidden md:table-cell">
+                                  Email
+                                </TableHead>
+                                <TableHead className="hidden md:table-cell">
+                                  Amount
+                                </TableHead>
+                                <TableHead>
+                                  <span className="sr-only">Actions</span>
+                                </TableHead>
+                              </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                              {userOrders.map((order) => (
+                                <TableRow key={order.id}>
+                                  <TableCell className="hidden sm:table-cell">
+                                    <Image
+                                      alt="Product image"
+                                      className="aspect-square rounded-md object-cover"
+                                      height="64"
+                                      src="/placeholder.svg"
+                                      width="64"
+                                    />
+                                  </TableCell>
+                                  <TableCell className="font-medium">
+                                    {order.id}
+                                  </TableCell>
+                                  <TableCell className="hidden md:table-cell">
+                                    {order.email}
+                                  </TableCell>
+                                  <TableCell className="hidden md:table-cell">
+                                    {calculateSubtotal(order).toFixed(2)}
+                                  </TableCell>
+                                  <TableCell>
+                                    <DropdownMenu modal={false}>
+                                      <DropdownMenuTrigger asChild>
+                                        <Button
+                                          aria-haspopup="true"
+                                          size="icon"
+                                          variant="ghost"
+                                        >
+                                          <MoreHorizontal className="h-4 w-4" />
+                                          <span className="sr-only">
+                                            Toggle menu
+                                          </span>
+                                        </Button>
+                                      </DropdownMenuTrigger>
+                                      <DropdownMenuContent align="end">
+                                        <DropdownMenuLabel>
+                                          Actions
+                                        </DropdownMenuLabel>
 
-                                    <DropdownMenuItem
-                                      onSelect={(e) => e.preventDefault()}
-                                    >
-                                      <Link
-                                        href={`dashboard/transactions/${order.id}`}
-                                      >
-                                        View Details...
-                                      </Link>
-                                    </DropdownMenuItem>
-                                  </DropdownMenuContent>
-                                </DropdownMenu>
-                              </TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-              </Tabs>
+                                        <DropdownMenuItem
+                                          onSelect={(e) => e.preventDefault()}
+                                        >
+                                          <Link
+                                            href={`dashboard/transactions/${order.id}`}
+                                          >
+                                            View Details...
+                                          </Link>
+                                        </DropdownMenuItem>
+                                      </DropdownMenuContent>
+                                    </DropdownMenu>
+                                  </TableCell>
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </CardContent>
+                      </Card>
+                    </TabsContent>
+                  </Tabs>
+                </>
+              )}
             </main>
           </div>
         </div>
