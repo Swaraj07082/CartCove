@@ -15,6 +15,7 @@ import {
   updateCartItemQuantity,
 } from "../features/cart/cartSlice";
 import { RootState } from "../redux/store";
+import { useSession } from "next-auth/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -159,6 +160,9 @@ export default function Page() {
     }
   };
 
+  const session = useSession();
+  console.log(session);
+
   return (
     <>
       <div className="container mx-auto py-8">
@@ -204,18 +208,24 @@ export default function Page() {
                     <Button
                       size="sm"
                       onClick={() => {
-                        addCartItemhandler(
-                          product.id,
-                          product.name,
-                          product.price,
-                          quantity,
-                          product.url
-                        );
-
-                        toast({
-                          title: "Item Added to Cart",
-                          duration: 1500,
-                        });
+                        if (session.status === "unauthenticated") {
+                          toast({
+                            title: "You need to login first!",
+                            duration: 1500,
+                          });
+                        } else {
+                          addCartItemhandler(
+                            product.id,
+                            product.name,
+                            product.price,
+                            quantity,
+                            product.url
+                          );
+                          toast({
+                            title: "Item added to Cart",
+                            duration: 1500,
+                          });
+                        }
                       }}
                       disabled={product.stock === 0}
                     >
