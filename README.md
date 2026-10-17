@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CartCove
 
-## Getting Started
+Full-stack e-commerce storefront with an admin dashboard — browse products, manage a cart, place orders, and track sales.
 
-First, run the development server:
+## Features
+
+- **Storefront** — product browsing, search, and animated landing experience (GSAP)
+- **Cart & checkout** — Redux cart, shipping details, and order placement
+- **Auth** — sign up / login with NextAuth (credentials + JWT sessions)
+- **Orders** — customers can view their order history
+- **Admin dashboard** — products, customers, transactions, and revenue charts (admin-gated)
+
+## Tech stack
+
+| Layer | Tech |
+| --- | --- |
+| Framework | [Next.js 14](https://nextjs.org/) (App Router) |
+| UI | React 18, Tailwind CSS, Radix / shadcn-style components |
+| State | Redux Toolkit |
+| Auth | NextAuth.js |
+| Database | MongoDB via [Prisma](https://www.prisma.io/) |
+| Payments | Stripe (dependency integrated; checkout flow in progress) |
+| Charts | Chart.js / Recharts |
+
+## Getting started
+
+### Prerequisites
+
+- Node.js 18+
+- A MongoDB database (Atlas or local)
+
+### Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Swaraj07082/CartCove.git
+cd CartCove
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Copy the example env file and fill in your values:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cp .env.example .env
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Generate the Prisma client and run the app:
 
-## Learn More
+```bash
+npx prisma generate
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start development server |
+| `npm run build` | Production build |
+| `npm start` | Run production server |
+| `npm run lint` | Run ESLint |
 
-## Deploy on Vercel
+## Environment variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Variable | Description |
+| --- | --- |
+| `DATABASE_URL` | MongoDB connection string |
+| `NEXTAUTH_SECRET` | Secret used to sign NextAuth JWTs |
+| `NEXT_PUBLIC_ADMIN_URL` | Admin user email (gates dashboard access) |
+| `DOMAIN` | App base URL (e.g. `http://localhost:3000`) |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+See [`.env.example`](.env.example) for a template. Never commit a real `.env` file.
+
+## Project structure
+
+```
+src/
+  app/           # Routes (storefront, cart, shipping, dashboard, API)
+  components/    # UI and feature components
+  lib/           # Auth, DB, helpers
+  features/      # Redux slices (e.g. cart)
+prisma/
+  schema.prisma  # User, Products, Orders, OrderedProduct
+```
+
+## License
+
+Private project — all rights reserved.
